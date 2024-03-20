@@ -10,3 +10,5 @@ The key steps are:
 4) Work on the assignment. Commit it. Push it to your repository fork.
 
 For a more detailed description of the setup check here: [setting up the course repository](https://hackmd.io/@WHardy/git-setup24).
+
+1
