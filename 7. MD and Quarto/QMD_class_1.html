@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wojciech Hardy">
+<meta name="dcterms.date" content="2023-04-11">
+
+<title>Quarto</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="QMD_class_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="QMD_class_1_files/libs/quarto-html/quarto.js"></script>
+<script src="QMD_class_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="QMD_class_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="QMD_class_1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="QMD_class_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="QMD_class_1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="QMD_class_1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="QMD_class_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="QMD_class_1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quarto</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Wojciech Hardy </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 10, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<hr>
+<section id="three-key-elements" class="level1">
+<h1>Three key elements</h1>
+<section id="the-yaml-header" class="level2">
+<h2 class="anchored" data-anchor-id="the-yaml-header">The YAML header</h2>
+<p>At the very top. Stores author and document information, configuration, global options, inputs, styles, format specifications, etc. This document uses:</p>
+<pre class="code-block">
+
+---
+title: "Quarto"
+author: "Wojciech Hardy"
+date: "4/11/2023"
+format: html
+execute:
+  echo: fenced
+---
+
+
+</pre>
+</section>
+<section id="markdown" class="level2">
+<h2 class="anchored" data-anchor-id="markdown">Markdown</h2>
+<p>The markup language, with easy and nice editing options.</p>
+</section>
+<section id="code-chunks" class="level2">
+<h2 class="anchored" data-anchor-id="code-chunks">Code chunks</h2>
+<p>Where the magic happens - codes whose output becomes a part of the document.</p>
+<p>Let’s start with Markdown!</p>
+<hr>
+</section>
+</section>
+<section id="switching-from-rmarkdown" class="level1">
+<h1>Switching from RMarkdown?</h1>
+<p><a href="https://quarto.org/docs/faq/rmarkdown.html">Might want to take a look</a></p>
+<hr>
+<p>Consider the Source vs Visual mode and Rendering on Save options.</p>
+<hr>
+</section>
+<section id="cheatsheets-are-handy-as-always" class="level1">
+<h1>Cheatsheets are handy as always</h1>
+<p>(this is how you do links in Markdown by the way)</p>
+<p><code>[A Markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/)</code></p>
+<p><code>[A Quarto cheat sheet](https://res.cloudinary.com/dyd911kmh/image/upload/v1676540721/Marketing/Blog/Quarto_Cheat_Sheet.pdf)</code></p>
+<p><a href="https://www.markdownguide.org/cheat-sheet/">A Markdown cheatsheet</a></p>
+<p><a href="https://res.cloudinary.com/dyd911kmh/image/upload/v1676540721/Marketing/Blog/Quarto_Cheat_Sheet.pdf">A Quarto cheat sheet</a></p>
+<hr>
+</section>
+<section id="basic-formatting" class="level1">
+<h1>Basic formatting</h1>
+<p>Some basic text formatting includes <code>*Italics*</code> or <code>_Italics_</code> (<em>Italics</em>) and <code>**Bold**</code> or <code>__Bold__</code> (<strong>Bold</strong>) text. <strong><em>Bold</em></strong></p>
+<p>Some text sdajiodf</p>
+<p>Some text<br>
+sdajiodf</p>
+<p>Some text</p>
+<p>sdajiodf</p>
+<p>Superscripts can be done like so: <code>R^2^</code> R<sup>2</sup></p>
+<p>Subscripts can be done like so: <code>H~2~O</code> H<sub>2</sub>O</p>
+<hr>
+</section>
+<section id="headers" class="level1">
+<h1>Headers</h1>
+<p><code># Header 1</code></p>
+</section>
+<section id="header-1" class="level1">
+<h1>Header 1</h1>
+<p><code>## Header 2</code></p>
+<section id="header-2" class="level2">
+<h2 class="anchored" data-anchor-id="header-2">Header 2</h2>
+<p><code>### Header 3</code></p>
+<section id="header-3" class="level3">
+<h3 class="anchored" data-anchor-id="header-3">Header 3</h3>
+<p><code>#### Header 4</code></p>
+<section id="header-4" class="level4">
+<h4 class="anchored" data-anchor-id="header-4">Header 4</h4>
+<p><code>##### Header 5</code></p>
+<section id="header-5" class="level5">
+<h5 class="anchored" data-anchor-id="header-5">Header 5</h5>
+<hr>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section id="lists" class="level1">
+<h1>Lists</h1>
+<section id="ordered" class="level2">
+<h2 class="anchored" data-anchor-id="ordered">Ordered</h2>
+<p><code>1. Item 1</code></p>
+<p><code>2. Item 2</code></p>
+<p><code>2. Item 3 # Note the error in numbering</code></p>
+<ol type="1">
+<li><p>Item 1</p></li>
+<li><p>Item 2</p></li>
+<li><p>Item 3 <code># It's fine here though</code></p></li>
+</ol>
+</section>
+<section id="unordered" class="level2">
+<h2 class="anchored" data-anchor-id="unordered">Unordered</h2>
+<p><code>* Item</code></p>
+<p><code>* Another item</code></p>
+<ul>
+<li><p>Item</p></li>
+<li><p>Another item</p></li>
+</ul>
+</section>
+<section id="subitems" class="level2">
+<h2 class="anchored" data-anchor-id="subitems">Subitems</h2>
+<p><code>1.  Item 1</code></p>
+<p><code>-   Item 2</code></p>
+<p><code>-   Item 3</code></p>
+<ol type="1">
+<li>Item 1
+<ul>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="tables" class="level1">
+<h1>Tables</h1>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Day</th>
+<th style="text-align: center;">Hour</th>
+<th style="text-align: right;">Group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Wednesday</td>
+<td style="text-align: center;">9:45</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Thursday</td>
+<td style="text-align: center;">16:45</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thursday</td>
+<td style="text-align: center;">18:30</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<p>(this is a raw Markdown approach)</p>
+<hr>
+</section>
+<section id="quotes" class="level1">
+<h1>Quotes</h1>
+<p><code>&gt; Hmmm</code></p>
+<blockquote class="blockquote">
+<p>Hmmm</p>
+</blockquote>
+<p>- Geralt of Rivia</p>
+<hr>
+</section>
+<section id="using-html" class="level1">
+<h1>Using Html</h1>
+<p>You can also just use html to write stuff within the Markdown document (when rendering into html). Here’s something copied and pasted directly from YAML Wikipedia page source code:</p>
+
+<table class="infobox">
+<caption class="infobox-title" style="padding-bottom:0.15em;">
+YAML
+</caption>
+<tbody>
+<tr>
+<td colspan="2" class="infobox-image">
+<a href="/wiki/File:Official_YAML_Logo.svg" class="image"><img alt="Official YAML Logo.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Official_YAML_Logo.svg/64px-Official_YAML_Logo.svg.png" decoding="async" width="64" height="59" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Official_YAML_Logo.svg/96px-Official_YAML_Logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Official_YAML_Logo.svg/128px-Official_YAML_Logo.svg.png 2x" data-file-width="512" data-file-height="471"></a>
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+<a href="/wiki/Filename_extension" title="Filename extension">Filename extensions</a>
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+<code class="mw-highlight mw-highlight-lang-text mw-content-ltr" id="" style="" dir="ltr">.yaml</code>, <code class="mw-highlight mw-highlight-lang-text mw-content-ltr" id="" style="" dir="ltr">.yml</code>
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+<a href="/wiki/Media_type" title="Media type">Internet media&nbsp;type</a>
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+<i>Not registered</i>
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+Initial release
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+11&nbsp;May 2001<span class="noprint">; 21 years ago</span><span style="display:none">&nbsp;(<span class="bday dtstart published updated">2001-05-11</span>)</span>
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+<a href="/wiki/Software_release_life_cycle" title="Software release life cycle">Latest release</a>
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+<div style="display: inline-block; line-height: 1.2em; padding: .1em 0;">
+1.2 (Revision 1.2.2)<br>1&nbsp;October 2021<span class="noprint">; 18 months ago</span><span style="display:none">&nbsp;(<span class="bday dtstart published updated">2021-10-01</span>)</span>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+Type of format
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+Data interchange
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+<span class="nowrap"><a href="/wiki/Open_file_format" title="Open file format">Open format</a>?</span>
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+Yes
+</td>
+</tr>
+<tr>
+<th scope="row" class="infobox-label" style="line-height:1.2em; padding-right:0.65em;">
+Website
+</th>
+<td class="infobox-data" style="line-height:1.35em;">
+<span class="url"><a rel="nofollow" class="external text" href="https://yaml.org">yaml<wbr>.org</a></span>
+</td>
+</tr>
+</tbody>
+
+</table>
+<hr>
+</section>
+<section id="equations" class="level1">
+<h1>Equations</h1>
+<p>You can insert equations with the same syntax as in LaTeX (MathJax). E.g. within a sentence <code>$ \sum (x + 1) $</code> <span class="math inline">\(\sum (x + 1)\)</span> or as standalone with double <code>$$</code> at start and finish</p>
+<p><span class="math display">\[\int_{-\infty}^{\infty}1/(b-a) dx\]</span></p>
+</section>
+<section id="using-code-chunks-in-quarto" class="level1">
+<h1>Using code chunks in Quarto</h1>
+<p>The main thing, however, is the ability to integrate coding within the document:</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"This is a code chunk"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This is a code chunk</code></pre>
+</div>
+</div>
+<p>(Also see running within the editor mode)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     speed           dist       
+ Min.   : 4.0   Min.   :  2.00  
+ 1st Qu.:12.0   1st Qu.: 26.00  
+ Median :15.0   Median : 36.00  
+ Mean   :15.4   Mean   : 42.98  
+ 3rd Qu.:19.0   3rd Qu.: 56.00  
+ Max.   :25.0   Max.   :120.00  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="QMD_class_1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>You can also <a href="https://quarto.org/docs/computations/python.html">use Python in Quarto with Jupyter Notebook</a> or even use it interchangeably with other languages:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> pandas.read_csv(<span class="st">"../Data/flights.csv"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights[flights[<span class="st">'dest'</span>] <span class="op">==</span> <span class="st">"ORD"</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights[[<span class="st">'carrier'</span>, <span class="st">'dep_delay'</span>, <span class="st">'arr_delay'</span>]]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights.dropna()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(py<span class="sc">$</span>flights, <span class="fu">aes</span>(carrier, arr_delay)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Example from: https://rstudio.github.io/reticulate/articles/r_markdown.html"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Example from: https://rstudio.github.io/reticulate/articles/r_markdown.html</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="QMD_class_1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>And a nice table alternative -&gt; <code>kable</code> from the <code>knitr</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(mtcars[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]), <span class="at">caption =</span> <span class="st">"A kable table, ver 1"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>A kable table, ver 1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">mpg</th>
+<th style="text-align: right;">cyl</th>
+<th style="text-align: right;">disp</th>
+<th style="text-align: right;">hp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mazda RX4</td>
+<td style="text-align: right;">21.0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">110</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mazda RX4 Wag</td>
+<td style="text-align: right;">21.0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">110</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Datsun 710</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hornet 4 Drive</td>
+<td style="text-align: right;">21.4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">258</td>
+<td style="text-align: right;">110</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hornet Sportabout</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">175</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Valiant</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">105</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(mtcars[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]), <span class="st">"html"</span>, <span class="at">caption =</span> <span class="st">"A kable table, ver 2"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table>
+<caption>A kable table, ver 2</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> mpg </th>
+   <th style="text-align:right;"> cyl </th>
+   <th style="text-align:right;"> disp </th>
+   <th style="text-align:right;"> hp </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Mazda RX4 </td>
+   <td style="text-align:right;"> 21.0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 160 </td>
+   <td style="text-align:right;"> 110 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mazda RX4 Wag </td>
+   <td style="text-align:right;"> 21.0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 160 </td>
+   <td style="text-align:right;"> 110 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Datsun 710 </td>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Hornet 4 Drive </td>
+   <td style="text-align:right;"> 21.4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 258 </td>
+   <td style="text-align:right;"> 110 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Hornet Sportabout </td>
+   <td style="text-align:right;"> 18.7 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 360 </td>
+   <td style="text-align:right;"> 175 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Valiant </td>
+   <td style="text-align:right;"> 18.1 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 225 </td>
+   <td style="text-align:right;"> 105 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<hr>
+</section>
+<section id="code-chunks-customisation" class="level1 page-columns page-full">
+<h1>Code chunks customisation</h1>
+<p>(<a href="https://bookdown.org/yihui/rmarkdown-cookbook/hide-one.html">Partially taken from here</a>)</p>
+<section id="chunk-naming-for-reference-and-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="chunk-naming-for-reference-and-navigation">Chunk naming (for reference and navigation)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label = "chunk_name"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">"You just put the name after the language declaration"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "You just put the name after the language declaration"</code></pre>
+</div>
+</div>
+</section>
+<section id="using-variables-as-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="using-variables-as-parameters">Using variables as parameters</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>typical_width <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>typical_height <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.width = typical_width,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.height = typical_height</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="QMD_class_1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</section>
+<section id="using-variables-within-the-text-r-variable" class="level2">
+<h2 class="anchored" data-anchor-id="using-variables-within-the-text-r-variable">Using variables within the text <code>'r variable'</code></h2>
+<p>We have previously set a typical width to ‘r typical_width’ and the typical height to ‘r typical_height’.</p>
+<p>We have previously set a typical width to 4 and the typical height to 4.</p>
+</section>
+<section id="other-figure-options" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="other-figure-options">Other figure options</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-cars</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "City and highway mileage for 38 popular models of cars."</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Scatterplot of city vs. highway mileage for cars, where points are colored by the number of cylinders. The plot displays a positive, linear, and strong relationship between city and highway mileage, and mileage increases as the number of cylinders decreases."</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.5</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x=</span>hwy, <span class="at">y=</span>cty, <span class="at">color=</span>cyl)) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-cars" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="QMD_class_1_files/figure-html/fig-cars-1.png" class="img-fluid figure-img" alt="Scatterplot of city vs. highway mileage for cars, where points are colored by the number of cylinders. The plot displays a positive, linear, and strong relationship between city and highway mileage, and mileage increases as the number of cylinders decreases." width="576"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: City and highway mileage for 38 popular models of cars.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And you can refer to <a href="#fig-cars">Figure&nbsp;1</a> (<code>@fig-cars</code>) in-text!</p>
+<p>You can also control the layout:</p>
+<div class="page-columns page-full">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-mpg</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "City and highway mileage for 38 popular models of cars."</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-subcap:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#|   - "Color by number of cylinders"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#|   - "Color by engine displacement, in liters"</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| layout-ncol: 2</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: page</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy, <span class="at">y =</span> cty, <span class="at">color =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy, <span class="at">y =</span> cty, <span class="at">color =</span> displ)) <span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"E"</span>) <span class="sc">+</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-mpg" class="cell column-page quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-mpg-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="QMD_class_1_files/figure-html/fig-mpg-1.png" class="img-fluid figure-img" data-ref-parent="fig-mpg" width="672"></p>
+<p></p><figcaption class="figure-caption">(a) Color by number of cylinders</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-mpg-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="QMD_class_1_files/figure-html/fig-mpg-2.png" class="img-fluid figure-img" data-ref-parent="fig-mpg" width="672"></p>
+<p></p><figcaption class="figure-caption">(b) Color by engine displacement, in liters</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: City and highway mileage for 38 popular models of cars.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="conditional-execution-with-eval" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-execution-with-eval">Conditional execution with <code>eval</code></h2>
+<p>(<code>is.weekend</code> comes from the <code>chron</code> package)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval = is.weekend(Sys.Date())</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"It's the weekend! :)"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval = !is.weekend(Sys.Date())</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"It's not the weekend! :("</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>It's not the weekend! :(</code></pre>
+</div>
+</div>
+</section>
+<section id="handling-errors" class="level2">
+<h2 class="anchored" data-anchor-id="handling-errors">Handling errors</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| error = TRUE</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="dv">543</span> <span class="sc">+</span> <span class="st">"clearly a text and not a number"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in 543 + "clearly a text and not a number": non-numeric argument to binary operator</code></pre>
+</div>
+</div>
+<p>By default Quarto stops after encountering an error. We can tell it to continue.</p>
+</section>
+<section id="caching-results-that-take-long-to-compute" class="level2">
+<h2 class="anchored" data-anchor-id="caching-results-that-take-long-to-compute">Caching results that take long to compute</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="QMD_class_1_cache/html/slow_chunk_6e73568eed4fb57c9f5d4b469d4e70bd">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label = "slow_chunk",</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache = TRUE</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.sleep</span>(<span class="dv">10</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> x</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+</div>
+<p>The chunk gets reevaluated if anything changes within the chunk. <strong>Make sure you know what you’re doing when caching</strong>.</p>
+<p>We can use <code>cache.extra =</code> to specify additional conditions for cache invalidation (i.e.&nbsp;to repeat the calculations), e.g.:</p>
+<ul>
+<li><p>file.mtime(‘filename’) # Modification time of the file changed</p></li>
+<li><p>tools::md5sum(‘filename’) # Content of the file changed</p></li>
+<li><p>getRversion() # R version changed</p></li>
+<li><p>etc.</p></li>
+</ul>
+<p>Other stuff:</p>
+<ul>
+<li><p><code>cache-comments</code> – if you don’t want to recalculate after changing a comment.</p></li>
+<li><p><code>cache-lazy</code> – loading with lazyload() instead of load() (see <a href="https://en.wikipedia.org/wiki/Lazy_loading">Lazy loading</a>)</p></li>
+<li><p><code>cache-vars</code> – cache specified objects</p></li>
+<li><p><code>dependson</code> – reevaluate conditional on a change in a different chunk (or chunks)</p></li>
+<li><p><code>autodep</code> – will try to find the between-chunk dependencies on its own</p></li>
+</ul>
+</section>
+<section id="keeping-your-report-nice-and-clear" class="level2">
+<h2 class="anchored" data-anchor-id="keeping-your-report-nice-and-clear">Keeping your report nice and clear</h2>
+<section id="hide-the-source-code-with-echofalse" class="level3">
+<h3 class="anchored" data-anchor-id="hide-the-source-code-with-echofalse">Hide the source code with <code>echo=FALSE</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="hide-messages-e.g.-when-loading-stuff-with-messagefalse" class="level3">
+<h3 class="anchored" data-anchor-id="hide-messages-e.g.-when-loading-stuff-with-messagefalse">Hide messages (e.g.&nbsp;when loading stuff) with <code>message=FALSE</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message = FALSE</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"You will not see the message."</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hide-warnings-with-warningfalse" class="level3">
+<h3 class="anchored" data-anchor-id="hide-warnings-with-warningfalse">Hide warnings with <code>warning=FALSE</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning = FALSE</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 4 4</code></pre>
+</div>
+</div>
+</section>
+<section id="hide-plots-with-fig.showhide" class="level3">
+<h3 class="anchored" data-anchor-id="hide-plots-with-fig.showhide">Hide plots with <code>fig.show='hide'</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.show = "hide"</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hide-everything-from-the-chunk-with-includefalse" class="level3">
+<h3 class="anchored" data-anchor-id="hide-everything-from-the-chunk-with-includefalse">Hide everything from the chunk with <code>include=FALSE</code></h3>
+</section>
+<section id="hide-the-results-with-resultshide" class="level3">
+<h3 class="anchored" data-anchor-id="hide-the-results-with-resultshide">Hide the results with <code>results='hide'</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| results = "hide"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>a<span class="sc">*</span>typical_height<span class="sc">*</span>typical_width</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generate-markdown-content-with-r-code-with-resultsasis" class="level3">
+<h3 class="anchored" data-anchor-id="generate-markdown-content-with-r-code-with-resultsasis">Generate Markdown content with R code with <code>results='asis'</code></h3>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| results = "asis"</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"- Item"</span>, i, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+<li>Item 4</li>
+<li>Item 5</li>
+<li>Item 6</li>
+<li>Item 7</li>
+<li>Item 8</li>
+<li>Item 9</li>
+<li>Item 10</li>
+</ul>
+<p>(Note that it got interpreted as Markdown markup writing!)</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="assignment" class="level1">
+<h1>ASSIGNMENT</h1>
+<p>Pick a TV show that had its premieres on TV and thus has some viewership numbers reported on Wikipedia. E.g. <a href="https://en.wikipedia.org/wiki/List_of_Suits_episodes">Suits</a> (see table just above the References)</p>
+<p>Then create a short report (you can copy the content from Wikipedia or other pages for this task) that contains, for example:</p>
+<p>(try doing more than one commit for this, i.e. divide your work into steps!)</p>
+<ol type="1">
+<li>A brief description of the show (use <em>italics</em> for names).</li>
+<li>A photo with the logo or a shot from the show itself.</li>
+<li>A summary of some basic statistics (e.g.&nbsp;on viewership or ratings).</li>
+<li>A graph of the viewership over time.</li>
+<li>A graph of the episode-to-episode (or season-to-season) changes in viewership.</li>
+<li>A short description of the observed changes that includes inline references to numbers (e.g.&nbsp;the viewership decreased by <code>insert_calculated_number</code> between seasons 3 and 5).</li>
+<li>Make sure your report looks nice -&gt; this time we’re mostly interested in the output and not necessarily the codes used to achieve it.</li>
+<li><code>render</code> your report and save it in the relevant folder of your repo.</li>
+<li>Commit the changes and push them to Github.</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
