@@ -1,0 +1,23 @@
+---
+title: "TV show report: Suits"
+author: "Anirban Das"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+![](Resources/Suits-Season-10.webp)
+
+
+> Winners don't make excuses when the other side plays the game. - Harvey Specter
+
+
+
+
+# Description
+
+Suits is a legal drama television series created and written by Aaron Korsh. It premiered on the USA Network on June 23, 2011, and concluded after nine seasons on September 25, 2019. The show revolves around Harvey Specter, a top corporate lawyer in Manhattan, who hires Mike Ross, a brilliant college dropout with a photographic memory, as his associate despite never attending law school. The series follows their adventures as they navigate the cutthroat world of corporate law while hiding Mike's lack of a law degree.
+
+# Basic Statistics
+
+According to Wikipedia, Suits garnered significant viewership during its run. For instance, the premiere of Season 1 attracted 4.64 million viewers, making it the highest-rated debut for a USA Network original series at the time. Over the years, the show maintained a strong viewership base, with Season 5 achieving an average viewership of approximately 2.23 million viewers per episode.
+
