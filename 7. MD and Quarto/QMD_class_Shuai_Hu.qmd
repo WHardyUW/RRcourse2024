@@ -1,0 +1,33 @@
+---
+title: "Quarto"
+author: "Shuai"
+date: "04/09/2023"
+format: html
+execute:
+  echo: fenced
+---
+
+# List of Suits episodes
+
+*Suits is an American television drama series created by Aaron Korsh, which premiered on June 23, 2011, on the USA Network. It revolves around Mike Ross (Patrick J. Adams), who begins working as a law associate for Harvey Specter (Gabriel Macht), despite never attending law school. The show focuses on Harvey and Mike managing to close cases, while maintaining Mike's secret.*
+
+*The series was renewed for an eighth season on January 30, 2018.[1] In January 2019, the series was renewed for a ninth and final season which premiered on July 17, 2019.[2] During the course of the series, 134 episodes of Suits aired over nine seasons, between June 23, 2011, and September 25, 2019. *
+
+
+![logo of List of Suits episodes](https://cdn.freebiesupply.com/logos/large/2x/suits-logo-png-transparent.png)
+
+| No. | Overall | No. in season | Title                  | Directed by        | Written by      | Original air date | U.S. viewers (millions) |
+|-----|---------|---------------|------------------------|--------------------|-----------------|-------------------|-------------------------|
+| 1   | 1       | 1             | "Pilot"                | Kevin Bray         | Aaron Korsh     | June 23, 2011     | 4.64[3]                 |
+| 2   | 2       | 2             | "Errors and Omissions" | John Scott         | Sean Jablonski  | June 30, 2011     | 3.89[4]                 |
+| 3   | 3       | 3             | "Inside Track"         | Kevin Bray         | Aaron Korsh     | July 7, 2011      | 4.53[5]                 |
+| 4   | 4       | 4             | "Dirty Little Secrets" | Dennie Gordon      | Jon Cowan       | July 14, 2011     | 4.38[6]                 |
+| 5   | 5       | 5             | "Bail Out"             | Kate Woods         | Ethan Drogin    | July 21, 2011     | 4.38[7]                 |
+| 6   | 6       | 6             | "Tricks of the Trade"  | Terry McDonough    | Rick Muirragui  | July 28, 2011     | 4.44[8]                 |
+| 7   | 7       | 7             | "Play the Man"         | Tim Matheson       | Erica Lipez     | August 4, 2011    | 4.03[9]                 |
+| 8   | 8       | 8             | "Identity Crisis"      | Norberto Barba     | Ethan Drogin    | August 11, 2011   | 3.96[10]                |
+| 9   | 9       | 9             | "Undefeated"           | Felix Alcala       | Rick Muirragui  | August 18, 2011   | 4.45[11]                |
+| 10  | 10      | 10            | "Shelf Life"           | Jennifer Getzinger | Sean Jablonski  | August 25, 2011   | 3.82[12]                |
+| 11  | 11      | 11            | "Rules of the Game"    | Mike Smith         | Jon Cowan       | September 1, 2011 | 3.96[13]                |
+| 12  | 12      | 12            | "Dog Fight"            | Kevin Bray         | Aaron Korsh     | September 8, 2011 | 3.47[14]                |
+
