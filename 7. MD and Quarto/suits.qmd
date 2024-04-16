@@ -1,0 +1,55 @@
+
+```markdown
+---
+title: "Viewership Analysis of Suits"
+author: "Hitesh Kumar Tetarwal"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+format: html
+---
+
+# Introduction
+
+*Suits* is an American legal drama television series created and written by Aaron Korsh. The series premiered on June 23, 2011, on USA Network and concluded on September 25, 2019.
+
+![Suits Logo](path_to_your_image/suits_logo.jpg)
+
+# Viewership Statistics
+
+The following table summarizes some key viewership statistics for *Suits*:
+
+| Season | Premiere Viewers (millions) | Finale Viewers (millions) | Average Viewers (millions) |
+|--------|-----------------------------|---------------------------|----------------------------|
+| 1      | 4.6                         | 3.5                       | 4.0                        |
+| 2      | 4.7                         | 3.9                       | 4.2                        |
+| ...    | ...                         | ...                       | ...                        |
+
+# Viewership Trends Over Time
+
+```{r}
+# Plotting code for viewership trend
+library(ggplot2)
+viewership_data <- data.frame(
+  Season = c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+  Viewers = c(4.0, 4.2, 3.8, 3.6, 3.5, 2.9, 2.8, 2.5, 2.2)
+)
+
+ggplot(viewership_data, aes(x = Season, y = Viewers)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Viewership Trends of Suits Over Seasons", x = "Season", y = "Millions of Viewers")
+```
+
+# Episode-to-Episode Changes
+
+```{r}
+# Additional plotting code for episode changes
+```
+
+# Analysis
+
+The viewership of *Suits* shows a general decline from season 5 onwards. The decrease in viewership by `r viewership_data$Viewers[5] - viewership_data$Viewers[9]` million between seasons 5 and 9 highlights shifting viewer preferences or competing shows.
+
+# Conclusion
+
+The analysis of *Suits* reveals significant trends in viewership, with notable declines in later seasons, reflecting broader industry changes and audience dynamics.
