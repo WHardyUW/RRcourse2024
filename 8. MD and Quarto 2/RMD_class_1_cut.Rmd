@@ -1,0 +1,240 @@
+---
+title: "(R)Markdown"
+author: "Wojciech Hardy; Łukasz Nawaro"
+date: "3/23/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+# Three key elements
+
+## The YAML header
+
+At the very top. Stores author and document information, configuration, global options, inputs, styles, format specifications, etc. This document uses:
+
+<pre class="code-block">
+---
+title: "Quarto"
+author: "Wojciech Hardy"
+date: "4/11/2023"
+format: html
+execute:
+  echo: fenced
+---
+</pre>
+
+## Markdown
+
+The markup language, with easy and nice editing options.
+
+## Code chunks
+
+Where the magic happens - codes whose output becomes a part of the document.
+
+Let's start with Markdown!
+
+
+---
+
+# Basic formatting
+
+Some basic text formatting includes `*Italics*` or `_Italics_` (*Italics*) and `**Bold**` or `__Bold__` (**Bold**) text. 
+
+`Space between lines to break a paragraph
+
+Like so`
+
+Space between lines to break a paragraph
+
+Like so
+
+`Or end a line with a double space to break  
+without starting a new paragraph`
+
+Or end a line with a double space to break  
+without starting a new paragraph
+
+Superscripts can be done like so: `R^2^` R^2^
+
+Subscripts can be done like so: `H~2~O` H~2~O
+
+---
+
+# Headers
+
+`# Header 1`
+
+# Header 1
+
+`## Header 2`
+
+## Header 2
+
+`### Header 3`
+
+### Header 3
+
+`#### Header 4`
+
+#### Header 4
+
+`##### Header 5`
+
+##### Header 5
+
+---
+
+# Lists
+
+## Ordered
+
+`1. Item 1`
+
+`2. Item 2`
+
+`2. Item 3 # Note the error in numbering`
+
+1. Item 1
+
+2. Item 2
+
+2. Item 3 `# It's fine here though`
+
+
+## Unordered
+
+`* Item`
+
+`* Another item`
+
+* Item
+
+* Another item
+
+## Subitems
+
+1. Item 1
+    + Item 2
+    - Item 3
+
+---
+
+# Tables
+
+| Day       | Hour  | Group  |
+|:------    |:-----:|-------:|
+| Wednesday | 9:45  | 1      |
+| Thursday  | 16:45 | 2      |
+| Thursday  | 18:30 | 3      |
+
+---
+
+# Equations
+
+You can insert equations with the same syntax as in LaTeX. E.g. within a sentence `$ \sum (x + 1) $` $\sum (x + 1)$  or as standalone with double `$$` at start and finish
+
+$$\int_{-\infty}^{\infty}1/(b-a) dx$$
+---
+
+# Code chunks customisation
+
+([Partially taken from here](https://bookdown.org/yihui/rmarkdown-cookbook/hide-one.html))
+
+## Chunk naming (for reference)
+
+```{r chunk_name}
+"You just put the name after the language declaration"
+```
+
+
+## Using variables as parameters
+
+```{r}
+typical_width <- 4
+typical_height <- 4
+```
+
+```{r, fig.width=typical_width, fig.height=typical_height}
+plot(cars)
+```
+
+## Using variables within the text `'r variable'`
+
+We have previously set a typical width to `r typical_width` and the typical height to `r typical_height`.
+
+## Keeping your report nice and clear
+
+### Hide the source code with `echo=FALSE`
+
+```{r, echo=FALSE}
+
+1+1
+
+```
+
+### Hide messages (e.g. when loading stuff) with `message=FALSE`
+
+```{r, message=FALSE}
+
+message("You will not see the message.")
+
+```
+
+### Hide warnings with `warning=FALSE`
+
+```{r, warning = FALSE}
+
+1:2 + 1:3
+
+```
+
+### Hide plots with `fig.show='hide'`
+
+
+```{r}
+
+plot(cars)
+
+```
+
+```{r, fig.show='hide'}
+
+plot(cars)
+
+```
+
+### Hide everything from the chunk with `include=FALSE`
+
+```{r, include=FALSE}
+
+cat("Some words")
+3 + 4
+# comment
+plot(cars)
+
+```
+
+### Hide the results with `results='hide'`
+
+```{r, results='hide'}
+
+typical_height*typical_width
+  
+```
+
+### Generate Markdown content with R code with `results='asis'`
+
+```{r, results='asis'}
+
+for (i in 1:10) {
+  cat("- Item", i, "\n")
+}
+```
+
+---
+
