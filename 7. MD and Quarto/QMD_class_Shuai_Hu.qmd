@@ -1,10 +1,18 @@
 ---
-title: "Quarto"
+title: "TV show - 'Suits' "
 author: "Shuai"
-date: "04/09/2023"
-format: html
+date: today
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    toc-expand: 3
+    toc-title: contents
+    toc-location: left
+number-sections: true
 execute:
   echo: fenced
+title-block-banner: true
 ---
 
 # List of Suits episodes
@@ -30,4 +38,31 @@ execute:
 | 10  | 10      | 10            | "Shelf Life"           | Jennifer Getzinger | Sean Jablonski  | August 25, 2011   | 3.82[12]                |
 | 11  | 11      | 11            | "Rules of the Game"    | Mike Smith         | Jon Cowan       | September 1, 2011 | 3.96[13]                |
 | 12  | 12      | 12            | "Dog Fight"            | Kevin Bray         | Aaron Korsh     | September 8, 2011 | 3.47[14]                |
+
+
+```{r }
+library(ggplot2)
+```
+
+```{r }
+tv_show <- data.frame(
+  No. = 1:12,
+  Overall = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+  `No. in season` = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+  Title = c("Pilot", "Errors and Omissions", "Inside Track", "Dirty Little Secrets", "Bail Out", "Tricks of the Trade", "Play the Man", "Identity Crisis", "Undefeated", "Shelf Life", "Rules of the Game", "Dog Fight"),
+  `Directed by` = c("Kevin Bray", "John Scott", "Kevin Bray", "Dennie Gordon", "Kate Woods", "Terry McDonough", "Tim Matheson", "Norberto Barba", "Felix Alcala", "Jennifer Getzinger", "Mike Smith", "Kevin Bray"),
+  `Written by` = c("Aaron Korsh", "Sean Jablonski", "Aaron Korsh", "Jon Cowan", "Ethan Drogin", "Rick Muirragui", "Erica Lipez", "Ethan Drogin", "Rick Muirragui", "Sean Jablonski", "Jon Cowan", "Aaron Korsh"),
+  `Original_air_date` = c("June 23, 2011", "June 30, 2011", "July 7, 2011", "July 14, 2011", "July 21, 2011", "July 28, 2011", "August 4, 2011", "August 11, 2011", "August 18, 2011", "August 25, 2011", "September 1, 2011", "September 8, 2011"),
+  `U.S. viewers (millions)` = c(4.64, 3.89, 4.53, 4.38, 4.38, 4.44, 4.03, 3.96, 4.45, 3.82, 3.96, 3.47)
+)
+```
+
+
+```{r }
+
+tv_show$Original_air_date <- as.Date(tv_show$Original_air_date, format = "%B %d, %Y")
+
+head(tv_show)
+```
+
 
