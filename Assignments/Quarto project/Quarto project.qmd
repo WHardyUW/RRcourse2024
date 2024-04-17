@@ -1,16 +1,32 @@
 ---
 title: "Succession (2018-2023)"
+date: today
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    toc-title: Table of contents
+    toc-location: right
+    smooth-scroll: true
+    number-sections: false
+    theme: superhero
+    code-fold: true
+  docx: default
+execute:
+  echo: fenced
 ---
 
+![Final season poster](succ.jpg)
 
 Succession is an American satirical black comedy-drama television series created by Jesse Armstrong that aired for four seasons on HBO from June 3, 2018, to May 28, 2023. The series centers on the Roy family, the owners of global media and entertainment conglomerate Waystar RoyCo, and their fight for control of the company amidst uncertainty about the health of the family's patriarch.
 
-## Succession
+## Main info
 
 | Genre             	| Comedy-drama      	|
 |-------------------	|-------------------	|
 |                   	| Black comedy      	|
-|                   	| Famili drama      	|
+|                   	| Family drama      	|
 |                   	| Satire            	|
 | Created by        	| Jesse Armstrong   	|
 | Country of origin 	| United States     	|
@@ -44,6 +60,8 @@ Succession is an American satirical black comedy-drama television series created
 Succession follows the Roy family, which owns the New York City-based global media conglomerate Waystar RoyCo. The family patriarch, Logan Roy, has experienced a decline in health. His four children—estranged oldest son Connor (Ruck), power-hungry Kendall (Strong), irreverent Roman (Culkin), and politically savvy Shiv (Snook)—who all have varying degrees of connection to the company begin to prepare for a future without their father and vie for prominence within the company.
 
 ## Cast and characters
+
+![From left: Sarah Snook, Alan Ruck, Brian Cox, Jeremy Strong and Kieran Culkin starring as Logan Roy and his kids](cast.jpg)
 
 - **Hiam Abbass** as Marcia Roy (seasons 1–2 and 4; recurring season 3): Logan's third and current wife. Born and raised in Beirut, she is often at odds with Logan's mistrustful children. She has a son, Amir, from her first marriage and a daughter from a previous relationship.
 
@@ -80,3 +98,11 @@ Succession follows the Roy family, which owns the New York City-based global med
 - **Fisher Stevens** as Hugo Baker (seasons 3–4; recurring season 2): a senior communications executive for Parks and Cruises in charge of managing a scandal involving Brightstar cruise lines.
 
 - **Alexander Skarsgård** as Lukas Matsson (season 4; recurring season 3): the Swedish CEO of streaming media giant GoJo who is looking to buy Waystar RoyCo.
+
+## Viewers
+
+```{r}
+viewers <- data.frame(Season = c(1:4), Episodes = c(10, 10, 9, 10),  Viewership = c(0.603, 0.597, 0.553, 0.705))
+plot(x = viewers$Season, y = viewers$Viewership, type = "b", col = "red", ylab = "Average viewership in millions", xlab = "Season")
+
+```
