@@ -1,0 +1,12 @@
+---
+title: "PrisonBreak_Report"
+author: "Vikram Bahadur"
+format: html
+editor: visual
+---
+
+## Prison Break
+Prison Break is an American serial drama television series created by Paul Scheuring for Fox. The series revolves around two brothers, Lincoln Burrows (Dominic Purcell) and Michael Scofield (Wentworth Miller); Burrows has been sentenced to death for a crime he did not commit, while Scofield devises an elaborate plan to help his brother escape prison and clear his name.
+
+## Main Poster
+![Prison Break](./images/main_poster.jpeg)
