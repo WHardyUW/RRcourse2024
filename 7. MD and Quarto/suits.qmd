@@ -1,55 +1,58 @@
-
-```markdown
 ---
 title: "Viewership Analysis of Suits"
-author: "Hitesh Kumar Tetarwal"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
+author: "Hitesh Kumar Tetarwal 455361"
+date: "`r Sys.Date()`"
 format: html
 ---
 
 # Introduction
 
-*Suits* is an American legal drama television series created and written by Aaron Korsh. The series premiered on June 23, 2011, on USA Network and concluded on September 25, 2019.
+*Suits* is an American legal drama television series that revolves around talented college dropout Mike Ross, who starts working as a law associate for Harvey Specter despite never attending law school. The series aired on USA Network from June 23, 2011, to September 25, 2019.
 
-![Suits Logo](path_to_your_image/suits_logo.jpg)
+# Viewership Data Extraction
 
-# Viewership Statistics
+The viewership data for each episode of *Suits* is extracted from Wikipedia.
 
-The following table summarizes some key viewership statistics for *Suits*:
+```{python}
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import matplotlib.pyplot as plt
 
-| Season | Premiere Viewers (millions) | Finale Viewers (millions) | Average Viewers (millions) |
-|--------|-----------------------------|---------------------------|----------------------------|
-| 1      | 4.6                         | 3.5                       | 4.0                        |
-| 2      | 4.7                         | 3.9                       | 4.2                        |
-| ...    | ...                         | ...                       | ...                        |
+# URL of the Wikipedia page
+url = "https://en.wikipedia.org/wiki/List_of_Suits_episodes"
 
-# Viewership Trends Over Time
+# Fetch the webpage
+response = requests.get(url)
 
-```{r}
-# Plotting code for viewership trend
-library(ggplot2)
-viewership_data <- data.frame(
-  Season = c(1, 2, 3, 4, 5, 6, 7, 8, 9),
-  Viewers = c(4.0, 4.2, 3.8, 3.6, 3.5, 2.9, 2.8, 2.5, 2.2)
-)
+# Parse the page using BeautifulSoup
+soup = BeautifulSoup(response.content, 'html.parser')
 
-ggplot(viewership_data, aes(x = Season, y = Viewers)) +
-  geom_line() +
-  geom_point() +
-  theme_minimal() +
-  labs(title = "Viewership Trends of Suits Over Seasons", x = "Season", y = "Millions of Viewers")
-```
+# Find all tables with class 'wikitable'
+tables = soup.find_all('table', {'class': 'wikitable'})
 
-# Episode-to-Episode Changes
+# Extract the first table to a dataframe
+viewership_df = pd.read_html(str(tables[1]))[0]  # Adjust index based on the right table
 
-```{r}
-# Additional plotting code for episode changes
-```
+# Print the column names to check and adjust if necessary
+print(viewership_df.columns)
 
-# Analysis
+# Rename columns if the names are different
+if 'No. overall' in viewership_df.columns:
+    viewership_df.rename(columns={'No. overall': 'Episode', 'U.S. viewers(millions)': 'Viewers'}, inplace=True)
+elif 'No.' in viewership_df.columns:
+    viewership_df.rename(columns={'No.': 'Episode', 'U.S. viewers(millions)': 'Viewers'}, inplace=True)
+else:
+    raise ValueError("Expected column for episode number not found in the data.")
 
-The viewership of *Suits* shows a general decline from season 5 onwards. The decrease in viewership by `r viewership_data$Viewers[5] - viewership_data$Viewers[9]` million between seasons 5 and 9 highlights shifting viewer preferences or competing shows.
+# Convert viewers column to numeric, removing any unwanted characters
+viewership_df['Viewers'] = pd.to_numeric(viewership_df['Viewers'].str.extract('(\d+\.\d+)')[0])
 
-# Conclusion
-
-The analysis of *Suits* reveals significant trends in viewership, with notable declines in later seasons, reflecting broader industry changes and audience dynamics.
+# Plotting the viewership data
+plt.figure(figsize=(10, 5))
+plt.plot(viewership_df['Episode'], viewership_df['Viewers'], marker='o', linestyle='-')
+plt.title('Viewership Trends of Suits Across Episodes')
+plt.xlabel('Episode Number')
+plt.ylabel('Viewers (millions)')
+plt.grid(True)
+plt.show()
