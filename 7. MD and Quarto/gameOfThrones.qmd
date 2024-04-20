@@ -1,0 +1,76 @@
+```markdown
+---
+title: "Viewership Analysis of Game of Thrones"
+author: "Hitesh Kumar Tetarwal 455361"
+date: "`r Sys.Date()`"
+format: html
+---
+
+# Introduction
+
+*Game of Thrones* is an American fantasy drama television series created by David Benioff and D. B. Weiss. It is an adaptation of "A Song of Ice and Fire," George R. R. Martin's series of fantasy novels. The series aired on HBO from April 17, 2011, to May 19, 2019.
+
+# Viewership Data Extraction
+
+The viewership data for each episode of *Game of Thrones* is extracted from Wikipedia.
+
+```{python}
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+# URL of the Wikipedia page for Game of Thrones
+url = "https://en.wikipedia.org/wiki/Game_of_Thrones"
+
+# Fetch the webpage
+response = requests.get(url)
+
+# Parse the page using BeautifulSoup
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Find the table containing viewership data
+# Usually, this is one of the tables with 'wikitable plainrowheaders wikiepisodetable'
+tables = soup.find_all('table', {'class': 'wikitable plainrowheaders wikiepisodetable'})
+
+# Check if the correct table is found and read it
+if tables:
+    viewership_df = pd.read_html(str(tables[0]), header=0)[0]  # Adjust if the index is different
+
+    # Display the first few rows of the dataframe to check its structure
+    print(viewership_df.head())
+```
+
+```{python}
+# Display column names
+print(viewership_df.columns)
+
+# Rename columns for better clarity
+viewership_df.rename(columns={
+    'No. in season': 'Episode',
+    'U.S. viewers (millions)': 'Viewers'
+}, inplace=True)
+
+# Convert 'Viewers' column to numeric, handling non-numeric data
+viewership_df['Viewers'] = pd.to_numeric(viewership_df['Viewers'].str.extract('(\d+\.\d+)')[0], errors='coerce')
+
+# Show the cleaned data
+print(viewership_df.head())
+```
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Plotting the viewership trends
+plt.figure(figsize=(12, 6))
+plt.plot(viewership_df['Episode'], viewership_df['Viewers'], marker='o', linestyle='-')
+plt.title('Viewership Trends of Game of Thrones Across Episodes')
+plt.xlabel('Episode Number')
+plt.ylabel('Viewers (millions)')
+plt.grid(True)
+plt.show()
+```
+
+# Conclusion
+
+This analysis provides insights into how the viewership of *Game of Thrones* fluctuated over its airing period, reflecting the show's immense popularity and widespread critical acclaim.
+```
