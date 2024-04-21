@@ -1,76 +1,156 @@
-```markdown
 ---
-title: "Viewership Analysis of Game of Thrones"
+title: "Viewership Analysis of Suits"
 author: "Hitesh Kumar Tetarwal 455361"
 date: "`r Sys.Date()`"
 format: html
 ---
 
-# Introduction
-
-*Game of Thrones* is an American fantasy drama television series created by David Benioff and D. B. Weiss. It is an adaptation of "A Song of Ice and Fire," George R. R. Martin's series of fantasy novels. The series aired on HBO from April 17, 2011, to May 19, 2019.
-
-# Viewership Data Extraction
-
-The viewership data for each episode of *Game of Thrones* is extracted from Wikipedia.
-
-```{python}
-import requests
-from bs4 import BeautifulSoup
+```{python viewership-summary, echo=False}
 import pandas as pd
-
-# URL of the Wikipedia page for Game of Thrones
-url = "https://en.wikipedia.org/wiki/Game_of_Thrones"
-
-# Fetch the webpage
-response = requests.get(url)
-
-# Parse the page using BeautifulSoup
-soup = BeautifulSoup(response.content, 'html.parser')
-
-# Find the table containing viewership data
-# Usually, this is one of the tables with 'wikitable plainrowheaders wikiepisodetable'
-tables = soup.find_all('table', {'class': 'wikitable plainrowheaders wikiepisodetable'})
-
-# Check if the correct table is found and read it
-if tables:
-    viewership_df = pd.read_html(str(tables[0]), header=0)[0]  # Adjust if the index is different
-
-    # Display the first few rows of the dataframe to check its structure
-    print(viewership_df.head())
-```
-
-```{python}
-# Display column names
-print(viewership_df.columns)
-
-# Rename columns for better clarity
-viewership_df.rename(columns={
-    'No. in season': 'Episode',
-    'U.S. viewers (millions)': 'Viewers'
-}, inplace=True)
-
-# Convert 'Viewers' column to numeric, handling non-numeric data
-viewership_df['Viewers'] = pd.to_numeric(viewership_df['Viewers'].str.extract('(\d+\.\d+)')[0], errors='coerce')
-
-# Show the cleaned data
-print(viewership_df.head())
-```
-
-```{python}
 import matplotlib.pyplot as plt
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
 
-# Plotting the viewership trends
-plt.figure(figsize=(12, 6))
-plt.plot(viewership_df['Episode'], viewership_df['Viewers'], marker='o', linestyle='-')
-plt.title('Viewership Trends of Game of Thrones Across Episodes')
-plt.xlabel('Episode Number')
-plt.ylabel('Viewers (millions)')
+got_data = [
+    # Season 1 Episodes
+    {"Season": 1, "Episode": 1, "Title": "Winter Is Coming", "Directed_by": "Tim Van Patten", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 17, 2011", "US_viewers_millions": 2.22},
+    {"Season": 1, "Episode": 2, "Title": "The Kingsroad", "Directed_by": "Tim Van Patten", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 24, 2011", "US_viewers_millions": 2.20},
+    {"Season": 1, "Episode": 3, "Title": "Lord Snow", "Directed_by": "Brian Kirk", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 1, 2011", "US_viewers_millions": 2.44},
+    {"Season": 1, "Episode": 4, "Title": "Cripples, Bastards, and Broken Things", "Directed_by": "Brian Kirk", "Written_by": "Bryan Cogman", "Original_air_date": "May 8, 2011", "US_viewers_millions": 2.45},
+    {"Season": 1, "Episode": 5, "Title": "The Wolf and the Lion", "Directed_by": "Brian Kirk", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 15, 2011", "US_viewers_millions": 2.58},
+    {"Season": 1, "Episode": 6, "Title": "A Golden Crown", "Directed_by": "Daniel Minahan", "Written_by": "Story by David Benioff & D. B. Weiss, Teleplay by Jane Espenson, David Benioff & D. B. Weiss", "Original_air_date": "May 22, 2011", "US_viewers_millions": 2.44},
+    {"Season": 1, "Episode": 7, "Title": "You Win or You Die", "Directed_by": "Daniel Minahan", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 29, 2011", "US_viewers_millions": 2.40},
+    {"Season": 1, "Episode": 8, "Title": "The Pointy End", "Directed_by": "Daniel Minahan", "Written_by": "George R. R. Martin", "Original_air_date": "June 5, 2011", "US_viewers_millions": 2.72},
+    {"Season": 1, "Episode": 9, "Title": "Baelor", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 12, 2011", "US_viewers_millions": 2.66},
+    {"Season": 1, "Episode": 10, "Title": "Fire and Blood", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 19, 2011", "US_viewers_millions": 3.04},
+     {"Season": 2, "Episode": 1, "Title": "The North Remembers", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 1, 2012", "US_viewers_millions": 3.86},
+    {"Season": 2, "Episode": 2, "Title": "The Night Lands", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 8, 2012", "US_viewers_millions": 3.76},
+    {"Season": 2, "Episode": 3, "Title": "What Is Dead May Never Die", "Directed_by": "Alik Sakharov", "Written_by": "Bryan Cogman", "Original_air_date": "April 15, 2012", "US_viewers_millions": 3.77},
+    {"Season": 2, "Episode": 4, "Title": "Garden of Bones", "Directed_by": "David Petrarca", "Written_by": "Vanessa Taylor", "Original_air_date": "April 22, 2012", "US_viewers_millions": 3.65},
+    {"Season": 2, "Episode": 5, "Title": "The Ghost of Harrenhal", "Directed_by": "David Petrarca", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 29, 2012", "US_viewers_millions": 3.90},
+    {"Season": 2, "Episode": 6, "Title": "The Old Gods and the New", "Directed_by": "David Nutter", "Written_by": "Vanessa Taylor", "Original_air_date": "May 6, 2012", "US_viewers_millions": 3.88},
+    {"Season": 2, "Episode": 7, "Title": "A Man Without Honor", "Directed_by": "David Nutter", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 13, 2012", "US_viewers_millions": 3.69},
+    {"Season": 2, "Episode": 8, "Title": "The Prince of Winterfell", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 20, 2012", "US_viewers_millions": 3.86},
+    {"Season": 2, "Episode": 9, "Title": "Blackwater", "Directed_by": "Neil Marshall", "Written_by": "George R. R. Martin", "Original_air_date": "May 27, 2012", "US_viewers_millions": 3.38},
+    {"Season": 2, "Episode": 10, "Title": "Valar Morghulis", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 3, 2012", "US_viewers_millions": 4.20},
+        {"Season": 3, "Episode": 1, "Title": "Valar Dohaeris", "Directed_by": "Daniel Minahan", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "March 31, 2013", "US_viewers_millions": 4.37},
+    {"Season": 3, "Episode": 2, "Title": "Dark Wings, Dark Words", "Directed_by": "Daniel Minahan", "Written_by": "Vanessa Taylor", "Original_air_date": "April 7, 2013", "US_viewers_millions": 4.27},
+    {"Season": 3, "Episode": 3, "Title": "Walk of Punishment", "Directed_by": "David Benioff", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 14, 2013", "US_viewers_millions": 4.72},
+    {"Season": 3, "Episode": 4, "Title": "And Now His Watch Is Ended", "Directed_by": "Alex Graves", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 21, 2013", "US_viewers_millions": 4.87},
+    {"Season": 3, "Episode": 5, "Title": "Kissed by Fire", "Directed_by": "Alex Graves", "Written_by": "Bryan Cogman", "Original_air_date": "April 28, 2013", "US_viewers_millions": 5.35},
+    {"Season": 3, "Episode": 6, "Title": "The Climb", "Directed_by": "Alik Sakharov", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 5, 2013", "US_viewers_millions": 5.50},
+    {"Season": 3, "Episode": 7, "Title": "The Bear and the Maiden Fair", "Directed_by": "Michelle MacLaren", "Written_by": "George R. R. Martin", "Original_air_date": "May 12, 2013", "US_viewers_millions": 4.84},
+    {"Season": 3, "Episode": 8, "Title": "Second Sons", "Directed_by": "Michelle MacLaren", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 19, 2013", "US_viewers_millions": 5.13},
+    {"Season": 3, "Episode": 9, "Title": "The Rains of Castamere", "Directed_by": "David Nutter", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 2, 2013", "US_viewers_millions": 5.22},
+    {"Season": 3, "Episode": 10, "Title": "Mhysa", "Directed_by": "David Nutter", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 9, 2013", "US_viewers_millions": 5.39},
+    {"Season": 4, "Episode": 1, "Title": "Two Swords", "Directed_by": "D. B. Weiss", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 6, 2014", "US_viewers_millions": 6.64},
+    {"Season": 4, "Episode": 2, "Title": "The Lion and the Rose", "Directed_by": "Alex Graves", "Written_by": "George R. R. Martin", "Original_air_date": "April 13, 2014", "US_viewers_millions": 6.31},
+    {"Season": 4, "Episode": 3, "Title": "Breaker of Chains", "Directed_by": "Alex Graves", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 20, 2014", "US_viewers_millions": 6.59},
+    {"Season": 4, "Episode": 4, "Title": "Oathkeeper", "Directed_by": "Michelle MacLaren", "Written_by": "Bryan Cogman", "Original_air_date": "April 27, 2014", "US_viewers_millions": 6.95},
+    {"Season": 4, "Episode": 5, "Title": "First of His Name", "Directed_by": "Michelle MacLaren", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 4, 2014", "US_viewers_millions": 7.16},
+    {"Season": 4, "Episode": 6, "Title": "The Laws of Gods and Men", "Directed_by": "Alik Sakharov", "Written_by": "Bryan Cogman", "Original_air_date": "May 11, 2014", "US_viewers_millions": 6.40},
+    {"Season": 4, "Episode": 7, "Title": "Mockingbird", "Directed_by": "Alik Sakharov", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 18, 2014", "US_viewers_millions": 7.20},
+    {"Season": 4, "Episode": 8, "Title": "The Mountain and the Viper", "Directed_by": "Alex Graves", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 1, 2014", "US_viewers_millions": 7.17},
+    {"Season": 4, "Episode": 9, "Title": "The Watchers on the Wall", "Directed_by": "Neil Marshall", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 8, 2014", "US_viewers_millions": 6.95},
+    {"Season": 4, "Episode": 10, "Title": "The Children", "Directed_by": "Alex Graves", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 15, 2014", "US_viewers_millions": 7.09},
+        # Season 5 Episodes
+    {"Season": 5, "Episode": 1, "Title": "The Wars to Come", "Directed_by": "Michael Slovis", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 12, 2015", "US_viewers_millions": 8.00},
+    {"Season": 5, "Episode": 2, "Title": "The House of Black and White", "Directed_by": "Michael Slovis", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 19, 2015", "US_viewers_millions": 6.81},
+    {"Season": 5, "Episode": 3, "Title": "High Sparrow", "Directed_by": "Mark Mylod", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 26, 2015", "US_viewers_millions": 6.71},
+    {"Season": 5, "Episode": 4, "Title": "Sons of the Harpy", "Directed_by": "Mark Mylod", "Written_by": "Dave Hill", "Original_air_date": "May 3, 2015", "US_viewers_millions": 6.82},
+    {"Season": 5, "Episode": 5, "Title": "Kill the Boy", "Directed_by": "Jeremy Podeswa", "Written_by": "Bryan Cogman", "Original_air_date": "May 10, 2015", "US_viewers_millions": 6.56},
+    {"Season": 5, "Episode": 6, "Title": "Unbowed, Unbent, Unbroken", "Directed_by": "Jeremy Podeswa", "Written_by": "Bryan Cogman", "Original_air_date": "May 17, 2015", "US_viewers_millions": 6.24},
+    {"Season": 5, "Episode": 7, "Title": "The Gift", "Directed_by": "Miguel Sapochnik", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 24, 2015", "US_viewers_millions": 5.40},
+    {"Season": 5, "Episode": 8, "Title": "Hardhome", "Directed_by": "Miguel Sapochnik", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 31, 2015", "US_viewers_millions": 7.01},
+    {"Season": 5, "Episode": 9, "Title": "The Dance of Dragons", "Directed_by": "David Nutter", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 7, 2015", "US_viewers_millions": 7.14},
+    {"Season": 5, "Episode": 10, "Title": "Mother's Mercy", "Directed_by": "David Nutter", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 14, 2015", "US_viewers_millions": 8.11},
+    # Season 6 Episodes
+    {"Season": 6, "Episode": 1, "Title": "The Red Woman", "Directed_by": "Jeremy Podeswa", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 24, 2016", "US_viewers_millions": 7.94},
+    {"Season": 6, "Episode": 2, "Title": "Home", "Directed_by": "Jeremy Podeswa", "Written_by": "Dave Hill", "Original_air_date": "May 1, 2016", "US_viewers_millions": 7.29},
+    {"Season": 6, "Episode": 3, "Title": "Oathbreaker", "Directed_by": "Daniel Sackheim", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 8, 2016", "US_viewers_millions": 7.28},
+    {"Season": 6, "Episode": 4, "Title": "Book of the Stranger", "Directed_by": "Daniel Sackheim", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 15, 2016", "US_viewers_millions": 7.82},
+    {"Season": 6, "Episode": 5, "Title": "The Door", "Directed_by": "Jack Bender", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 22, 2016", "US_viewers_millions": 7.89},
+    {"Season": 6, "Episode": 6, "Title": "Blood of My Blood", "Directed_by": "Jack Bender", "Written_by": "Bryan Cogman", "Original_air_date": "May 29, 2016", "US_viewers_millions": 6.71},
+    {"Season": 6, "Episode": 7, "Title": "The Broken Man", "Directed_by": "Mark Mylod", "Written_by": "Bryan Cogman", "Original_air_date": "June 5, 2016", "US_viewers_millions": 7.80},
+    {"Season": 6, "Episode": 8, "Title": "No One", "Directed_by": "Mark Mylod", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 12, 2016", "US_viewers_millions": 7.60},
+    {"Season": 6, "Episode": 9, "Title": "Battle of the Bastards", "Directed_by": "Miguel Sapochnik", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 19, 2016", "US_viewers_millions": 7.66},
+    {"Season": 6, "Episode": 10, "Title": "The Winds of Winter", "Directed_by": "Miguel Sapochnik", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "June 26, 2016", "US_viewers_millions": 8.89},
+     # Season 7 Episodes
+    {"Season": 7, "Episode": 1, "Title": "Dragonstone", "Directed_by": "Jeremy Podeswa", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "July 16, 2017", "US_viewers_millions": 10.11},
+    {"Season": 7, "Episode": 2, "Title": "Stormborn", "Directed_by": "Mark Mylod", "Written_by": "Bryan Cogman", "Original_air_date": "July 23, 2017", "US_viewers_millions": 9.27},
+    {"Season": 7, "Episode": 3, "Title": "The Queen's Justice", "Directed_by": "Mark Mylod", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "July 30, 2017", "US_viewers_millions": 9.25},
+    {"Season": 7, "Episode": 4, "Title": "The Spoils of War", "Directed_by": "Matt Shakman", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "August 6, 2017", "US_viewers_millions": 10.17},
+    {"Season": 7, "Episode": 5, "Title": "Eastwatch", "Directed_by": "Matt Shakman", "Written_by": "Dave Hill", "Original_air_date": "August 13, 2017", "US_viewers_millions": 10.72},
+    {"Season": 7, "Episode": 6, "Title": "Beyond the Wall", "Directed_by": "Alan Taylor", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "August 20, 2017", "US_viewers_millions": 10.24},
+    {"Season": 7, "Episode": 7, "Title": "The Dragon and the Wolf", "Directed_by": "Jeremy Podeswa", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "August 27, 2017", "US_viewers_millions": 12.07},
+    # Season 8 Episodes
+    {"Season": 8, "Episode": 1, "Title": "Winterfell", "Directed_by": "David Nutter", "Written_by": "Dave Hill", "Original_air_date": "April 14, 2019", "US_viewers_millions": 11.76},
+    {"Season": 8, "Episode": 2, "Title": "A Knight of the Seven Kingdoms", "Directed_by": "David Nutter", "Written_by": "Bryan Cogman", "Original_air_date": "April 21, 2019", "US_viewers_millions": 10.29},
+    {"Season": 8, "Episode": 3, "Title": "The Long Night", "Directed_by": "Miguel Sapochnik", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "April 28, 2019", "US_viewers_millions": 12.02},
+    {"Season": 8, "Episode": 4, "Title": "The Last of the Starks", "Directed_by": "David Nutter", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 5, 2019", "US_viewers_millions": 11.80},
+    {"Season": 8, "Episode": 5, "Title": "The Bells", "Directed_by": "Miguel Sapochnik", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 12, 2019", "US_viewers_millions": 12.48},
+    {"Season": 8, "Episode": 6, "Title": "The Iron Throne", "Directed_by": "David Benioff & D. B. Weiss", "Written_by": "David Benioff & D. B. Weiss", "Original_air_date": "May 19, 2019", "US_viewers_millions": 13.61}
+]
+
+
+# Now we convert the list of dictionaries into a DataFrame
+got_df = pd.DataFrame(got_data)
+
+# Let's also make sure that the 'Original_air_date' column is a datetime type.
+got_df['Original_air_date'] = pd.to_datetime(got_df['Original_air_date'])
+
+# Now 'got_df' is available as a variable containing all the episodes' data.
+got_df.info()  # Show the DataFrame info to confirm its structure
+got_df.head()  # Show the first few rows as a quick check
+got_df.describe()[['US_viewers_millions']]
+```
+
+# Game of Thrones - A Viewership Analysis Report
+
+*Game of Thrones* is a fantasy drama television series created by David Benioff and D. B. Weiss for HBO. It is an adaptation of *A Song of Ice and Fire*, a series of fantasy novels by George R. R. Martin. Below is the viewership analysis spanning all eight seasons.
+
+## Summary of Viewership Statistics
+
+*Game of Thrones* has garnered significant viewership over the years, with ratings consistently increasing as the series progressed.
+
+```{python viewership-summary}
+got_df.describe()[['US_viewers_millions']]
+```
+
+## Viewership Trend Over Time
+
+The graph below shows the trend of viewership across all seasons of *Game of Thrones*.
+
+```{python viewership-trend}
+plt.figure(figsize=(14, 7))
+plt.plot(got_df['Original_air_date'], got_df['US_viewers_millions'], marker='o')
+plt.title('Game of Thrones Viewership Over Time')
+plt.xlabel('Air Date')
+plt.ylabel('U.S. Viewers (millions)')
 plt.grid(True)
 plt.show()
 ```
 
-# Conclusion
+## Viewership by Episode
 
-This analysis provides insights into how the viewership of *Game of Thrones* fluctuated over its airing period, reflecting the show's immense popularity and widespread critical acclaim.
+Let's look at how the viewership changed from episode to episode.
+
+```{python episodic-viewership}
+fig, ax = plt.subplots(figsize=(14, 7))
+got_df['Episode_Number'] = range(1, len(got_df) + 1)
+for season, group in got_df.groupby('Season'):
+    group.plot(x='Episode_Number', y='US_viewers_millions', ax=ax, label=f'Season {season}', marker='o')
+
+plt.title('Episode to Episode Viewership Change')
+plt.xlabel('Episode Number')
+plt.ylabel('U.S. Viewers (millions)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+## Conclusion
+
+The viewership for *Game of Thrones* has shown an upward trajectory, demonstrating the show's growing popularity over the years. It became a cultural icon and significantly impacted television and entertainment.
+
 ```
