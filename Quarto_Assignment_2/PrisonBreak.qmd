@@ -1,0 +1,58 @@
+---
+title: "Prison Break Report"
+author: "Vikram Bahadur"
+execute: 
+  echo: false
+format: html
+editor: visual
+---
+
+## *Prison Break*
+
+***Prison Break*** is an American serial drama television series created by ***Paul Scheuring*** for Fox. The series revolves around two brothers, **Lincoln Burrows (Dominic Purcell)** and **Michael Scofield (Wentworth Miller)**; Burrows has been sentenced to death for a crime he did not commit, while Scofield devises an elaborate plan to help his brother escape prison and clear his name.
+
+## Main Poster
+
+![Prison Break](./images/main_poster.jpeg)
+
+## Series overview and ratings
+
+| **Season** | **Episodes** |  **First aired**   |  **Last aired**   | **Rank** |
+|------------|--------------|:------------------:|:-----------------:|:--------:|
+| 1          | 22           |  August 29, 2005   |   May 15, 2006    |    55    |
+| 2          | 22           |  August 21, 2006   |   April 2, 2007   |    51    |
+| 3          | 13           | September 17, 2007 | February 18, 2008 |    73    |
+| 4          | 22           | September 1, 2008  |   May 15, 2009    |    68    |
+| 5          | 9            |   April 4, 2017    |   May 30, 2017    |   115    |
+
+```{r}
+#|echo: false
+ended_date=c(as.Date('2006-05-15'),as.Date('2007-04-02'),as.Date('2008-02-18'),as.Date('2009-05-15'),as.Date('2017-05-30'))
+viewers = c(10.51,9.37,7.51,6.53,3.83)
+ratings = c(55,51,73,68,115)
+seasons = c(1,2,3,4,5)
+plot(seasons, ratings, "b", main="Ratings (Season Wise)", ylab = "Ratings", xlab = "Season", pch=18, col="blue")
+text(seasons, ratings, ratings, cex=0.6, pos=4, col="red")
+
+```
+
+Rating has improved in **season 2** by `r ratings[1]-ratings[2]` positions but **season 3** and **season 5** ratings are decreased very drastically by `r ratings[3]-ratings[2]` and `r ratings[5]-ratings[4]` positions respectively.
+
+## **Seasonal Overview**
+
+The following seasonal data are based on a weighted average total viewers per episode as recorded by Nielsen Media Research. The recording period begins in late September (the start of the U.S. network television season) and ends in late May.
+
+| **Season** |               **Time slot (ET)**                | **Episodes** | **Premiered Date** | **Premiere viewers (in millions)** |  **Ended Date**   | **Finale viewers (in millions)** | **#Rank** |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|     1      | Monday 9:00 p.m. (2005)/Monday 8:00 p.m. (2006) |      22      |  August 29, 2005   |               10.51                |   May 15, 2006    |              10.24               |    55     |
+|     2      |                Monday 8:00 p.m.                 |      22      |  August 21, 2006   |                9.37                |   April 2, 2007   |               8.12               |    51     |
+|     3      |                Monday 8:00 p.m.                 |      13      | September 17, 2007 |                7.51                | February 18, 2008 |               7.40               |    73     |
+|     4      | Monday 9:00 p.m. (2008)/Friday 8:00 p.m. (2009) |      22      | September 1, 2008  |                6.53                |   May 15, 2009    |               3.32               |    68     |
+|     5      |                Tuesday 9:00 p.m.                |      9       |   April 4, 2017    |                3.83                |   May 30, 2017    |               2.30               |    115    |
+
+```{r}
+#| echo: false
+plot(ended_date, viewers, "l", main="Viewers Per Season", ylab = "Viewers (in millions)", xlab = "Season End Date", pch=18, col="blue")
+text(ended_date, viewers, cex=0.6, pos=4, col="red")
+
+```
