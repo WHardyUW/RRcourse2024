@@ -3,7 +3,17 @@ title: "Prison Break Report"
 author: "Vikram Bahadur"
 execute: 
   echo: false
-format: html
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    smooth-scroll: true
+    date-modified: 27th April 2024
+number-sections: true
+title-block-banner: true
+lof: true
+lot: true
 editor: visual
 ---
 
@@ -43,7 +53,7 @@ Rating has improved in **season 2** by `r ratings[1]-ratings[2]` positions but *
 The following seasonal data are based on a weighted average total viewers per episode as recorded by Nielsen Media Research. The recording period begins in late September (the start of the U.S. network television season) and ends in late May.
 
 | **Season** |               **Time slot (ET)**                | **Episodes** | **Premiered Date** | **Premiere viewers (in millions)** |  **Ended Date**   | **Finale viewers (in millions)** | **#Rank** |
-|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|:----------:|:-----------------------------------------------:|:------------:|:------------------:|:----------------------------------:|:-----------------:|:--------------------------------:|:---------:|
 |     1      | Monday 9:00 p.m. (2005)/Monday 8:00 p.m. (2006) |      22      |  August 29, 2005   |               10.51                |   May 15, 2006    |              10.24               |    55     |
 |     2      |                Monday 8:00 p.m.                 |      22      |  August 21, 2006   |                9.37                |   April 2, 2007   |               8.12               |    51     |
 |     3      |                Monday 8:00 p.m.                 |      13      | September 17, 2007 |                7.51                | February 18, 2008 |               7.40               |    73     |
