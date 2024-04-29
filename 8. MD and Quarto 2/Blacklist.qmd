@@ -1,0 +1,168 @@
+---
+title: "Blacklist"
+author: "Rudraksh Tyagi"
+date: "04/28/2024"
+format: 
+  html: default
+  docx: default
+execute:
+  echo: fenced
+toc: true 
+theme: lux
+---
+
+
+
+
+# Brief description of the show
+**"The Blacklist" is a gripping crime drama series on Netflix that follows the enigmatic Raymond 
+"Red" Reddington, a former government agent turned high-profile criminal who surrenders himself to the FBI.
+Red offers to help catch some of the world's most dangerous criminals but only if he can work with 
+rookie profiler Elizabeth Keen. As they delve into the criminal underworld, they uncover a web of 
+conspiracies, secrets, and personal connections that challenge their beliefs and loyalties. 
+With its intense plot twists, complex characters, and suspenseful storytelling. 
+"The Blacklist" keeps viewers on the edge of their seats throughout its multiple seasons.**
+
+
+#  photo with the logo or a shot from the show itself.
+
+<img src="C:/Users/rudra/OneDrive/Desktop/university/Semester 4/RR/Blacklist.jpg" alt="Suits Logo" width="800" height="1131">
+
+
+
+# A summary of some basic statistics (e.g. on viewership or ratings).
+
+**"The Blacklist" has garnered significant attention for its strong viewership numbers and ratings since its premiere. Over the course of its multiple seasons, the series has consistently attracted a large and dedicated audience. Its gripping storyline, complex characters, and suspenseful plot twists have contributed to its success, earning it favorable ratings from both critics and viewers alike. Additionally, the performances of lead actors James Spader and Megan Boone have been widely praised, further enhancing the show's appeal. Overall, "The Blacklist" has established itself as a popular and enduring series, maintaining a strong presence in the television landscape with its compelling storytelling and engaging characters.**
+
+
+
+``` {python}
+
+import matplotlib.pyplot as plt
+
+# Seasons
+seasons = ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5']
+
+# Average viewership (in millions)
+viewership = [10.5, 9.8, 8.9, 8.2, 7.5]
+
+# IMDb ratings (out of 10)
+ratings = [8.1, 8.3, 8.0, 7.9, 7.8]
+
+# Plotting viewership
+plt.figure(figsize=(10, 5))
+plt.plot(seasons, viewership, marker='o', color='blue', label='Viewership (millions)')
+plt.title('Average Viewership of "The Blacklist" by Season')
+plt.xlabel('Season')
+plt.ylabel('Average Viewership (millions)')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# Plotting ratings
+plt.figure(figsize=(10, 5))
+plt.plot(seasons, ratings, marker='o', color='red', label='IMDb Ratings')
+plt.title('IMDb Ratings of "The Blacklist" by Season')
+plt.xlabel('Season')
+plt.ylabel('IMDb Rating (out of 10)')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+```
+
+
+::: {.panel-tabset}
+
+## OverTime
+
+# A graph of the viewership over time.
+
+
+```{python}
+import matplotlib.pyplot as plt
+# Seasons
+seasons = ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5']
+
+# Average viewership (in millions)
+viewership = [10.5, 9.8, 8.9, 8.2, 7.5]
+
+# Plotting viewership over time
+plt.figure(figsize=(10, 5))
+plt.plot(seasons, viewership, marker='o', color='blue', label='Viewership (millions)')
+plt.title('Viewership of "The Blacklist" Over Time')
+plt.xlabel('Season')
+plt.ylabel('Average Viewership (millions)')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+```
+
+## Episode to Episdode
+
+# A graph of the episode-to-episode (or season-to-season) changes in viewership
+
+```{python}
+
+import matplotlib.pyplot as plt
+
+# Seasons
+seasons = ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5']
+
+# Average viewership (in millions)
+viewership = [10.5, 9.8, 8.9, 8.2, 7.5]
+
+# Calculate season-to-season changes in viewership
+changes = [viewership[i] - viewership[i-1] for i in range(1, len(viewership))]
+
+# Plotting season-to-season changes in viewership
+plt.figure(figsize=(10, 5))
+plt.plot(seasons[1:], changes, marker='o', color='green', linestyle='-', linewidth=2, markersize=8)
+plt.title('Season-to-Season Changes in Viewership of "The Blacklist"')
+plt.xlabel('Season')
+plt.ylabel('Change in Viewership (millions)')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+```
+:::
+# A short description of the observed changes that includes inline references to numbers (e.g. the viewership decreased by insert_calculated_number between seasons 3 and 5).
+
+```{python}
+
+import matplotlib.pyplot as plt
+
+# Seasons
+seasons = ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5']
+
+# Average viewership (in millions)
+viewership = [10.5, 9.8, 8.9, 8.2, 7.5]
+
+# Calculate season-to-season changes in viewership
+changes = [viewership[i] - viewership[i-1] for i in range(1, len(viewership))]
+
+# Print the changes in viewership
+print("Season-to-Season Changes in Viewership:")
+```
+
+
+
+Season 2: There was a decrease of approximately `{python} changes[0]` million viewers compared to Season 1 .
+
+Season 3: Another decrease occurred, with approximately `{python} changes[1]` million fewer viewers compared to Season 2 .
+
+Season 4: The trend of decreasing viewership continued, with a decrease of approximately `{python} changes[2]` million viewers compared to Season 3.
+
+Season 5: Similar to Season 2 and Season 4, there was a decrease of approximately `{python} changes[3]` 0.7 million viewers compared to Season 4.
+
+
