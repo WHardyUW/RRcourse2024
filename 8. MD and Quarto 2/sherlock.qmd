@@ -1,0 +1,91 @@
+---
+title: "Viewership Analysis of Sherlock Series 1 and 2"
+author: "Mugilarasan Selvaraj 455154"
+date: "2024-04-29"  # Date set manually or you can use a dynamic date in actual use
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: flatly  # Using a Bootstrap theme for a nicer look
+    code-fold: true
+  pdf:
+    include-code: false  # Exclude code from the PDF output if desired
+---
+
+# Introduction
+
+*Sherlock* is a British mystery series based on Sir Arthur Conan Doyle's Sherlock Holmes detective stories. Starring Benedict Cumberbatch as Sherlock Holmes and Martin Freeman as Doctor John Watson, the series has received critical acclaim for its writing, acting, and innovative storytelling.
+
+# Viewership Data Summary
+
+The viewership data for Series 1 and 2 of *Sherlock* is presented below. The show debuted in the UK with high numbers and continued to attract a significant audience.
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Creating a DataFrame for the provided viewership data
+sherlock_data = {
+    'Series': [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4],
+    'No. overall': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    'Title': [
+        "A Study in Pink", "The Blind Banker", "The Great Game",
+        "A Scandal in Belgravia", "The Hounds of Baskerville", "The Reichenbach Fall", "The Empty Hearse", "The Sign of Three", "His Last Vow", "The Abominable Bride", "The Six Thatchers", "The Lying Detective", "The Final Problem"
+    ],
+    'Viewers (millions) UK': [8.70, 7.74, 8.66, 10.66, 10.27, 9.78, 12.72, 11.38, 11.38, 11.64, 11.33, 9.53, 9.06],
+    'Original air date UK': [
+        "25 July 2010", "1 August 2010", "8 August 2010",
+        "1 January 2012", "8 January 2012", "15 January 2012", "1 January 2014","5 January 2014","12 January 2014","1 January 2016","1 January 2017","8 January 2017", "15 January 2017"
+    ],
+    'Viewers (millions) US': [None, None, None, 3.2, None, None, 4.0, 2.9, 3.0, 3.4, 3.7, None, None],
+    'Original air date US': [
+        "24 October 2010", "31 October 2010", "7 November 2010",
+        "6 May 2012", "13 May 2012", "20 May 2012", "19 January 2014", "26 January 2014", "2 February 2014", "1 January 2016","1 January 2017","8 January 2017", "15 January 2017"
+    ]
+}
+```
+
+# Viewership Trend Over Time
+
+We can analyze the trend of viewership over the series' episodes and seasons.
+
+```{python}
+
+sherlock_df = pd.DataFrame(sherlock_data)
+
+# Display the DataFrame to check it's correct
+sherlock_df
+
+# Plotting the viewership trend over the episodes
+plt.figure(figsize=(10, 6))
+plt.plot(sherlock_df['No. overall'], sherlock_df['Viewers (millions) UK'], marker='o', linestyle='-')
+plt.title('Viewership Trend of Sherlock (UK)')
+plt.xlabel('Episode Number')
+plt.ylabel('Viewers (millions) UK')
+plt.grid(True)
+plt.show()
+```
+
+# Episode-to-Episode Viewership Changes
+
+We will now look at how viewership changed from one episode to the next.
+
+```{python}
+# Calculating the change in viewership between episodes
+sherlock_df['Viewership Change UK'] = sherlock_df['Viewers (millions) UK'].diff()
+
+# Plotting
+
+# the viewership change
+plt.figure(figsize=(10, 6))
+plt.bar(sherlock_df['No. overall'], sherlock_df['Viewership Change UK'], color='lightblue')
+plt.title('Episode-to-Episode Viewership Changes in Sherlock (UK)')
+plt.xlabel('Episode Number')
+plt.ylabel('Change in Viewers (millions) UK')
+plt.grid(True)
+plt.show()
+```
+
+# Conclusion
+
+The provided data shows a strong start for *Sherlock* with a significant viewership in the UK. Although we have incomplete data for the US viewership, the UK trends indicate a consistent interest in the show, particularly during its second series, which saw higher numbers.
