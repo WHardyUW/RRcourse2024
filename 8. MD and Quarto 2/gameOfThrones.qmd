@@ -10,6 +10,8 @@ format:
     toc-location: body
     theme: lumen
     number-sections: true
+  pdf:
+    include-code: false
 execute:
   echo: fenced
   warning: false
