@@ -1,6 +1,6 @@
 ---
 title: "Quarto"
-author: "Szymon Karkoszka"
+author: "Wojciech Hardy"
 date: "04/09/2023"
 format: html
 execute:
@@ -25,7 +25,7 @@ At the very top. Stores author and document information, configuration, global o
 <pre class="code-block">
 ---
 title: "Quarto"
-author: "Szymon Karkoszka"
+author: "Wojciech Hardy"
 date: "4/11/2023"
 format: html
 execute:
@@ -218,16 +218,19 @@ summary(cars)
 ```
 
 
-
 ```{r}
 plot(pressure)
 ```
 
-
-
 You can also [use Python in Quarto with Jupyter Notebook](https://quarto.org/docs/computations/python.html) or even use it interchangeably with other languages:
 
-
+```{python}
+import pandas
+flights = pandas.read_csv("../Data/flights.csv")
+flights = flights[flights['dest'] == "ORD"]
+flights = flights[['carrier', 'dep_delay', 'arr_delay']]
+flights = flights.dropna()
+```
 
 ```{r}
 library(ggplot2)
@@ -344,7 +347,7 @@ By default Quarto stops after encountering an error. We can tell it to continue.
 ## Caching results that take long to compute
 
 ```{r}
-x <- 45
+x <- 15
 ```
 
 ```{r}

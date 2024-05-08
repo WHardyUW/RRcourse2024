@@ -1,13 +1,20 @@
 ---
 title: "Assignment"
-author: ""
+author: "Szymon Karkoszka"
 date: today
 output: html_document
+params:
+  season: 1
+
 ---
 
 ```{r}
-load("../Data/season_1.RData")
+load("../Data/got/season_1.rdata")
+
 ```
+
+
+
 
 # Game of Thrones - Season 1 summary in numbers
 
@@ -50,3 +57,5 @@ Finally, the episodes with the above-average viewership were:
 | 8             | "The Pointy End" | Daniel Minahan      |
 | 9             | "Baelor" | Alan Taylor      |
 | 10            | "Fire and Blood" | Alan Taylor      |
+
+
