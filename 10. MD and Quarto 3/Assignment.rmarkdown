@@ -9,16 +9,14 @@ params:
   data: file.csv
 ---
 
-
 ```{r}
 #install.packages("quarto")
 ```
+
 ```{r}
 library(quarto)
 
 ```
-
-
 
 ```{r}
 load("../Data\\got/season_1.RData")
@@ -29,6 +27,7 @@ season <- params$season
 load(paste0("../Data\\got/season_", season, ".RData"))
 
 ```
+
 
 # Game of Thrones - Season 1 summary in numbers
 
@@ -56,11 +55,11 @@ The most popular episode of the season was "Fire and Blood", in which:
 
 You can see how the viewership of the episodes changed in Figure 1.
 
+
 ```{r}
 #| label = "viewers_plot"
 plot(season_data$viewers, type="l", col="red", lwd=5, xlab = "Episode number", ylab = "1st day TV viewers in the US (millions)")
 ```
-
 
 ```{r}
 # for (season in 1:8) {
@@ -87,6 +86,7 @@ for (season in seasons) {
 
 
 
+
 ***
 
 Finally, the episodes with the above-average viewership were:
@@ -97,3 +97,4 @@ Finally, the episodes with the above-average viewership were:
 | 8             | "The Pointy End" | Daniel Minahan      |
 | 9             | "Baelor" | Alan Taylor      |
 | 10            | "Fire and Blood" | Alan Taylor      |
+
