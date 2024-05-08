@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wojciech Hardy">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-17">
 
 <title>Quarto</title>
 <style>
@@ -69,14 +69,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="QMD_class_2_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="QMD_class_2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="QMD_class_2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#moving-from-different-formats-to-quarto" id="toc-moving-from-different-formats-to-quarto" class="nav-link active" data-scroll-target="#moving-from-different-formats-to-quarto">Moving from different formats to Quarto</a>
+  <ul class="collapse">
+  <li><a href="#migrating-from-rmarkdown" id="toc-migrating-from-rmarkdown" class="nav-link" data-scroll-target="#migrating-from-rmarkdown">Migrating from RMarkdown</a></li>
+  <li><a href="#turning-your-notebook-into-a-quarto-document" id="toc-turning-your-notebook-into-a-quarto-document" class="nav-link" data-scroll-target="#turning-your-notebook-into-a-quarto-document">Turning your Notebook into a Quarto document</a></li>
+  </ul></li>
+  <li><a href="#to-add-a-refreshable-preview" id="toc-to-add-a-refreshable-preview" class="nav-link" data-scroll-target="#to-add-a-refreshable-preview">To add a (refreshable) preview</a></li>
+  <li><a href="#need-a-recap" id="toc-need-a-recap" class="nav-link" data-scroll-target="#need-a-recap">Need a recap?</a></li>
+  <li><a href="#so-what-is-yaml" id="toc-so-what-is-yaml" class="nav-link" data-scroll-target="#so-what-is-yaml">So what is YAML?</a></li>
+  <li><a href="#yaml-in-quarto---options" id="toc-yaml-in-quarto---options" class="nav-link" data-scroll-target="#yaml-in-quarto---options">YAML in Quarto - options</a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#html-options" id="toc-html-options" class="nav-link" data-scroll-target="#html-options">HTML options</a></li>
+  </ul></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a>
+  <ul class="collapse">
+  <li><a href="#pdf-options" id="toc-pdf-options" class="nav-link" data-scroll-target="#pdf-options">PDF options</a></li>
+  <li><a href="#combining-formats" id="toc-combining-formats" class="nav-link" data-scroll-target="#combining-formats">Combining formats</a></li>
+  <li><a href="#getting-an-.md-file" id="toc-getting-an-.md-file" class="nav-link" data-scroll-target="#getting-an-.md-file">Getting an .md file</a></li>
+  </ul></li>
+  <li><a href="#exporting-yaml" id="toc-exporting-yaml" class="nav-link" data-scroll-target="#exporting-yaml">Exporting YAML</a></li>
+  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering">Rendering</a>
+  <ul class="collapse">
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal">Terminal</a></li>
+  <li><a href="#from-the-level-of-r" id="toc-from-the-level-of-r" class="nav-link" data-scroll-target="#from-the-level-of-r">From the level of R</a></li>
+  </ul></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="QMD_class_2.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -99,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 16, 2024</p>
+      <p class="date">April 17, 2024</p>
     </div>
   </div>
   
@@ -300,11 +336,11 @@ format:
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-1" data-code-lines="5">Take <code>penguins</code>, and then,</span>
+<span data-code-lines="5" data-code-cell="annotated-cell-1" data-code-annotation="1">Take <code>penguins</code>, and then,</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-cell="annotated-cell-1" data-code-lines="6,7,8,9">add new columns for the bill ratio and bill area.</span>
+<span data-code-lines="6,7,8,9" data-code-cell="annotated-cell-1" data-code-annotation="2">add new columns for the bill ratio and bill area.</span>
 </dd>
 </dl>
 <p>This is how you define it:</p>
@@ -771,4 +807,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="QMD_class_2_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

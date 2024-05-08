@@ -3,7 +3,15 @@ title: "Quarto"
 subtitle: "YAML, rendering and parameters"
 author: "Wojciech Hardy"
 date: today
-format: html
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    toc-expand: 2
+    toc-title: Contents
+    toc-location: left
+    smooth-scroll: true
+  docx: default
 execute:
   echo: fenced
 ---
