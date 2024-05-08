@@ -1,0 +1,101 @@
+---
+title: "Quarto"
+subtitle: "PDF and LaTeX"
+author: "Wojciech Hardy"
+date: today
+format: 
+  pdf: 
+    citation_package: natbib
+bibliography: bibliography.bib
+documentclass: article
+fontsize: 11pt
+geometry: margin=1in
+latex-tinytex: false
+---
+
+---
+
+## PDF
+
+PDFs are created using LaTeX. As such some 'dynamic' fields don't work here. But also, we get to use TeX for formatting. 
+
+### PDF-specifc options
+
+Changing the font size:
+
+`fontsize: 11pt`
+
+Changing the margins: 
+
+`geometry: margin=1in`
+
+(These actually modify LaTeX template options).
+
+---
+
+### LaTeX-related
+
+We can set the document type.
+
+`documentclass: article` 
+
+(alternatives include `letter`, `book`, `slides`, `beamer`, etc.)
+
+---
+
+We can change the engine used to produce the output, e.g.:
+
+`  pdf:`  
+`    latex_engine: xelatex`
+
+---
+
+We can tell RMarkdown to keep the intermediate `.tex` file.
+
+`  pdf:`  
+`    keep_tex: true`
+
+(Note: similarly, we can keep the `.md` file for non-pdf formats with `keep_md: true`)
+
+---
+
+We can use `LaTeX` directly within the document and it will be processed using the chosen engine.
+
+`\begin{center} %center`  
+`  \includegraphics[width=10cm, height=6cm, keepaspectratio]{img/chart.png}  `  
+`(source: https://www.tylervigen.com/spurious-correlations)`  
+`\end{center}`  
+`\newpage  `  
+`\Large Large letters`  
+`\footnote{This is a footnote}`
+
+\begin{center} %center
+  \includegraphics[width=10cm, height=6cm, keepaspectratio]{../img/chart.png}  
+(source: https://www.tylervigen.com/spurious-correlations)
+\end{center}
+\newpage  
+\Large Large letters
+\footnote{This is a footnote}
+
+---
+
+You may also use the LaTeX citation syntax. We need to specify what package do we want to use to manage the citations, e.g.:
+
+`pdf_document:`  
+`    citation_package: natbib`
+
+::: {.panel-tabset}
+
+#### QMD
+
+`Studies concerning other cultural goods exploit quasi-natural experiments of policy and institutional changes. One example of the policy change is the introduction of download penalization in France (HADOPI), as scrutinized by @danaher_effect_2012. The analyzed cases of institutional change include the sudden and transitory disappearance of the NBC content from iTunes [@danaher_converting_2010] as well as the Megaupload shutdown [@danaher_gone_2014; @peukert_piracy_2013] and website blocking in the UK [@danaher_website_2016]. Interestingly, @danaher_gone_2014 and @peukert_piracy_2013 analyzing the same case of Megaupload shutdown come to rather different conclusions: the former find that the shutdown caused an increase in digital downloads from legal sources; the latter finds no change in box office revenue. This difference could be attributed to the fact that a downloaded "pirated" copy may be a perfect substitute for a copy downloaded from a legitimate source, but not for a visit to the movie theater. @danaher_website_2016 argue that only large scale interventions (such as blocking multiple websites with unauthorized distribution) appear noticeably reduce "piracy" and raise paid consumption, but these effects are only transitory.`
+
+#### Output
+
+Studies concerning other cultural goods exploit quasi-natural experiments of policy and institutional changes. One example of the policy change is the introduction of download penalization in France (HADOPI), as scrutinized by @danaher_effect_2012. The analyzed cases of institutional change include the sudden and transitory disappearance of the NBC content from iTunes [@danaher_converting_2010] as well as the Megaupload shutdown [@danaher_gone_2014; @peukert_piracy_2013] and website blocking in the UK [@danaher_website_2016]. Interestingly, @danaher_gone_2014 and @peukert_piracy_2013 analyzing the same case of Megaupload shutdown come to rather different conclusions: the former find that the shutdown caused an increase in digital downloads from legal sources; the latter finds no change in box office revenue. This difference could be attributed to the fact that a downloaded "pirated" copy may be a perfect substitute for a copy downloaded from a legitimate source, but not for a visit to the movie theater. @danaher_website_2016 argue that only large scale interventions (such as blocking multiple websites with unauthorized distribution) appear noticeably reduce "piracy" and raise paid consumption, but these effects are only transitory.
+
+:::
+
+# Bibliography
+
+The cited works get pasted here.
