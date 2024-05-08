@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wojciech Hardy">
+<meta name="dcterms.date" content="2024-05-07">
+
+<title>Quarto</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="QMD_class_3_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="QMD_class_3_1_files/libs/quarto-html/quarto.js"></script>
+<script src="QMD_class_3_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="QMD_class_3_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="QMD_class_3_1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="QMD_class_3_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="QMD_class_3_1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="QMD_class_3_1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="QMD_class_3_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="QMD_class_3_1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Quarto</h1>
+            <p class="subtitle lead">Bibliography</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Wojciech Hardy </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 7, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link active" data-scroll-target="#bibliography"><span class="header-section-number">1</span> Bibliography</a>
+  <ul class="collapse">
+  <li><a href="#why" id="toc-why" class="nav-link" data-scroll-target="#why"><span class="header-section-number">1.1</span> Why?</a></li>
+  <li><a href="#why-automate-this" id="toc-why-automate-this" class="nav-link" data-scroll-target="#why-automate-this"><span class="header-section-number">1.2</span> Why automate this?</a></li>
+  <li><a href="#so-how-to-manage-this" id="toc-so-how-to-manage-this" class="nav-link" data-scroll-target="#so-how-to-manage-this"><span class="header-section-number">1.3</span> So how to manage this?</a></li>
+  <li><a href="#citing-from-your-library" id="toc-citing-from-your-library" class="nav-link" data-scroll-target="#citing-from-your-library"><span class="header-section-number">1.4</span> Citing from your library</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">1.5</span> Example</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<hr>
+<section id="bibliography" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Bibliography</h1>
+<section id="why" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="why"><span class="header-section-number">1.1</span> Why?</h2>
+<p>When you’re documenting something / writing a report / a research article, etc. you often reference other sources.</p>
+<p>You should document where you get your information / solutions / data, etc., for at least these reasons:</p>
+<ul>
+<li>to avoid plagiarism (if you’re quoting).</li>
+<li>to show that you haven’t just made it up (you’re providing evidence).</li>
+<li>to make your work reproducible (e.g.&nbsp;if you’re referencing a source of some method or data).</li>
+</ul>
+<hr>
+</section>
+<section id="why-automate-this" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-automate-this"><span class="header-section-number">1.2</span> Why automate this?</h2>
+<p>In the long-run it will make your life a lot easier:</p>
+<section id="citation-tracking-and-syncing-bibliography" class="level3">
+<h3 class="anchored" data-anchor-id="citation-tracking-and-syncing-bibliography">Citation tracking and syncing bibliography</h3>
+<p>You don’t need to worry about syncing your bibliography (e.g.&nbsp;to remove a certain reference if you removed the citation from text while editting).</p>
+</section>
+<section id="storing-bibliography" class="level3">
+<h3 class="anchored" data-anchor-id="storing-bibliography">Storing bibliography</h3>
+<p>You can store your bibliography and helpful sources separately from any one document. That helps you with:</p>
+<ul>
+<li>reusing it</li>
+<li>sending it to someone</li>
+<li>just keeping track of interesting publications (even if you’re not referencing them anywhere right now)</li>
+</ul>
+</section>
+<section id="controlling-styles" class="level3">
+<h3 class="anchored" data-anchor-id="controlling-styles">Controlling styles</h3>
+<p>You can easily switch styles depending on the requirements with no additional effort.</p>
+<p>E.g. if you want a different style for different file formats.</p>
+<p>Or if you need to conform with a journal’s or firm styling policy.</p>
+<hr>
+</section>
+</section>
+<section id="so-how-to-manage-this" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="so-how-to-manage-this"><span class="header-section-number">1.3</span> So how to manage this?</h2>
+<p>There’s numerous helpful apps / plugins. You can try out, e.g.&nbsp;<a href="https://endnote.com/">EndNote</a> or <a href="https://www.zotero.org/">Zotero</a>.</p>
+<section id="zotero" class="level3">
+<h3 class="anchored" data-anchor-id="zotero">Zotero</h3>
+<p>Zotero, for example, will provide you with a bibliography repository; a desktop app and a browser plugin.</p>
+<p>One in-browser click and you save a reference to your library (whether it’s a journal article, a report, a website or Twitter thread).</p>
+<p>It usually gets the metadata right (you can try supplying it by yourself as well).</p>
+<p>You can then export the bibliography in various formats.</p>
+<hr>
+</section>
+</section>
+<section id="citing-from-your-library" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="citing-from-your-library"><span class="header-section-number">1.4</span> Citing from your library</h2>
+<p>Some tools can connect to your libraries (e.g.&nbsp;to EndNote or Zotero).</p>
+<p>You can actually also do this in Quarto (you can reference your Zotero library in YAML).</p>
+<p>But you might also export a library to a file.</p>
+<p>The most common formats are TeX-based, like <code>.bib</code> (a bibTeX file): - it’s popular - it can be used in Markdown and can be used in LaTex (convenient!)</p>
+<section id="pandoc-citing" class="level3">
+<h3 class="anchored" data-anchor-id="pandoc-citing">Pandoc-citing</h3>
+<p>You can rely on Pandoc to handle your citations. This works for various output formats. When creating a .pdf you can also rely on more LaTeX-oriented solutions and options.</p>
+</section>
+<section id="referencing-your-library" class="level3">
+<h3 class="anchored" data-anchor-id="referencing-your-library">Referencing your library</h3>
+<p>Use it by adding <code>bibliography: file.bib</code> in YAML.</p>
+<p>Take a look inside the bibliography.bib file (you can just view it in notepad).</p>
+<p>Zotero and other tools can generate entries for such files. Some journals/repositories also just provide the input for you to copy and paste.</p>
+</section>
+<section id="citing-from-your-library-1" class="level3">
+<h3 class="anchored" data-anchor-id="citing-from-your-library-1">Citing from your library</h3>
+<p>For a citation in parentheses you do <code>[@danaher_website_2016; @danaher_gone_2014]</code>.</p>
+<p>For a citation in parentheses you do <span class="citation" data-cites="danaher_website_2016 danaher_gone_2014">(<a href="#ref-danaher_website_2016" role="doc-biblioref">Danaher, Smith, and Telang 2016</a>; <a href="#ref-danaher_gone_2014" role="doc-biblioref">Danaher and Smith 2014</a>)</span>.</p>
+<hr>
+<p>If you want some additional info (like specific pages) you can add them. <code>;</code> marks the end of one citation and start of another <code>[see @danaher_website_2016, pp. 33-35; also @danaher_gone_2014, chap. 1]</code>.</p>
+<p>If you want some additional info (like specific pages) you can add them. <code>;</code> marks the end of one citation and start of another <span class="citation" data-cites="danaher_website_2016 danaher_gone_2014">(see <a href="#ref-danaher_website_2016" role="doc-biblioref">Danaher, Smith, and Telang 2016, 33–35</a>; also <a href="#ref-danaher_gone_2014" role="doc-biblioref">Danaher and Smith 2014, chap. 1</a>)</span>.</p>
+<hr>
+<p>Finally, for in-text citations you can do something like: <code>@danaher_website_2016</code> studied website blocking effects, and specifically said something that makes me cite a page number <code>@danaher_website_2016 [p. 33]</code>.</p>
+<p>Finally, for in-text citations you can do something like: <span class="citation" data-cites="danaher_website_2016">Danaher, Smith, and Telang (<a href="#ref-danaher_website_2016" role="doc-biblioref">2016</a>)</span> studied website blocking effects, and specifically said something that makes me cite a page number <span class="citation" data-cites="danaher_website_2016">Danaher, Smith, and Telang (<a href="#ref-danaher_website_2016" role="doc-biblioref">2016, 33</a>)</span>.</p>
+</section>
+<section id="managing-styles" class="level3">
+<h3 class="anchored" data-anchor-id="managing-styles">Managing styles</h3>
+<p>There are many citation/bibliography styles, see e.g.&nbsp;<a href="https://www.scribbr.com/citing-sources/citation-styles/">here</a>.</p>
+<p>They differ in details such as:</p>
+<ul>
+<li>Authors names presentation (full? only surnames?)</li>
+<li>“and” or “&amp;”</li>
+<li>All names or “<em>et al.</em>” or when to use “<em>et al.</em>”?</li>
+<li>Whether to include elements in citations (such as page numbers)</li>
+<li>Whether to create footnotes out of the citations</li>
+<li>Bibliography entries (format, italics, range of information, order of information, etc.)</li>
+<li>And more</li>
+</ul>
+<p>Default style of Pandoc is the Chicago Manual Style https://www.chicagomanualofstyle.org/home.html</p>
+<p>It’s a lot of boring work to manually go from one citation to another.</p>
+<p>You can use .csl files, to help yourself. In YAML add e.g.&nbsp;<code>csl: nature.csl</code>. There are two .csl files included in the folder. You can try them out.</p>
+<p>You can get files for other styles from the <a href="https://github.com/citation-style-language/styles">CSL project</a>, or <a href="https://www.zotero.org/styles">Zotero</a>. They are, essentially, templates.</p>
+</section>
+<section id="references-section" class="level3">
+<h3 class="anchored" data-anchor-id="references-section">References section</h3>
+<p>By default, the references section is generated at the end.</p>
+<p>You can change the location if you’re not using <code>biblatex</code> or <code>natbib</code> by adding the field:</p>
+<p><code>::: {#refs}</code></p>
+<p><code>:::</code></p>
+<hr>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-danaher_converting_2010" class="csl-entry" role="listitem">
+Danaher, Brett, Samita Dhanasobhon, Michael D. Smith, and Rahul Telang. 2010. <span>“Converting Pirates Without Cannibalizing Purchasers: The Impact of Digital Distribution on Physical Sales and Internet Piracy.”</span> <em>Marketing Science</em> 29 (6): 1138–51.
+</div>
+<div id="ref-danaher_gone_2014" class="csl-entry" role="listitem">
+Danaher, Brett, and Michael D Smith. 2014. <span>“Gone in 60 Seconds: The Impact of the Megaupload Shutdown on Movie Sales.”</span> <em>International Journal of Industrial Organization</em> 33: 1–8.
+</div>
+<div id="ref-danaher_website_2016" class="csl-entry" role="listitem">
+Danaher, Brett, Michael D Smith, and Rahul Telang. 2016. <span>“Website Blocking Revisited: The Effect of the UK November 2014 Blocks on Consumer Behavior.”</span> Digital Initiative Discussion &amp; Symposium at Harvard Business School, May 5 – 6, 2016, conference website.
+</div>
+<div id="ref-danaher_effect_2012" class="csl-entry" role="listitem">
+Danaher, Brett, Michael D Smith, Rahul Telang, and Siwen Chen. 2014. <span>“The Effect of Graduated Response Anti-Piracy Laws on Music Sales: Evidence from an Event Study in France.”</span> <em>The Journal of Industrial Economics</em> 62 (3): 541–53.
+</div>
+<div id="ref-peukert_piracy_2013" class="csl-entry" role="listitem">
+Peukert, Christian, Jörg Claussen, and Tobias Kretschmer. 2017. <span>“<span class="nocase">Piracy and box office movie revenues: Evidence from Megaupload</span>.”</span> <em>International Journal of Industrial Organization</em> 52: 188–215.
+</div>
+</div>
+<hr>
+<p>This only includes actually cited works!</p>
+<p>To include more, you can use a <code>nocite</code> metadata field (anywhere in the document really; but probably nicest way is to put it at the top or bottom):</p>
+<code>---</code>
+<pre class="code-block">nocite: |
+  @item1, @item2
+</pre>
+<p><code>---</code></p>
+<p>Or you can just include everything:</p>
+<code>---</code>
+<pre class="code-block">nocite: |
+  @*
+</pre>
+<p><code>---</code></p>
+</section>
+<section id="more-options" class="level3">
+<h3 class="anchored" data-anchor-id="more-options">More options</h3>
+<p>You can read more about Pandoc and citations here https://pandoc.org/MANUAL.html#citations</p>
+</section>
+<section id="citing-with-natbib-or-biblatex" class="level3">
+<h3 class="anchored" data-anchor-id="citing-with-natbib-or-biblatex">Citing with <code>natbib</code> or <code>biblatex</code></h3>
+<p>When doing pdfs, you can pick <code>natbib</code> or <code>biblatex</code> for some options more typical for TeX.</p>
+<p>In YAML add</p>
+<pre class="code-block">format:
+  pdf: 
+    cite-method: biblatex
+</pre>
+<p>You can then additionally use, e.g.&nbsp;<code>biblio-style:</code>, <code>biblio-title:</code>, etc.</p>
+</section>
+<section id="doing-footnotes" class="level3 panel-tabset">
+<h3 class="panel-tabset anchored" data-anchor-id="doing-footnotes">Doing footnotes</h3>
+<p>For footnotes, you have several options.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Short footnotes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Long footnotes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Inline footnotes</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<pre class="code-block">You can do them like this[^1] and define them below. 
+
+[^1]: that’s the short note.
+</pre>
+<p>You can do them like this<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and define them below.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<pre class="code-block">If you need to do a longer note with paragraphs, you’ll need to then do indentation[^longnote]. 
+
+[^longnote]: and here’s one with (double tabs) indentation.
+
+    You see this line starts to the right so it’s known it’s still from the footnote.
+
+</pre>
+<p>If you need to do a longer note with paragraphs, you’ll need to then do indentation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>You can refer to notes by the name you give them here.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<pre class="code-block">Finally, you can place footnotes inline^[This is a footnote generated inline.]. No identifiers in that case. 
+</pre>
+<p>Finally, you can place footnotes inline<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. No identifiers in that case.</p>
+<p>It all gets numbered and placed at the bottom in the end.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="example" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="example"><span class="header-section-number">1.5</span> Example</h2>
+<p>The references cited here appear in the Reference list above.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Markdown</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Output</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p><code>Studies concerning other cultural goods exploit quasi-natural experiments of policy and institutional changes. One example of the policy change is the introduction of download penalization in France (HADOPI), as scrutinized by @danaher_effect_2012. The analyzed cases of institutional change include the sudden and transitory disappearance of the NBC content from iTunes [@danaher_converting_2010] as well as the Megaupload shutdown [@danaher_gone_2014; @peukert_piracy_2013] and website blocking in the UK [@danaher_website_2016]. Interestingly, @danaher_gone_2014 and @peukert_piracy_2013 analyzing the same case of Megaupload shutdown come to rather different conclusions: the former find that the shutdown caused an increase in digital downloads from legal sources; the latter finds no change in box office revenue. This difference could be attributed to the fact that a downloaded "pirated" copy may be a perfect substitute for a copy downloaded from a legitimate source, but not for a visit to the movie theater. @danaher_website_2016 argue that only large scale interventions (such as blocking multiple websites with unauthorized distribution) appear noticeably reduce "piracy" and raise paid consumption, but these effects are only transitory.</code></p>
+<hr>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Studies concerning other cultural goods exploit quasi-natural experiments of policy and institutional changes. One example of the policy change is the introduction of download penalization in France (HADOPI), as scrutinized by <span class="citation" data-cites="danaher_effect_2012">Danaher et al. (<a href="#ref-danaher_effect_2012" role="doc-biblioref">2014</a>)</span>. The analyzed cases of institutional change include the sudden and transitory disappearance of the NBC content from iTunes <span class="citation" data-cites="danaher_converting_2010">(<a href="#ref-danaher_converting_2010" role="doc-biblioref">Danaher et al. 2010</a>)</span> as well as the Megaupload shutdown <span class="citation" data-cites="danaher_gone_2014 peukert_piracy_2013">(<a href="#ref-danaher_gone_2014" role="doc-biblioref">Danaher and Smith 2014</a>; <a href="#ref-peukert_piracy_2013" role="doc-biblioref">Peukert, Claussen, and Kretschmer 2017</a>)</span> and website blocking in the UK <span class="citation" data-cites="danaher_website_2016">(<a href="#ref-danaher_website_2016" role="doc-biblioref">Danaher, Smith, and Telang 2016</a>)</span>. Interestingly, <span class="citation" data-cites="danaher_gone_2014">Danaher and Smith (<a href="#ref-danaher_gone_2014" role="doc-biblioref">2014</a>)</span> and <span class="citation" data-cites="peukert_piracy_2013">Peukert, Claussen, and Kretschmer (<a href="#ref-peukert_piracy_2013" role="doc-biblioref">2017</a>)</span> analyzing the same case of Megaupload shutdown come to rather different conclusions: the former find that the shutdown caused an increase in digital downloads from legal sources; the latter finds no change in box office revenue. This difference could be attributed to the fact that a downloaded “pirated” copy may be a perfect substitute for a copy downloaded from a legitimate source, but not for a visit to the movie theater. <span class="citation" data-cites="danaher_website_2016">Danaher, Smith, and Telang (<a href="#ref-danaher_website_2016" role="doc-biblioref">2016</a>)</span> argue that only large scale interventions (such as blocking multiple websites with unauthorized distribution) appear noticeably reduce “piracy” and raise paid consumption, but these effects are only transitory.</p>
+<hr>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>that’s the short note.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>and here’s one with (double tabs) indentation.</p>
+<p>You see this line starts to the right so it’s known it’s still from the footnote.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This is a footnote generated inline.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="QMD_class_3_1_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
