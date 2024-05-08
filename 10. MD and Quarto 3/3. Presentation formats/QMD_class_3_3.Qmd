@@ -1,0 +1,105 @@
+---
+title: "Quarto"
+subtitle: "Presentation formats"
+author: "Wojciech Hardy"
+date: today
+format:
+  revealjs:
+    footer: "Presentation for the RR course."
+    duration: 15
+  pptx: default
+  beamer:
+    theme: "AnnArbor"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+latex-tinytex: false
+execute:
+  echo: fenced
+---
+
+# Let's see!
+
+## The basics
+
+- Remember that you can insert code chunks in all formats.
+
+- YAML data (author, date, etc.) constitute the first main slide.
+
+- Two hashes and a title (`## The basics`) create a new slide (like the one you're reading now)
+
+- Single hash creates a section slide (`# Section 1`)
+
+- You can also set global slide options in YAML
+
+# Section 1
+
+## Display modes
+
+`revealjs` formats provide some handy shortcuts:
+
+- `f` - fullscreen (`esc` for exit)
+- `s` - speaker view
+- `o` - overview 
+- `e` - pdf export mode
+
+Also check lower-left settings menu.
+
+## Incremental bullets
+
+> - Use `incremental: true` option in YAML to have the bullet points appear one by one.
+
+> - Alternatively, you can do this only for a specific list.
+
+> - to achieve this, write "`> -`" instead of just "`-`"
+
+> - you can also put a list in a `::: {.incremental} ::: field`
+
+## Manipulating the presentation size {.smaller}
+
+- Use "`smaller: true`" to keep the font size small.
+
+- Alternatively, you can put "`{.smaller}`" right after your slide header to apply this only locally (like in this slide)
+
+- Notice that the presentation adjusts itself to window size and shape
+
+## Other options worth mentioning: {.smaller data-background=../img/background.jpg}
+
+- `data-background:` attribute to modify the background image ([photo source](https://www.pexels.com/photo/beach-2833563/))
+
+- CSS styles still work ("`css: styles.css`")
+
+- `logo:` for a logo image
+
+- `footer:` for a footer
+
+- You can add notes using the field 
+
+`::: {.notes}
+
+Speaker notes go here. And view them in speaker mode.
+
+:::`
+
+::: {.notes}
+A speaker note!
+:::
+
+## Beamer and Powerpoint
+
+Beamer uses LaTeX, so again you can use LaTeX syntax here.
+
+- Some nice themes here, e.g. one used here:
+
+`theme: "AnnArbor"`
+
+`colortheme: "dolphin"`
+
+`fonttheme: "structurebold"`
+
+You can also check `powerpoint`.
+
+## More options
+
+Of course there is a lot more options. 
+
+[Check the full documentation.](https://quarto.org/docs/presentations/)

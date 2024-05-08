@@ -1,0 +1,267 @@
+---
+title: "Quarto"
+subtitle: "Bibliography"
+author: "Wojciech Hardy"
+date: today
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true
+number-sections: true
+number-depth: 2
+title-block-banner: true
+bibliography: bibliography.bib
+execute:
+  echo: fenced
+---
+
+---
+
+# Bibliography
+
+## Why?
+
+When you're documenting something / writing a report / a research article, etc. you often reference other sources.
+
+You should document where you get your information / solutions / data, etc., for at least these reasons:
+
+- to avoid plagiarism (if you're quoting).
+- to show that you haven't just made it up (you're providing evidence).
+- to make your work reproducible (e.g. if you're referencing a source of some method or data). 
+
+---
+
+## Why automate this?
+
+In the long-run it will make your life a lot easier:
+
+### Citation tracking and syncing bibliography
+
+You don't need to worry about syncing your bibliography (e.g. to remove a certain reference if you removed the citation from text while editting).
+
+### Storing bibliography
+
+You can store your bibliography and helpful sources separately from any one document. That helps you with:
+
+- reusing it
+- sending it to someone
+- just keeping track of interesting publications (even if you're not referencing them anywhere right now)
+
+### Controlling styles
+
+You can easily switch styles depending on the requirements with no additional effort. 
+
+E.g. if you want a different style for different file formats.
+
+Or if you need to conform with a journal's or firm styling policy.
+
+---
+
+## So how to manage this?
+
+There's numerous helpful apps / plugins. You can try out, e.g. [EndNote](https://endnote.com/) or [Zotero](https://www.zotero.org/).
+
+### Zotero 
+
+Zotero, for example, will provide you with a bibliography repository; a desktop app and a browser plugin.
+
+One in-browser click and you save a reference to your library (whether it's a journal article, a report, a website or Twitter thread).
+
+It usually gets the metadata right (you can try supplying it by yourself as well).
+
+You can then export the bibliography in various formats.
+
+---
+
+## Citing from your library
+
+Some tools can connect to your libraries (e.g. to EndNote or Zotero).
+
+You can actually also do this in Quarto (you can reference your Zotero library in YAML).
+
+But you might also export a library to a file. 
+
+The most common formats are TeX-based, like `.bib` (a bibTeX file):
+- it's popular
+- it can be used in Markdown and can be used in LaTex (convenient!)
+
+### Pandoc-citing
+
+You can rely on Pandoc to handle your citations. This works for various output formats. When creating a .pdf you can also rely on more LaTeX-oriented solutions and options.
+
+### Referencing your library
+
+Use it by adding `bibliography: file.bib` in YAML.
+
+Take a look inside the bibliography.bib file (you can just view it in notepad).
+
+Zotero and other tools can generate entries for such files. Some journals/repositories also just provide the input for you to copy and paste.
+
+### Citing from your library
+
+For a citation in parentheses you do `[@danaher_website_2016; @danaher_gone_2014]`.
+
+For a citation in parentheses you do [@danaher_website_2016; @danaher_gone_2014].
+
+---
+
+If you want some additional info (like specific pages) you can add them. `;` marks the end of one citation and start of another `[see @danaher_website_2016, pp. 33-35; also @danaher_gone_2014, chap. 1]`.
+
+If you want some additional info (like specific pages) you can add them. `;` marks the end of one citation and start of another [see @danaher_website_2016, pp. 33-35; also @danaher_gone_2014, chap. 1].
+
+---
+
+Finally, for in-text citations you can do something like: `@danaher_website_2016` studied website blocking effects, and specifically said something that makes me cite a page number `@danaher_website_2016 [p. 33]`.
+
+Finally, for in-text citations you can do something like: @danaher_website_2016 studied website blocking effects, and specifically said something that makes me cite a page number @danaher_website_2016 [p. 33].
+
+### Managing styles
+
+There are many citation/bibliography styles, see e.g. [here](https://www.scribbr.com/citing-sources/citation-styles/).
+
+They differ in details such as:
+
+-	Authors names presentation (full? only surnames?)
+-	“and” or “&”
+-	All names or “*et al.*” or when to use “*et al.*”?
+-	Whether to include elements in citations (such as page numbers)
+-	Whether to create footnotes out of the citations
+-	Bibliography entries (format, italics, range of information, order of information, etc.)
+-	And more
+
+Default style of Pandoc is the Chicago Manual Style https://www.chicagomanualofstyle.org/home.html
+
+It's a lot of boring work to manually go from one citation to another.
+
+You can use .csl files, to help yourself. In YAML add e.g. `csl: nature.csl`. There are two .csl files included in the folder. You can try them out.
+
+You can get files for other styles from the [CSL project](https://github.com/citation-style-language/styles), or [Zotero](https://www.zotero.org/styles). They are, essentially, templates.
+
+### References section
+
+By default, the references section is generated at the end. 
+
+You can change the location if you’re not using `biblatex` or `natbib` by adding the field:
+
+
+`::: {#refs}`
+
+`:::`
+
+---
+
+::: {#refs}
+:::
+
+---
+
+
+This only includes actually cited works!
+
+To include more, you can use a `nocite` metadata field (anywhere in the document really; but probably nicest way is to put it at the top or bottom):
+
+`---`
+<pre class="code-block">
+nocite: |
+  @item1, @item2
+</pre>
+`---`
+
+Or you can just include everything:
+
+`---`
+<pre class="code-block">
+nocite: |
+  @*
+</pre>
+`---`
+
+### More options
+
+You can read more about Pandoc and citations here https://pandoc.org/MANUAL.html#citations
+
+### Citing with `natbib` or `biblatex` 
+
+When doing pdfs, you can pick `natbib` or `biblatex` for some options more typical for TeX. 
+
+In YAML add
+
+<pre class="code-block">
+format:
+  pdf: 
+    cite-method: biblatex
+</pre>
+
+You can then additionally use, e.g. `biblio-style: `, `biblio-title: `, etc. 
+
+### Doing footnotes {.panel-tabset}
+
+For footnotes, you have several options. 
+
+::: {.panel-tabset}
+
+#### Short footnotes
+
+<pre class="code-block">
+You can do them like this[^1] and define them below. 
+
+[^1]: that’s the short note.
+</pre>
+
+You can do them like this[^1] and define them below. 
+
+[^1]: that’s the short note.
+
+#### Long footnotes
+
+<pre class="code-block">
+If you need to do a longer note with paragraphs, you’ll need to then do indentation[^longnote]. 
+
+[^longnote]: and here’s one with (double tabs) indentation.
+
+    You see this line starts to the right so it’s known it’s still from the footnote.
+
+</pre>
+
+If you need to do a longer note with paragraphs, you’ll need to then do indentation[^longnote]. 
+
+[^longnote]: and here’s one with (double tabs) indentation.
+
+    You see this line starts to the right so it’s known it’s still from the footnote.
+
+You can refer to notes by the name you give them here. 
+
+#### Inline footnotes
+
+<pre class="code-block">
+Finally, you can place footnotes inline^[This is a footnote generated inline.]. No identifiers in that case. 
+</pre>
+
+Finally, you can place footnotes inline^[This is a footnote generated inline.]. No identifiers in that case. 
+
+It all gets numbered and placed at the bottom in the end.
+
+:::
+
+---
+
+## Example 
+
+The references cited here appear in the Reference list above.
+
+::: {.panel-tabset}
+
+### Markdown
+
+`Studies concerning other cultural goods exploit quasi-natural experiments of policy and institutional changes. One example of the policy change is the introduction of download penalization in France (HADOPI), as scrutinized by @danaher_effect_2012. The analyzed cases of institutional change include the sudden and transitory disappearance of the NBC content from iTunes [@danaher_converting_2010] as well as the Megaupload shutdown [@danaher_gone_2014; @peukert_piracy_2013] and website blocking in the UK [@danaher_website_2016]. Interestingly, @danaher_gone_2014 and @peukert_piracy_2013 analyzing the same case of Megaupload shutdown come to rather different conclusions: the former find that the shutdown caused an increase in digital downloads from legal sources; the latter finds no change in box office revenue. This difference could be attributed to the fact that a downloaded "pirated" copy may be a perfect substitute for a copy downloaded from a legitimate source, but not for a visit to the movie theater. @danaher_website_2016 argue that only large scale interventions (such as blocking multiple websites with unauthorized distribution) appear noticeably reduce "piracy" and raise paid consumption, but these effects are only transitory.`
+
+---
+
+### Output
+
+Studies concerning other cultural goods exploit quasi-natural experiments of policy and institutional changes. One example of the policy change is the introduction of download penalization in France (HADOPI), as scrutinized by @danaher_effect_2012. The analyzed cases of institutional change include the sudden and transitory disappearance of the NBC content from iTunes [@danaher_converting_2010] as well as the Megaupload shutdown [@danaher_gone_2014; @peukert_piracy_2013] and website blocking in the UK [@danaher_website_2016]. Interestingly, @danaher_gone_2014 and @peukert_piracy_2013 analyzing the same case of Megaupload shutdown come to rather different conclusions: the former find that the shutdown caused an increase in digital downloads from legal sources; the latter finds no change in box office revenue. This difference could be attributed to the fact that a downloaded "pirated" copy may be a perfect substitute for a copy downloaded from a legitimate source, but not for a visit to the movie theater. @danaher_website_2016 argue that only large scale interventions (such as blocking multiple websites with unauthorized distribution) appear noticeably reduce "piracy" and raise paid consumption, but these effects are only transitory.
+
+---
+
+:::
