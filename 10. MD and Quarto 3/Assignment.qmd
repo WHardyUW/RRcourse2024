@@ -3,10 +3,19 @@ title: "Assignment"
 author: ""
 date: today
 output: html_document
+params:
+  season_number: 1:8
 ---
 
 ```{r}
-load("../Data/season_1.RData")
+# params <- list(season_number = 1:8)
+
+# Loop through each season number
+for (season_number in params$season_number) {
+  render("Assignment.qmd", 
+         output_file = sprintf("Season_%s_Report.html", season_number),
+         params = list(season_number = season_number))  # Ensure params is a named list
+}
 ```
 
 # Game of Thrones - Season 1 summary in numbers
