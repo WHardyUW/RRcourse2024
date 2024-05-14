@@ -1,0 +1,132 @@
+---
+title: "Quarto"
+subtitle: "Parameters"
+author: "Wojciech Hardy"
+date: today
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true
+number-sections: true
+number-depth: 2
+title-block-banner: true
+execute:
+  echo: fenced
+params:
+  year: 2018
+  region: Europe
+  printcode: TRUE
+  data: file.csv
+---
+
+---
+
+# Parameters
+
+One of the more exciting features for Quarto/MD is `params`.
+
+This allows you to load up some objects as you render the document.
+
+That means you can make the document dependent on input.
+
+## How to specify params?
+
+It's a bit different for Jupyter (Python) and knitr (R). 
+
+In Jupyter you define them in a code block:
+
+```{python}
+#| tags: [parameters]
+
+alpha = 0.1
+ratio = 0.1
+```
+
+In knitr (R) you can specify `params` in `YAML`:
+
+<pre class="code-block">
+params:
+   year: 2018
+   region: Europe
+   printcode: TRUE
+   data: file.csv
+</pre>
+
+Note: `year`, `region`, `printcode`, `data` are just object names (you can pick different ones).
+
+Note 2: 
+
+- `year` has numeric format; 
+- `region` has a text format; 
+- `printcode` has a TRUE/FALSE format;
+- `data` also has a **text** format!
+
+## Using params
+
+In Jupyter you can refer directly to the objects (i.e. `year`, `region`).
+
+In Knitr you can use the `params` by picking them from the `params` list of objects:
+
+```{r}
+
+# Let's load the data
+data <- read.csv(params$data)
+
+# Let's find the value for region and year
+value <- data$value[data$region==params$region & data$year==params$year]
+
+cat("The value for", params$region, "and year", params$year, "was", value, ".")
+
+```
+
+## Rendering with params
+
+The values specified in YAML are the default, but we can render the report with other ones. Try:
+
+<pre class="code-block">
+quarto_render("QMD_class_3_4.qmd", execute_params = list(
+  year = 2017,
+  region = "Asia",
+  printcode = FALSE,
+  data = "file.csv"
+))
+</pre>
+
+Or, via terminal: 
+
+`quarto render QMD_class_3_4.Qmd -P year:2017 -P region:"Asia"`
+
+
+## Generating several documents
+
+You might want to generate different report versions. To avoid overwriting your own work (each document rendered with the same name):
+
+<pre class="code-block">
+reg <- "Asia"
+y <- 2017
+quarto_render("QMD_class_3_4.qmd", execute_params = list(
+  year = y,
+  region = reg,
+  printcode = FALSE,
+  data = "file.csv"
+), output_file = paste0(“Report-“, reg, “-“, y, “.html”)))
+</pre>
+
+
+# Assignment
+
+Open the Assignment.qmd file (and the .html for reference). Take a look.
+
+It loads up data for Season 1 of Game of Thrones, then creates some short summary on that basis. 
+
+We have data for eight seasons though!
+
+So: modify the Assignment file to turn it into an automated report that takes data as input.
+
+It should then create a separate document for each season.
+
+- Use params. 
+- You can refer to the files in the Data folder as input (you could actually write web scraping code in code chunks, that would grab this info from Wikipedia as you render).
+- Change the relevant numbers, names, descriptions, etc. in the text so that the report includes info for the correct season
+- If you get that far, do a loop with render() to quickly create 8 reports in pdfs.
