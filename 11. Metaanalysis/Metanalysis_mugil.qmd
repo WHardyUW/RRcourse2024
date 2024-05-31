@@ -1,0 +1,142 @@
+---
+title: "Meta-analysis on Toy Preferences: Study Year and Setting Effects"
+author: ""
+date: today
+output: html_document
+---
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.stats.meta_analysis import effectsize_smd, combine_effects
+import statsmodels.formula.api as smf
+
+# Load the data from the Excel file
+data = pd.read_excel("data/metaanalysis_data.xlsx")
+
+# Display the first few rows of the dataset
+data.head()
+```
+
+# Meta-analysis on Toy Preferences: Study Year and Setting Effects
+
+### __(*Note:* This analysis is based on the data from Todd et al., 2017 - "Sex differences in children’s toy preferences: A systematic review, meta‐regression, and meta‐analysis")__
+
+***
+
+### Overview
+
+Meta-analysis is a statistical technique for combining the findings from independent studies. It is often used to assess the effectiveness of healthcare interventions and to derive general conclusions from multiple studies on the same topic.
+
+In this assignment, we analyze data on children's toy preferences, specifically focusing on the effect of the year of study publication and the study setting (home, laboratory, nursery). The dataset includes mean times (in seconds) spent playing with toys, sample sizes, standard errors, and additional study characteristics.
+
+***
+
+### Data Summary
+
+```{python}
+# Calculate effect sizes for boys playing with male-typed toys
+data['TE_boys_male'], data['seTE_boys_male'] = effectsize_smd(
+    data['Mean_boys_play_male'], data['SD_boys_play_male'], data['N_boys'],
+    data['Mean_girls_play_male'], data['SD_girls_play_male'], data['N_girls']
+)
+data['TE_girls_female'], data['seTE_girls_female'] = effectsize_smd(
+    data['Mean_girls_play_female'], data['SD_girls_play_female'], data['N_girls'],
+    data['Mean_boys_play_female'], data['SD_boys_play_female'], data['N_boys']
+)
+
+# Perform meta-analysis for boys playing with male-typed toys
+res_boys_male = combine_effects(data['TE_boys_male'], data['seTE_boys_male']**2, method_re='dl')
+res_girls_female = combine_effects(data['TE_girls_female'], data['seTE_girls_female']**2, method_re='dl')
+
+res_boys_male_summary = {
+    "Combined effect size (random effects)": res_boys_male.effect,
+    "95% CI (random)": (res_boys_male.conf_int(alpha=0.05)[0], res_boys_male.conf_int(alpha=0.05)[1])
+}
+
+res_girls_female_summary = {
+    "Combined effect size (random effects)": res_girls_female.effect,
+    "95% CI (random)": (res_girls_female.conf_int(alpha=0.05)[0], res_girls_female.conf_int(alpha=0.05)[1])
+}
+
+res_boys_male_summary, res_girls_female_summary
+```
+
+### Combined Effects
+
+#### Boys Playing with Male-typed Toys
+
+- Number of studies combined: `r len(data)`
+- Random effects model: `r res_boys_male_summary["Combined effect size (random effects)"]` [95% CI: `r res_boys_male_summary["95% CI (random)"][0]`, `r res_boys_male_summary["95% CI (random)"][1]`]
+
+#### Girls Playing with Female-typed Toys
+
+- Number of studies combined: `r len(data)`
+- Random effects model: `r res_girls_female_summary["Combined effect size (random effects)"]` [95% CI: `r res_girls_female_summary["95% CI (random)"][0]`, `r res_girls_female_summary["95% CI (random)"][1]`]
+
+### Funnel Plot
+
+The funnel plot helps to visualize the distribution of the effect sizes and check for publication bias.
+
+```{python}
+# Create a basic funnel plot for boys playing with male-typed toys
+plt.figure(figsize=(10, 6))
+plt.scatter(data['TE_boys_male'], 1 / data['seTE_boys_male'], alpha=0.7)
+plt.title('Funnel Plot for Boys Playing with Male-typed Toys')
+plt.xlabel('Effect Size')
+plt.ylabel('Precision (1/SE)')
+plt.show()
+```
+
+### Contour-enhanced Funnel Plot
+
+To add more details, we can create a contour-enhanced funnel plot:
+
+```{python}
+# Add contour-enhanced features to the funnel plot for boys playing with male-typed toys
+plt.figure(figsize=(10, 6))
+plt.scatter(data['TE_boys_male'], 1 / data['seTE_boys_male'], alpha=0.7)
+contour_levels = [0.90, 0.95, 0.99]
+contour_colors = ['darkblue', 'blue', 'lightblue']
+for level, color in zip(contour_levels, contour_colors):
+    plt.fill_betweenx(
+        np.arange(0, 1.2, 0.01),
+        level - np.arange(0, 1.2, 0.01),
+        level + np.arange(0, 1.2, 0.01),
+        color=color, alpha=0.2
+    )
+plt.title('Contour-enhanced Funnel Plot for Boys Playing with Male-typed Toys')
+plt.xlabel('Effect Size')
+plt.ylabel('Precision (1/SE)')
+plt.legend(['p < 0.10', 'p < 0.05', 'p < 0.01'], loc='upper right')
+plt.show()
+```
+
+### Checking the Effect of Study Year and Setting
+
+We analyze whether the year of study publication and study setting affect the results using meta-regression.
+
+```{python}
+# Prepare the data for meta-regression
+data['Year'] = data['Year'].astype(float)
+data['Setting'] = data['Setting'].astype(float)
+
+meta_reg_year = smf.ols('TE_boys_male ~ Year + Setting', data=data).fit()
+meta_reg_year.summary()
+```
+
+### Effect of Author Gender
+
+We investigate whether the gender of the authors has any effect on the study outcomes.
+
+```{python}
+# Meta-regression to check the impact of author gender for boys playing with male-typed toys
+meta_reg_gender = smf.ols('TE_boys_male ~ Q("Female authors") + Q("Male authors")', data=data).fit()
+meta_reg_gender.summary()
+```
+
+### Summary
+
+This analysis provided insights into the overall effects of children's toy preferences and explored potential biases and factors affecting the results. The funnel plots and meta-regression analyses are useful tools for assessing the quality and consistency of the findings across different studies.
+```
