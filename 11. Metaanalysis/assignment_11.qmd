@@ -1,0 +1,76 @@
+---
+title: "assignment_11"
+format: html
+editor: visual
+---
+
+
+## Required libraries
+
+```{r}
+library(dplyr)
+library(meta)
+```
+
+###Reading the data
+```{r}
+m_data <- readxl::read_excel("data/metaanalysis_data.xlsx")
+```
+
+## Running meta analysis for boys play with female toys, using both fixed and random effect
+
+```{r}
+m.raw_boys_play_female <- metacont(n.e=N_boys,
+                  mean.e=Mean_boys_play_female,
+                  sd.e=SD_boys_play_female,
+                  n.c=N_boys,
+                  mean.c=Mean_boys_play_male,
+                  sd.c=SD_boys_play_male,
+                  data=m_data,
+                  studlab=paste(Study),
+                  comb.fixed = TRUE,
+                  comb.random = TRUE,
+)
+```
+
+### Plotting forest for it
+```{r}
+m.raw_boys_play_female %>% forest()
+```
+### Plotting funnel
+```{r}
+m.raw_boys_play_female %>% funnel()
+```
+### Finding does authers gender effect it
+```{r}
+m.raw_boys_play_female %>% metareg(`Study` + `Male authors`)
+m.raw_boys_play_female %>% metareg(`Study` + `Female authors`)
+```
+
+## Running meta analysis for girls play with male toys, using both fixed and random effect
+```{r}
+m.raw_girsl_play_male <- metacont(n.e=N_girls,
+                       mean.e=Mean_girls_play_male,
+                       sd.e=SD_girls_play_male,
+                       n.c=N_girls,
+                       mean.c=Mean_girls_play_female,
+                       sd.c=SD_girls_play_female,
+                       data=m_data,
+                       studlab=paste(Study),
+                       comb.fixed = TRUE,
+                       comb.random = TRUE,
+)
+```
+### Plotting forest for it
+```{r}
+m.raw_girsl_play_male %>% forest()
+```
+### Plotting funnel
+```{r}
+m.raw_girsl_play_male %>% funnel()
+```
+### Finding does authers gender effect it
+```{r}
+m.raw_girsl_play_male %>% metareg(`Study` + `Male authors`)
+m.raw_girsl_play_male %>% metareg(`Study` + `Female authors`)
+```
