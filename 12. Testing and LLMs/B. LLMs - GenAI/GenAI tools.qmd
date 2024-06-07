@@ -1,0 +1,77 @@
+---
+title: "Testing"
+author: "Wojciech Hardy"
+date: today
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true
+title-block-banner: true
+execute:
+  echo: fenced
+---
+
+# ChatGPT (and similar tools)
+
+For consideration:
+- [ChatGPT](https://chat.openai.com/)
+- [Copilot](https://docs.github.com/en/copilot/quickstart) (free for students!)
+
+## Why is it important? genAI tools can:
+
+- write / translate code,
+
+- document code,
+
+- explain code,
+
+- suggest improvements,
+
+- suggest tests,
+
+- act as tutors,
+
+- be faster than StackExchange.
+
+- automate workflow (e.g. think of an LLM-driven automated testing suite at the first stage of code review
+
+## Some basics
+
+- It's not conscious, it doesn't have own ideas or sense of self.
+
+- It might say stupid things when asked about something outside of its training set (e.g. something very new or something so basic that no one talks about it).
+
+- It might start 'making things up' if questioned too much.
+
+- You need to take it with a grain of salt and you should know what you're doing (it's a tool, you're the one responsible for its use).
+
+All this considered, there are now multiple studies showing genAI can increase productivity, enhance speed, quality, etc. and give largest boosts to lower-skilled workers (so can act as equalisers).
+
+## AI and ethics
+
+There are a lot of ethical issues and dangers to consider. Be aware:
+
+1) you are responsible for how you use the AI's output - it's not 100% accurate
+
+2) don't pretend AI's output is purely your own work
+
+3) take lecturer's intentions into consideration - don't cheat
+
+In these classes, please follow our AI policy - if used for final project, please state the scope of the support.
+
+For other classes, theses, etc. be aware that course policies and faculty / university policies might differ.
+
+## Let's go through a case
+
+Here: [https://chat.openai.com/chat]
+
+Let's play around with this weird piece of code:
+
+void f(char *x, char*y, int z) { int z2 = (z + 7) / 8; switch (z % 8) { case 0: do { *x++ = *y++; case 7: *x++ = *y++; case 6: *x++ = *y++; case 5: *x++ = *y++; case 4: *x++ = *y++; case 3: *x++ = *y++; case 2: *x++ = *y++; case 1: *x++ = *y++; } while (--z2 > 0); } }
+
+OR, take the code assignment from one of the previous classes and just quickly glow it up with an LLM. Try some reformatting, simplification, etc.
+
+Hint 1: not sure how to improve the code? Ask ChatGPT if it sees some way.
+
+Hint 2: the code now throws an error? feed the error back to ChatGPT, ask it for correction.
