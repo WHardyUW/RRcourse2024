@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
-<meta name="dcterms.date" content="2024-05-31">
 
-<title>Assignment</title>
+<title>metaanalysis_solution</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,44 +80,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Assignment</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 31, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div id="d45f6625" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}" data-execution_count="6">
+<hr>
+<p>title: “Meta-Analysis Assignment” author: “Hitesh Kumar Tetarwal - 455361” date: today output: html_document</p>
+<div id="b02a02c2" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.meta_analysis <span class="im">import</span> effectsize_smd, combine_effects</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from the Excel file</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_excel(<span class="st">"data/metaanalysis_data.xlsx"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the dataset</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_excel(<span class="st">"data/metaanalysis_data.xlsx"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first few rows</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <div>
 
@@ -280,22 +259,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="meta-analysis-on-toy-preferences" class="level1">
-<h1>Meta-analysis on Toy Preferences</h1>
-<section id="note-this-analysis-is-based-on-the-data-from-todd-et-al.-2017---sex-differences-in-childrens-toy-preferences-a-systematic-review-metaregression-and-metaanalysis" class="level3">
-<h3 class="anchored" data-anchor-id="note-this-analysis-is-based-on-the-data-from-todd-et-al.-2017---sex-differences-in-childrens-toy-preferences-a-systematic-review-metaregression-and-metaanalysis"><strong>(<em>Note:</em> This analysis is based on the data from Todd et al., 2017 - “Sex differences in children’s toy preferences: A systematic review, meta‐regression, and meta‐analysis”)</strong></h3>
+<section id="meta-analysis-on-childrens-toy-preferences" class="level1">
+<h1>Meta-Analysis on Children’s Toy Preferences</h1>
+<section id="data-from-todd-et-al.-2017---sex-differences-in-childrens-toy-preferences-a-systematic-review-metaregression-and-metaanalysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-from-todd-et-al.-2017---sex-differences-in-childrens-toy-preferences-a-systematic-review-metaregression-and-metaanalysis">(*Data from Todd et al., 2017 - “Sex differences in children’s toy preferences: A systematic review, meta‐regression, and meta‐analysis”)</h3>
 <hr>
 </section>
-<section id="overview" class="level3">
-<h3 class="anchored" data-anchor-id="overview">Overview</h3>
-<p>Meta-analysis is a statistical technique for combining the findings from independent studies. It is often used to assess the effectiveness of healthcare interventions and to derive general conclusions from multiple studies on the same topic.</p>
-<p>In this assignment, we analyze data on children’s toy preferences, specifically focusing on the differences between boys’ and girls’ choices of toys. The dataset includes mean times (in seconds) spent playing with toys, sample sizes, standard errors, and additional study characteristics.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Meta-analysis is a statistical technique that combines results from multiple studies to identify patterns and derive overall conclusions. This analysis examines sex differences in children’s toy preferences by analyzing various studies on boys’ and girls’ choices of toys.</p>
 <hr>
 </section>
-<section id="data-summary" class="level3">
-<h3 class="anchored" data-anchor-id="data-summary">Data Summary</h3>
-<div id="1b8ece90" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate effect sizes for boys playing with male-typed toys</span></span>
+<section id="data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis">Data Analysis</h3>
+<p>First, we calculate the effect sizes for boys playing with male-typed toys and girls playing with female-typed toys using the standardized mean difference (SMD). This metric allows us to compare the differences in mean times spent playing with toys between boys and girls across different studies, adjusting for the variability within each study.</p>
+<div id="e6aaa5a7" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute effect sizes for boys playing with male-typed toys</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'TE_boys_male'</span>], data[<span class="st">'seTE_boys_male'</span>] <span class="op">=</span> effectsize_smd(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_boys_play_male'</span>], data[<span class="st">'SD_boys_play_male'</span>], data[<span class="st">'N_boys'</span>],</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_girls_play_male'</span>], data[<span class="st">'SD_girls_play_male'</span>], data[<span class="st">'N_girls'</span>]</span>
@@ -303,25 +282,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'TE_girls_female'</span>], data[<span class="st">'seTE_girls_female'</span>] <span class="op">=</span> effectsize_smd(</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_girls_play_female'</span>], data[<span class="st">'SD_girls_play_female'</span>], data[<span class="st">'N_girls'</span>],</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_boys_play_female'</span>], data[<span class="st">'SD_boys_play_female'</span>], data[<span class="st">'N_boys'</span>]</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform meta-analysis for boys playing with male-typed toys</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>res_boys_male <span class="op">=</span> combine_effects(data[<span class="st">'TE_boys_male'</span>], data[<span class="st">'seTE_boys_male'</span>]<span class="op">**</span><span class="dv">2</span>, method_re<span class="op">=</span><span class="st">'dl'</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>res_girls_female <span class="op">=</span> combine_effects(data[<span class="st">'TE_girls_female'</span>], data[<span class="st">'seTE_girls_female'</span>]<span class="op">**</span><span class="dv">2</span>, method_re<span class="op">=</span><span class="st">'dl'</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>res_boys_male_summary <span class="op">=</span> {</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Combined effect size (random effects)"</span>: res_boys_male.effect,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"95% CI (random)"</span>: (res_boys_male.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">0</span>], res_boys_male.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">1</span>])</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>res_girls_female_summary <span class="op">=</span> {</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Combined effect size (random effects)"</span>: res_girls_female.effect,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"95% CI (random)"</span>: (res_girls_female.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">0</span>], res_girls_female.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">1</span>])</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>res_boys_male_summary, res_girls_female_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>({'Combined effect size (random effects)': 0     1.151674
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we perform a random effects meta-analysis to combine the effect sizes from different studies. This approach accounts for the variability both within and between studies.</p>
+<div id="082969b1" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Meta-analysis for boys playing with male-typed toys</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>results_boys_male <span class="op">=</span> combine_effects(data[<span class="st">'TE_boys_male'</span>], data[<span class="st">'seTE_boys_male'</span>]<span class="op">**</span><span class="dv">2</span>, method_re<span class="op">=</span><span class="st">'dl'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>results_girls_female <span class="op">=</span> combine_effects(data[<span class="st">'TE_girls_female'</span>], data[<span class="st">'seTE_girls_female'</span>]<span class="op">**</span><span class="dv">2</span>, method_re<span class="op">=</span><span class="st">'dl'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>summary_boys_male <span class="op">=</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Effect Size (Random Effects)"</span>: results_boys_male.effect,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"95% CI"</span>: (results_boys_male.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">0</span>], results_boys_male.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">1</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>summary_girls_female <span class="op">=</span> {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Effect Size (Random Effects)"</span>: results_girls_female.effect,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"95% CI"</span>: (results_girls_female.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">0</span>], results_girls_female.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)[<span class="dv">1</span>])</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>summary_boys_male, summary_girls_female</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>({'Effect Size (Random Effects)': 0     1.151674
   1     1.074697
   2     0.779640
   3     1.776137
@@ -349,9 +330,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   25    0.689272
   26    0.528775
   Name: TE_boys_male, dtype: float64,
-  '95% CI (random)': (array([0.68127013, 0.72746553]),
+  '95% CI': (array([0.68127013, 0.72746553]),
    array([0.88949569, 1.18128387]))},
- {'Combined effect size (random effects)': 0     0.825872
+ {'Effect Size (Random Effects)': 0     0.825872
   1     1.879824
   2     1.157686
   3     1.284203
@@ -379,69 +360,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   25    0.593165
   26    0.700191
   Name: TE_girls_female, dtype: float64,
-  '95% CI (random)': (array([0.60950852, 0.65524025]),
+  '95% CI': (array([0.60950852, 0.65524025]),
    array([0.7685152 , 1.07871176]))})</code></pre>
 </div>
 </div>
 </section>
-<section id="combined-effects" class="level3">
-<h3 class="anchored" data-anchor-id="combined-effects">Combined Effects</h3>
+<section id="meta-analysis-results" class="level3">
+<h3 class="anchored" data-anchor-id="meta-analysis-results">Meta-Analysis Results</h3>
+<p>The following results summarize the combined effect sizes for boys playing with male-typed toys and girls playing with female-typed toys, along with their 95% confidence intervals (CI).</p>
 <section id="boys-playing-with-male-typed-toys" class="level4">
 <h4 class="anchored" data-anchor-id="boys-playing-with-male-typed-toys">Boys Playing with Male-typed Toys</h4>
 <ul>
-<li>Number of studies combined: <code>r len(data)</code></li>
-<li>Random effects model: <code>r res_boys_male_summary["Combined effect size (random effects)"]</code> [95% CI: <code>r res_boys_male_summary["95% CI (random)"][0]</code>, <code>r res_boys_male_summary["95% CI (random)"][1]</code>]</li>
+<li>Combined Studies: <code>r len(data)</code></li>
+<li>Effect Size (Random Effects): <code>r summary_boys_male["Effect Size (Random Effects)"]</code> [95% CI: <code>r summary_boys_male["95% CI"][0]</code>, <code>r summary_boys_male["95% CI"][1]</code>]</li>
 </ul>
 </section>
 <section id="girls-playing-with-female-typed-toys" class="level4">
 <h4 class="anchored" data-anchor-id="girls-playing-with-female-typed-toys">Girls Playing with Female-typed Toys</h4>
 <ul>
-<li>Number of studies combined: <code>r len(data)</code></li>
-<li>Random effects model: <code>r res_girls_female_summary["Combined effect size (random effects)"]</code> [95% CI: <code>r res_girls_female_summary["95% CI (random)"][0]</code>, <code>r res_girls_female_summary["95% CI (random)"][1]</code>]</li>
+<li>Combined Studies: <code>r len(data)</code></li>
+<li>Effect Size (Random Effects): <code>r summary_girls_female["Effect Size (Random Effects)"]</code> [95% CI: <code>r summary_girls_female["95% CI"][0]</code>, <code>r summary_girls_female["95% CI"][1]</code>]</li>
 </ul>
 </section>
 </section>
 <section id="funnel-plot" class="level3">
 <h3 class="anchored" data-anchor-id="funnel-plot">Funnel Plot</h3>
-<p>The funnel plot helps to visualize the distribution of the effect sizes and check for publication bias.</p>
-<div id="1c72cb1d" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a basic funnel plot for boys playing with male-typed toys</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(data[<span class="st">'TE_boys_male'</span>], <span class="dv">1</span> <span class="op">/</span> data[<span class="st">'seTE_boys_male'</span>], alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Funnel Plot for Boys Playing with Male-typed Toys'</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Precision (1/SE)'</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Metaanalysis_solution_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="contour-enhanced-funnel-plot" class="level3">
-<h3 class="anchored" data-anchor-id="contour-enhanced-funnel-plot">Contour-enhanced Funnel Plot</h3>
-<p>To add more details, we can create a contour-enhanced funnel plot:</p>
-<div id="78bea79e" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add contour-enhanced features to the funnel plot for boys playing with male-typed toys</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(data[<span class="st">'TE_boys_male'</span>], <span class="dv">1</span> <span class="op">/</span> data[<span class="st">'seTE_boys_male'</span>], alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>contour_levels <span class="op">=</span> [<span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>contour_colors <span class="op">=</span> [<span class="st">'darkblue'</span>, <span class="st">'blue'</span>, <span class="st">'lightblue'</span>]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> level, color <span class="kw">in</span> <span class="bu">zip</span>(contour_levels, contour_colors):</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    plt.fill_betweenx(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        np.arange(<span class="dv">0</span>, <span class="fl">1.2</span>, <span class="fl">0.01</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        level <span class="op">-</span> np.arange(<span class="dv">0</span>, <span class="fl">1.2</span>, <span class="fl">0.01</span>),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        level <span class="op">+</span> np.arange(<span class="dv">0</span>, <span class="fl">1.2</span>, <span class="fl">0.01</span>),</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.2</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Contour-enhanced Funnel Plot for Boys Playing with Male-typed Toys'</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Precision (1/SE)'</span>)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'p &lt; 0.10'</span>, <span class="st">'p &lt; 0.05'</span>, <span class="st">'p &lt; 0.01'</span>], loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To visualize the distribution of effect sizes and check for publication bias, we create a funnel plot. In this plot, effect sizes are plotted against their precision (inverse of the standard error).</p>
+<div id="4dcfd9df" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic funnel plot for boys with male-typed toys</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(data[<span class="st">'TE_boys_male'</span>], <span class="dv">1</span> <span class="op">/</span> data[<span class="st">'seTE_boys_male'</span>], c<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Funnel Plot: Boys Playing with Male-typed Toys'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Precision (1/SE)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -451,20 +406,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="checking-methodsquality-effects" class="level3">
-<h3 class="anchored" data-anchor-id="checking-methodsquality-effects">Checking Methods/Quality Effects</h3>
-<p>We analyze whether the methods or quality of the studies affect the results using meta-regression.</p>
-<div id="c0e27b29" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data for meta-regression</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Neutral_toys'</span>] <span class="op">=</span> data[<span class="st">'Neutral toys'</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Parent_present'</span>] <span class="op">=</span> data[<span class="st">'Parent present'</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Setting'</span>] <span class="op">=</span> data[<span class="st">'Setting'</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Country'</span>] <span class="op">=</span> data[<span class="st">'Country'</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'NOS_score'</span>] <span class="op">=</span> data[<span class="st">'NOS score'</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>meta_reg <span class="op">=</span> smf.ols(<span class="st">'TE_boys_male ~ Neutral_toys + Parent_present + Setting + Country + NOS_score'</span>, data<span class="op">=</span>data).fit()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>meta_reg.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<section id="enhanced-funnel-plot" class="level3">
+<h3 class="anchored" data-anchor-id="enhanced-funnel-plot">Enhanced Funnel Plot</h3>
+<p>To provide more detailed insights, we add contours to the funnel plot, representing different p-value thresholds.</p>
+<div id="c62c6bdb" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contour-enhanced funnel plot for boys with male-typed toys</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(data[<span class="st">'TE_boys_male'</span>], <span class="dv">1</span> <span class="op">/</span> data[<span class="st">'seTE_boys_male'</span>], c<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="bu">min</span>(data[<span class="st">'TE_boys_male'</span>]), <span class="bu">max</span>(data[<span class="st">'TE_boys_male'</span>]), <span class="dv">100</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alpha, color <span class="kw">in</span> <span class="bu">zip</span>([<span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span>], [<span class="st">'red'</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>]):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    plt.fill_betweenx(np.arange(<span class="dv">0</span>, <span class="bu">max</span>(<span class="dv">1</span> <span class="op">/</span> data[<span class="st">'seTE_boys_male'</span>]) <span class="op">+</span> <span class="fl">0.1</span>, <span class="fl">0.01</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                      <span class="op">-</span>np.log(alpha)<span class="op">/</span><span class="dv">2</span>, np.log(alpha)<span class="op">/</span><span class="dv">2</span>, color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Contour-enhanced Funnel Plot: Boys Playing with Male-typed Toys'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Precision (1/SE)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'0.1'</span>, <span class="st">'0.05'</span>, <span class="st">'0.01'</span>], title<span class="op">=</span><span class="st">'p-value'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_solution_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="meta-regression-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="meta-regression-analysis">Meta-Regression Analysis</h3>
+<p>We use meta-regression to examine how study characteristics (e.g., setting, presence of parents, and quality scores) affect the effect sizes. This helps us understand whether these factors influence the results.</p>
+<div id="d34ecdef" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert columns to numeric</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Neutral_toys'</span>] <span class="op">=</span> pd.to_numeric(data[<span class="st">'Neutral toys'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Parent_present'</span>] <span class="op">=</span> pd.to_numeric(data[<span class="st">'Parent present'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Setting'</span>] <span class="op">=</span> pd.to_numeric(data[<span class="st">'Setting'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Country'</span>] <span class="op">=</span> pd.to_numeric(data[<span class="st">'Country'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'NOS_score'</span>] <span class="op">=</span> pd.to_numeric(data[<span class="st">'NOS score'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Meta-regression</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>meta_regression <span class="op">=</span> smf.ols(<span class="st">'TE_boys_male ~ Neutral_toys + Parent_present + Setting + Country + NOS_score'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>meta_regression.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 <table class="simpletable table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>OLS Regression Results</caption>
@@ -489,13 +473,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Fri, 31 May 2024</td>
+<td>Sat, 08 Jun 2024</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
 <td>0.866</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>19:52:28</td>
+<td>22:51:45</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-25.181</td>
 </tr>
@@ -625,14 +609,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="effect-of-author-gender" class="level3">
-<h3 class="anchored" data-anchor-id="effect-of-author-gender">Effect of Author Gender</h3>
-<p>We investigate whether the gender of the authors has any effect on the study outcomes.</p>
-<div id="08fa13b3" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Meta-regression to check the impact of author gender for boys playing with male-typed toys</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>meta_reg_gender <span class="op">=</span> smf.ols(<span class="st">'TE_boys_male ~ Q("Female authors") + Q("Male authors")'</span>, data<span class="op">=</span>data).fit()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>meta_reg_gender.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<section id="author-gender-impact" class="level3">
+<h3 class="anchored" data-anchor-id="author-gender-impact">Author Gender Impact</h3>
+<p>We also investigate whether the gender of the study authors influences the reported effect sizes.</p>
+<div id="c13eba9e" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Meta-regression on author gender</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>meta_regression_gender <span class="op">=</span> smf.ols(<span class="st">'TE_boys_male ~ Q("Female authors") + Q("Male authors")'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>meta_regression_gender.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 <table class="simpletable table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>OLS Regression Results</caption>
@@ -657,13 +641,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Fri, 31 May 2024</td>
+<td>Sat, 08 Jun 2024</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
 <td>0.00783</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>19:52:31</td>
+<td>22:51:45</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-21.580</td>
 </tr>
@@ -766,9 +750,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<p>This analysis provided insights into the overall effects of children’s toy preferences and explored potential biases and factors affecting the results. The funnel plots and meta-regression analyses are useful tools for assessing the quality and consistency of the findings across different studies.</p>
+<section id="additional-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="additional-visualizations">Additional Visualizations</h3>
+<p>To further explore the distribution of effect sizes, we create histograms and box plots.</p>
+<section id="histogram-of-effect-sizes" class="level4">
+<h4 class="anchored" data-anchor-id="histogram-of-effect-sizes">Histogram of Effect Sizes</h4>
+<div id="28ff76c0" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of effect sizes for boys and girls</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Boys playing with male-typed toys</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sns.histplot(data[<span class="st">'TE_boys_male'</span>], kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'blue'</span>, bins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Effect Sizes for Boys Playing with Male-typed Toys'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Girls playing with female-typed toys</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>sns.histplot(data[<span class="st">'TE_girls_female'</span>], kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'pink'</span>, bins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Effect Sizes for Girls Playing with Female-typed Toys'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_solution_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="box-plot-of-effect-sizes" class="level4">
+<h4 class="anchored" data-anchor-id="box-plot-of-effect-sizes">Box Plot of Effect Sizes</h4>
+<div id="04ab0590" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plot of effect sizes for boys and girls</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>[data[<span class="st">'TE_boys_male'</span>], data[<span class="st">'TE_girls_female'</span>]], palette<span class="op">=</span>[<span class="st">'blue'</span>, <span class="st">'pink'</span>])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Boys Playing with Male-typed Toys'</span>, <span class="st">'Girls Playing with Female-typed Toys'</span>])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Box Plot of Effect Sizes'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Effect Size'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_solution_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>This meta-analysis provides comprehensive insights into children’s toy preferences, revealing patterns and potential biases in the studies. The funnel plots and meta-regression analyses highlight the importance of assessing study quality and consistency. Additionally, visualizations such as histograms and box plots offer a deeper understanding of the distribution and variability of effect sizes. This analysis underscores the nuanced differences in toy preferences between boys and girls and the factors that may influence these preferences.</p>
 </section>
 </section>
 
