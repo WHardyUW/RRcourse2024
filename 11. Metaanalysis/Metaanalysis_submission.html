@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+<meta name="dcterms.date" content="2024-06-08">
+
+<title>Meta-analysis on Toy Preferences: Gender Inequality and Toy Preferences</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="Metaanalysis_submission_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Metaanalysis_submission_files/libs/quarto-html/quarto.js"></script>
+<script src="Metaanalysis_submission_files/libs/quarto-html/popper.min.js"></script>
+<script src="Metaanalysis_submission_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Metaanalysis_submission_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Metaanalysis_submission_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Metaanalysis_submission_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Metaanalysis_submission_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Metaanalysis_submission_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Metaanalysis_submission_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Meta-analysis on Toy Preferences: Gender Inequality and Toy Preferences</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 8, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="a60d1298" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.meta_analysis <span class="im">import</span> effectsize_smd, combine_effects</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from the Excel file</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_excel(<span class="st">"data/metaanalysis_data.xlsx"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the dataset</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Study</th>
+<th data-quarto-table-cell-role="th">Female authors</th>
+<th data-quarto-table-cell-role="th">Male authors</th>
+<th data-quarto-table-cell-role="th">Age (months)</th>
+<th data-quarto-table-cell-role="th">N_boys</th>
+<th data-quarto-table-cell-role="th">N_girls</th>
+<th data-quarto-table-cell-role="th">Mean_boys_play_male</th>
+<th data-quarto-table-cell-role="th">SD_boys_play_male</th>
+<th data-quarto-table-cell-role="th">Mean_girls_play_male</th>
+<th data-quarto-table-cell-role="th">SD_girls_play_male</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Country</th>
+<th data-quarto-table-cell-role="th">Case definition adequate</th>
+<th data-quarto-table-cell-role="th">Representativeness of cases</th>
+<th data-quarto-table-cell-role="th">Selection of controls</th>
+<th data-quarto-table-cell-role="th">Parental opinion</th>
+<th data-quarto-table-cell-role="th">Comparability of both groups</th>
+<th data-quarto-table-cell-role="th">Ascertainment of behaviour</th>
+<th data-quarto-table-cell-role="th">Same ascertainment method for both groups</th>
+<th data-quarto-table-cell-role="th">Non‐response rate</th>
+<th data-quarto-table-cell-role="th">NOS score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Alexander &amp; Saenz (2012)</td>
+<td>2</td>
+<td>0</td>
+<td>19.50</td>
+<td>47</td>
+<td>47</td>
+<td>438.72</td>
+<td>166.08</td>
+<td>248.64</td>
+<td>161.28</td>
+<td>...</td>
+<td>0.256</td>
+<td>*</td>
+<td>*</td>
+<td>X</td>
+<td>X</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>X</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Arthur (2014)</td>
+<td>1</td>
+<td>0</td>
+<td>19.00</td>
+<td>22</td>
+<td>18</td>
+<td>148.00</td>
+<td>105.00</td>
+<td>54.00</td>
+<td>53.00</td>
+<td>...</td>
+<td>0.280</td>
+<td>*</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>**</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Berenbaum &amp; Hines (1992)</td>
+<td>2</td>
+<td>0</td>
+<td>65.79</td>
+<td>18</td>
+<td>18</td>
+<td>325.25</td>
+<td>270.21</td>
+<td>135.13</td>
+<td>201.72</td>
+<td>...</td>
+<td>0.252</td>
+<td>X</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>X</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Berenbaum &amp; Snyder (1995)</td>
+<td>2</td>
+<td>0</td>
+<td>93.10</td>
+<td>19</td>
+<td>19</td>
+<td>484.21</td>
+<td>141.28</td>
+<td>202.48</td>
+<td>168.14</td>
+<td>...</td>
+<td>0.252</td>
+<td>*</td>
+<td>X</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Doering et al (1989)</td>
+<td>1</td>
+<td>3</td>
+<td>87.00</td>
+<td>15</td>
+<td>15</td>
+<td>260.10</td>
+<td>67.70</td>
+<td>98.40</td>
+<td>101.30</td>
+<td>...</td>
+<td>0.141</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>X</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>X</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 28 columns</p>
+</div>
+</div>
+</div>
+</div>
+<section id="meta-analysis-on-toy-preferences-gender-inequality-and-toy-preferences" class="level1">
+<h1>Meta-analysis on Toy Preferences: Gender Inequality and Toy Preferences</h1>
+<section id="note-this-analysis-is-based-on-the-data-from-todd-et-al.-2017---sex-differences-in-childrens-toy-preferences-a-systematic-review-metaregression-and-metaanalysis" class="level3">
+<h3 class="anchored" data-anchor-id="note-this-analysis-is-based-on-the-data-from-todd-et-al.-2017---sex-differences-in-childrens-toy-preferences-a-systematic-review-metaregression-and-metaanalysis"><strong>(<em>Note:</em> This analysis is based on the data from Todd et al., 2017 - “Sex differences in children’s toy preferences: A systematic review, meta‐regression, and meta‐analysis”)</strong></h3>
+<hr>
+</section>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>Meta-analysis serves as a powerful statistical method to aggregate results from various independent studies. This approach is frequently employed to evaluate the efficacy of healthcare interventions and to formulate broad conclusions from several related studies.</p>
+<p>In this project, we explore a dataset concerning children’s toy preferences, with a particular focus on how the gender inequality index of the countries where the studies were conducted influences outcomes. The data encompasses average durations (in seconds) that children engage with toys, along with sample sizes, standard errors, and other pertinent study details</p>
+<hr>
+</section>
+<section id="data-summary" class="level3">
+<h3 class="anchored" data-anchor-id="data-summary">Data Summary</h3>
+<div id="c3efd8d9" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate effect sizes for boys playing with male-typed toys and girls with female-typed toys</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Effect_Size_Boys_Male'</span>], data[<span class="st">'SE_Boys_Male'</span>] <span class="op">=</span> effectsize_smd(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_boys_play_male'</span>], data[<span class="st">'SD_boys_play_male'</span>], data[<span class="st">'N_boys'</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_girls_play_male'</span>], data[<span class="st">'SD_girls_play_male'</span>], data[<span class="st">'N_girls'</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Effect_Size_Girls_Female'</span>], data[<span class="st">'SE_Girls_Female'</span>] <span class="op">=</span> effectsize_smd(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_girls_play_female'</span>], data[<span class="st">'SD_girls_play_female'</span>], data[<span class="st">'N_girls'</span>],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'Mean_boys_play_female'</span>], data[<span class="st">'SD_boys_play_female'</span>], data[<span class="st">'N_boys'</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform meta-analysis for boys playing with male-typed toys and girls with female-typed toys</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>meta_analysis_boys <span class="op">=</span> combine_effects(data[<span class="st">'Effect_Size_Boys_Male'</span>], data[<span class="st">'SE_Boys_Male'</span>]<span class="op">**</span><span class="dv">2</span>, method_re<span class="op">=</span><span class="st">'dl'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>meta_analysis_girls <span class="op">=</span> combine_effects(data[<span class="st">'Effect_Size_Girls_Female'</span>], data[<span class="st">'SE_Girls_Female'</span>]<span class="op">**</span><span class="dv">2</span>, method_re<span class="op">=</span><span class="st">'dl'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the combined effects</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>summary_boys <span class="op">=</span> {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Combined Effect Size (Random Effects)"</span>: meta_analysis_boys.effect,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"95% Confidence Interval (Random)"</span>: meta_analysis_boys.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>summary_girls <span class="op">=</span> {</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Combined Effect Size (Random Effects)"</span>: meta_analysis_girls.effect,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"95% Confidence Interval (Random)"</span>: meta_analysis_girls.conf_int(alpha<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Boys playing with male-typed toys:"</span>, summary_boys)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Girls playing with female-typed toys:"</span>, summary_girls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Boys playing with male-typed toys: {'Combined Effect Size (Random Effects)': 0     1.151674
+1     1.074697
+2     0.779640
+3     1.776137
+4     1.826148
+5     0.846942
+6     0.230962
+7     1.521240
+8     2.711052
+9     0.788885
+10    2.075080
+11    1.335650
+12    0.732469
+13    1.872943
+14    0.795401
+15    1.144973
+16    1.386841
+17    2.520541
+18    0.534008
+19    1.037451
+20    0.582425
+21    0.606175
+22    0.552736
+23    0.168116
+24    0.392880
+25    0.689272
+26    0.528775
+Name: Effect_Size_Boys_Male, dtype: float64, '95% Confidence Interval (Random)': (array([0.68127013, 0.72746553]), array([0.88949569, 1.18128387]), array([0.57176639, 0.83696927]), array([0.7989568 , 1.27182277]))}
+Girls playing with female-typed toys: {'Combined Effect Size (Random Effects)': 0     0.825872
+1     1.879824
+2     1.157686
+3     1.284203
+4     1.700141
+5     0.033668
+6    -0.007393
+7     1.644184
+8     0.738816
+9     0.751562
+10    1.800779
+11    0.549922
+12    0.527174
+13    1.170357
+14    1.332520
+15    1.183514
+16    2.371684
+17    1.699846
+18    0.326737
+19    1.116353
+20    0.817418
+21    0.103987
+22    0.777432
+23    0.108684
+24    0.367584
+25    0.593165
+26    0.700191
+Name: Effect_Size_Girls_Female, dtype: float64, '95% Confidence Interval (Random)': (array([0.60950852, 0.65524025]), array([0.7685152 , 1.07871176]), array([0.48969013, 0.77505864]), array([0.69104904, 1.15617791]))}</code></pre>
+</div>
+</div>
+</section>
+<section id="combined-effects" class="level3">
+<h3 class="anchored" data-anchor-id="combined-effects">Combined Effects</h3>
+<section id="boys-engaging-with-male-typed-toys" class="level4">
+<h4 class="anchored" data-anchor-id="boys-engaging-with-male-typed-toys">Boys Engaging with Male-Typed Toys</h4>
+<ul>
+<li><strong>Total Studies Analyzed</strong>: <code>r len(data)</code></li>
+<li><strong>Random Effects Model Findings</strong>: The meta-analysis for boys interacting with male-typed toys reveals a combined effect size of <code>r meta_analysis_boys.effect</code>. The confidence interval for this effect size, under the random effects model, ranges from <code>r meta_analysis_boys.conf_int(alpha=0.05)[0]</code> to <code>r meta_analysis_boys.conf_int(alpha=0.05)[1]</code>, indicating the variation in effect sizes across different studies.</li>
+</ul>
+</section>
+<section id="girls-engaging-with-female-typed-toys" class="level4">
+<h4 class="anchored" data-anchor-id="girls-engaging-with-female-typed-toys">Girls Engaging with Female-Typed Toys</h4>
+<ul>
+<li><strong>Total Studies Analyzed</strong>: <code>r len(data)</code></li>
+<li><strong>Random Effects Model Findings</strong>: For girls playing with female-typed toys, the combined effect size computed is <code>r meta_analysis_girls.effect</code>. The 95% confidence interval for this effect size extends from <code>r meta_analysis_girls.conf_int(alpha=0.05)[0]</code> to <code>r meta_analysis_girls.conf_int(alpha=0.05)[1]</code>, reflecting the consistency and variance of results across various research settings.</li>
+</ul>
+</section>
+</section>
+<section id="forest-plot" class="level3">
+<h3 class="anchored" data-anchor-id="forest-plot">Forest Plot</h3>
+<p>The forest plot helps to visualize the individual effect sizes and their confidence intervals.</p>
+<div id="e7561d60" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a combined data frame for forest plot visualization</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>forest_plot_data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Study'</span>: data[<span class="st">'Study'</span>],</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Effect Size'</span>: data[<span class="st">'Effect_Size_Boys_Male'</span>],</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CI Lower'</span>: data[<span class="st">'Effect_Size_Boys_Male'</span>] <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> data[<span class="st">'SE_Boys_Male'</span>],</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CI Upper'</span>: data[<span class="st">'Effect_Size_Boys_Male'</span>] <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> data[<span class="st">'SE_Boys_Male'</span>],</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample Size'</span>: data[<span class="st">'N_boys'</span>] <span class="op">+</span> data[<span class="st">'N_girls'</span>]  <span class="co"># Sample size might influence the interpretation</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Box Plot of Effect Sizes</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">'Effect Size'</span>, data<span class="op">=</span>forest_plot_data, color<span class="op">=</span><span class="st">'lightblue'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Box Plot of Effect Sizes for Boys Playing with Male-typed Toys'</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Violin Plot with Effect Sizes and Confidence Intervals</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>sns.violinplot(x<span class="op">=</span><span class="st">'Effect Size'</span>, data<span class="op">=</span>forest_plot_data, inner<span class="op">=</span><span class="st">'quartile'</span>, color<span class="op">=</span><span class="st">'lightgreen'</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Violin Plot of Effect Sizes for Boys Playing with Male-typed Toys'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Bubble Chart of Effect Size vs. Precision with Sample Size as Bubble Size</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>sizes <span class="op">=</span> forest_plot_data[<span class="st">'Sample Size'</span>] <span class="op">/</span> np.<span class="bu">max</span>(forest_plot_data[<span class="st">'Sample Size'</span>]) <span class="op">*</span> <span class="dv">1000</span>  <span class="co"># Scale for visibility</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.scatter(forest_plot_data[<span class="st">'Effect Size'</span>], <span class="dv">1</span> <span class="op">/</span> np.sqrt(data[<span class="st">'SE_Boys_Male'</span>]), s<span class="op">=</span>sizes, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'purple'</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bubble Chart of Effect Size vs. Precision'</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Precision (Inverse of Standard Error)'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">1</span><span class="op">/</span>np.mean(np.sqrt(data[<span class="st">'SE_Boys_Male'</span>])), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Average Precision'</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of Effect Sizes</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>plt.hist(forest_plot_data[<span class="st">'Effect Size'</span>], bins<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'gray'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Histogram of Effect Sizes for Boys Playing with Male-typed Toys'</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effect Size'</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_submission_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_submission_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_submission_files/figure-html/cell-4-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_submission_files/figure-html/cell-4-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="violin-plot" class="level3">
+<h3 class="anchored" data-anchor-id="violin-plot">Violin Plot</h3>
+<p>The violin plot helps to visualize the distribution of effect sizes by gender inequality index.</p>
+<div id="564f1991" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>unique_countries <span class="op">=</span> data[<span class="st">'Country'</span>].unique()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> sns.color_palette(<span class="st">"hsv"</span>, <span class="bu">len</span>(unique_countries))  <span class="co"># Use a vibrant color palette</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>country_palette <span class="op">=</span> {country: color <span class="cf">for</span> country, color <span class="kw">in</span> <span class="bu">zip</span>(unique_countries, palette)}</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a violin plot for boys playing with male-typed toys by country, reflecting gender inequality</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))  <span class="co"># Increased size for better visibility</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>sns.violinplot(x<span class="op">=</span><span class="st">'Country'</span>, y<span class="op">=</span><span class="st">'Effect_Size_Boys_Male'</span>, data<span class="op">=</span>data,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>               palette<span class="op">=</span>country_palette,  <span class="co"># Apply the unique color palette</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>               inner<span class="op">=</span><span class="st">"quartile"</span>,  <span class="co"># Show quartiles within the violin for detailed distribution insight</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>               scale<span class="op">=</span><span class="st">"width"</span>)  <span class="co"># Scale the violins by the number of observations (width)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Effect Sizes for Boys Playing with Male-typed Toys Across Countries'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Country'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Effect Size'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)  <span class="co"># Rotate x labels for better readability if countries' names are long</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)  <span class="co"># Add a grid for easier reading of the plot values</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()  <span class="co"># Adjust layout to make sure everything fits without overlap</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Metaanalysis_submission_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="checking-the-effect-of-gender-inequality" class="level3">
+<h3 class="anchored" data-anchor-id="checking-the-effect-of-gender-inequality">Checking the Effect of Gender Inequality</h3>
+<p>We analyze whether the gender inequality index of the country affects the results using meta-regression.</p>
+<div id="85a54137" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data for meta-regression</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Country'</span>] <span class="op">=</span> data[<span class="st">'Country'</span>].astype(<span class="st">'category'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Country_code'</span>] <span class="op">=</span> data[<span class="st">'Country'</span>].cat.codes</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Meta-regression using the correct column names</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>meta_reg_gender_inequality <span class="op">=</span> smf.ols(<span class="st">'Effect_Size_Boys_Male ~ Country_code'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meta_reg_gender_inequality.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              OLS Regression Results                             
+=================================================================================
+Dep. Variable:     Effect_Size_Boys_Male   R-squared:                       0.088
+Model:                               OLS   Adj. R-squared:                  0.052
+Method:                    Least Squares   F-statistic:                     2.419
+Date:                   Sat, 08 Jun 2024   Prob (F-statistic):              0.132
+Time:                           23:35:23   Log-Likelihood:                -25.789
+No. Observations:                     27   AIC:                             55.58
+Df Residuals:                         25   BIC:                             58.17
+Df Model:                              1                                         
+Covariance Type:               nonrobust                                         
+================================================================================
+                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+Intercept        1.3989      0.230      6.071      0.000       0.924       1.873
+Country_code    -0.0563      0.036     -1.555      0.132      -0.131       0.018
+==============================================================================
+Omnibus:                        4.390   Durbin-Watson:                   2.092
+Prob(Omnibus):                  0.111   Jarque-Bera (JB):                3.346
+Skew:                           0.862   Prob(JB):                        0.188
+Kurtosis:                       3.060   Cond. No.                         11.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+</div>
+</div>
+</section>
+<section id="effect-of-author-gender" class="level3">
+<h3 class="anchored" data-anchor-id="effect-of-author-gender">Effect of Author Gender</h3>
+<p>We investigate whether the gender of the authors has any effect on the study outcomes.</p>
+<div id="98618908" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Renaming columns to avoid spaces and make future code more straightforward</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data.rename(columns<span class="op">=</span>{<span class="st">'Female authors'</span>: <span class="st">'Female_authors'</span>, <span class="st">'Male authors'</span>: <span class="st">'Male_authors'</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># run the meta-regression with the updated names</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>meta_reg_gender <span class="op">=</span> smf.ols(<span class="st">'Effect_Size_Boys_Male ~ Female_authors + Male_authors'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meta_reg_gender.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              OLS Regression Results                             
+=================================================================================
+Dep. Variable:     Effect_Size_Boys_Male   R-squared:                       0.332
+Model:                               OLS   Adj. R-squared:                  0.277
+Method:                    Least Squares   F-statistic:                     5.976
+Date:                   Sat, 08 Jun 2024   Prob (F-statistic):            0.00783
+Time:                           23:35:23   Log-Likelihood:                -21.580
+No. Observations:                     27   AIC:                             49.16
+Df Residuals:                         24   BIC:                             53.05
+Df Model:                              2                                         
+Covariance Type:               nonrobust                                         
+==================================================================================
+                     coef    std err          t      P&gt;|t|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          1.9469      0.336      5.793      0.000       1.253       2.640
+Female_authors    -0.3964      0.123     -3.230      0.004      -0.650      -0.143
+Male_authors       0.2235      0.105      2.119      0.045       0.006       0.441
+==============================================================================
+Omnibus:                        5.810   Durbin-Watson:                   2.090
+Prob(Omnibus):                  0.055   Jarque-Bera (JB):                4.719
+Skew:                           1.023   Prob(JB):                       0.0945
+Kurtosis:                       3.100   Cond. No.                         10.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
+</div>
+</div>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>“This study has illuminated the general impacts of toy preferences among children while investigating various biases and influencing factors. Utilizing forest plots, violin plots, and meta-regression analyses has proven essential for evaluating the reliability and uniformity of outcomes from diverse research.” ```</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,183 @@
+---
+title: "Meta-analysis on Toy Preferences: Gender Inequality and Toy Preferences"
+author: ""
+date: today
+output: html_document
+---
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.stats.meta_analysis import effectsize_smd, combine_effects
+import statsmodels.formula.api as smf
+import seaborn as sns
+
+# Load the data from the Excel file
+data = pd.read_excel("data/metaanalysis_data.xlsx")
+
+# Display the first few rows of the dataset
+data.head()
+```
+
+# Meta-analysis on Toy Preferences: Gender Inequality and Toy Preferences
+
+### __(*Note:* This analysis is based on the data from Todd et al., 2017 - "Sex differences in children’s toy preferences: A systematic review, meta‐regression, and meta‐analysis")__
+
+***
+
+### Overview
+
+Meta-analysis serves as a powerful statistical method to aggregate results from various independent studies. This approach is frequently employed to evaluate the efficacy of healthcare interventions and to formulate broad conclusions from several related studies.
+
+In this project, we explore a dataset concerning children's toy preferences, with a particular focus on how the gender inequality index of the countries where the studies were conducted influences outcomes. The data encompasses average durations (in seconds) that children engage with toys, along with sample sizes, standard errors, and other pertinent study details
+
+***
+
+### Data Summary
+
+```{python}
+# Calculate effect sizes for boys playing with male-typed toys and girls with female-typed toys
+data['Effect_Size_Boys_Male'], data['SE_Boys_Male'] = effectsize_smd(
+    data['Mean_boys_play_male'], data['SD_boys_play_male'], data['N_boys'],
+    data['Mean_girls_play_male'], data['SD_girls_play_male'], data['N_girls']
+)
+data['Effect_Size_Girls_Female'], data['SE_Girls_Female'] = effectsize_smd(
+    data['Mean_girls_play_female'], data['SD_girls_play_female'], data['N_girls'],
+    data['Mean_boys_play_female'], data['SD_boys_play_female'], data['N_boys']
+)
+
+# Perform meta-analysis for boys playing with male-typed toys and girls with female-typed toys
+meta_analysis_boys = combine_effects(data['Effect_Size_Boys_Male'], data['SE_Boys_Male']**2, method_re='dl')
+meta_analysis_girls = combine_effects(data['Effect_Size_Girls_Female'], data['SE_Girls_Female']**2, method_re='dl')
+
+# Summarize the combined effects
+summary_boys = {
+    "Combined Effect Size (Random Effects)": meta_analysis_boys.effect,
+    "95% Confidence Interval (Random)": meta_analysis_boys.conf_int(alpha=0.05)
+}
+summary_girls = {
+    "Combined Effect Size (Random Effects)": meta_analysis_girls.effect,
+    "95% Confidence Interval (Random)": meta_analysis_girls.conf_int(alpha=0.05)
+}
+
+print("Boys playing with male-typed toys:", summary_boys)
+print("Girls playing with female-typed toys:", summary_girls)
+```
+
+### Combined Effects
+
+#### Boys Engaging with Male-Typed Toys
+
+- **Total Studies Analyzed**: `r len(data)`
+- **Random Effects Model Findings**: The meta-analysis for boys interacting with male-typed toys reveals a combined effect size of `r meta_analysis_boys.effect`. The confidence interval for this effect size, under the random effects model, ranges from `r meta_analysis_boys.conf_int(alpha=0.05)[0]` to `r meta_analysis_boys.conf_int(alpha=0.05)[1]`, indicating the variation in effect sizes across different studies.
+
+#### Girls Engaging with Female-Typed Toys
+
+- **Total Studies Analyzed**: `r len(data)`
+- **Random Effects Model Findings**: For girls playing with female-typed toys, the combined effect size computed is `r meta_analysis_girls.effect`. The 95% confidence interval for this effect size extends from `r meta_analysis_girls.conf_int(alpha=0.05)[0]` to `r meta_analysis_girls.conf_int(alpha=0.05)[1]`, reflecting the consistency and variance of results across various research settings.
+
+### Forest Plot
+
+The forest plot helps to visualize the individual effect sizes and their confidence intervals.
+
+```{python}
+# Create a combined data frame for forest plot visualization
+forest_plot_data = pd.DataFrame({
+    'Study': data['Study'],
+    'Effect Size': data['Effect_Size_Boys_Male'],
+    'CI Lower': data['Effect_Size_Boys_Male'] - 1.96 * data['SE_Boys_Male'],
+    'CI Upper': data['Effect_Size_Boys_Male'] + 1.96 * data['SE_Boys_Male'],
+    'Sample Size': data['N_boys'] + data['N_girls']  # Sample size might influence the interpretation
+})
+
+# Box Plot of Effect Sizes
+plt.figure(figsize=(8, 4))
+sns.boxplot(x='Effect Size', data=forest_plot_data, color='lightblue')
+plt.title('Box Plot of Effect Sizes for Boys Playing with Male-typed Toys')
+plt.xlabel('Effect Size')
+plt.show()
+
+# Violin Plot with Effect Sizes and Confidence Intervals
+plt.figure(figsize=(8, 4))
+sns.violinplot(x='Effect Size', data=forest_plot_data, inner='quartile', color='lightgreen')
+plt.title('Violin Plot of Effect Sizes for Boys Playing with Male-typed Toys')
+plt.xlabel('Effect Size')
+plt.show()
+
+# Bubble Chart of Effect Size vs. Precision with Sample Size as Bubble Size
+plt.figure(figsize=(10, 6))
+sizes = forest_plot_data['Sample Size'] / np.max(forest_plot_data['Sample Size']) * 1000  # Scale for visibility
+plt.scatter(forest_plot_data['Effect Size'], 1 / np.sqrt(data['SE_Boys_Male']), s=sizes, alpha=0.5, color='purple')
+plt.title('Bubble Chart of Effect Size vs. Precision')
+plt.xlabel('Effect Size')
+plt.ylabel('Precision (Inverse of Standard Error)')
+plt.axhline(y=1/np.mean(np.sqrt(data['SE_Boys_Male'])), color='red', linestyle='--', label='Average Precision')
+plt.legend()
+plt.show()
+
+# Histogram of Effect Sizes
+plt.figure(figsize=(8, 6))
+plt.hist(forest_plot_data['Effect Size'], bins=10, color='gray', edgecolor='black')
+plt.title('Histogram of Effect Sizes for Boys Playing with Male-typed Toys')
+plt.xlabel('Effect Size')
+plt.ylabel('Frequency')
+plt.show()
+```
+
+### Violin Plot
+
+The violin plot helps to visualize the distribution of effect sizes by gender inequality index.
+
+```{python}
+unique_countries = data['Country'].unique()
+palette = sns.color_palette("hsv", len(unique_countries))  # Use a vibrant color palette
+country_palette = {country: color for country, color in zip(unique_countries, palette)}
+
+# Create a violin plot for boys playing with male-typed toys by country, reflecting gender inequality
+plt.figure(figsize=(12, 8))  # Increased size for better visibility
+sns.violinplot(x='Country', y='Effect_Size_Boys_Male', data=data,
+               palette=country_palette,  # Apply the unique color palette
+               inner="quartile",  # Show quartiles within the violin for detailed distribution insight
+               scale="width")  # Scale the violins by the number of observations (width)
+plt.title('Distribution of Effect Sizes for Boys Playing with Male-typed Toys Across Countries', fontsize=14)
+plt.xlabel('Country', fontsize=12)
+plt.ylabel('Effect Size', fontsize=12)
+plt.xticks(rotation=45)  # Rotate x labels for better readability if countries' names are long
+plt.grid(True)  # Add a grid for easier reading of the plot values
+plt.tight_layout()  # Adjust layout to make sure everything fits without overlap
+plt.show()
+```
+
+### Checking the Effect of Gender Inequality
+
+We analyze whether the gender inequality index of the country affects the results using meta-regression.
+
+```{python}
+# Prepare the data for meta-regression
+data['Country'] = data['Country'].astype('category')
+data['Country_code'] = data['Country'].cat.codes
+
+# Meta-regression using the correct column names
+meta_reg_gender_inequality = smf.ols('Effect_Size_Boys_Male ~ Country_code', data=data).fit()
+print(meta_reg_gender_inequality.summary())
+
+```
+
+### Effect of Author Gender
+
+We investigate whether the gender of the authors has any effect on the study outcomes.
+
+```{python}
+# Renaming columns to avoid spaces and make future code more straightforward
+data.rename(columns={'Female authors': 'Female_authors', 'Male authors': 'Male_authors'}, inplace=True)
+
+# run the meta-regression with the updated names
+meta_reg_gender = smf.ols('Effect_Size_Boys_Male ~ Female_authors + Male_authors', data=data).fit()
+print(meta_reg_gender.summary())
+```
+
+### Summary
+
+"This study has illuminated the general impacts of toy preferences among children while investigating various biases and influencing factors. Utilizing forest plots, violin plots, and meta-regression analyses has proven essential for evaluating the reliability and uniformity of outcomes from diverse research."
+```
