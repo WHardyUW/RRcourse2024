@@ -1,0 +1,182 @@
+---
+title: "Testing"
+author: "Wojciech Hardy"
+date: today
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true
+title-block-banner: true
+execute:
+  echo: fenced
+  error: true
+---
+
+Parts of these materials were inspired or taken from the link below. Please consult the course page for more detailed information.
+
+[Software Construction course on MIT OpenCourseWare:](https://ocw.mit.edu/ans7870/6/6.005/s16/classes/03-testing/index.html)
+
+# Validation
+
+When writing software, functions, packages, etc. it's often difficult to predict everything that could go wrong. Some reports estimate that yearly costs of [software failures might go into trillions of $](https://www.it-cisq.org/cisq-files/pdf/CPSQ-2020-report.pdf).
+
+In general:
+- it is wasteful to run a complicated procedure only for it to fail after hours of computation.
+- it is also harmful for adoption if released utilities break down and do not support all potential use cases.
+- it damages sales when a software release contains bugs.
+- etc. etc.
+
+What you can (and should) do? 
+
+## Formal reasoning / Verification
+
+Providing a formal proof that a program is correct. Think of a thorough documentation explaining the logic, the cases, with proofs, etc. etc.
+
+## [Code review](https://ocw.mit.edu/ans7870/6/6.005/s16/classes/04-code-review/)
+
+Code reviews are often an integral part of firm operations and are a generally good idea for any coding tasks.
+
+An example workflow for a firm with multiple teams, analysts, data scientists, etc. might involve a central repository for code and software accessible to everyone. However, as it is crucial not to introduce errors to something used by all company branches, any changes pushed to the repository might require thorough documentation and positive code reviews from one (or more) code reviewers in the company.
+
+This process can take time, with a back-and-forth including fixing, repairing, filling in gaps, reworking the logic, making the documentation more comprehensive, adhering to company styleguides, code simplifications (recall code and documentation classes), etc.
+
+Done correctly, this also facilitates teaching and learning.
+
+## Testing
+
+Putting the software/code to the test by providing various inputs and verifying the outputs (if there are any).
+
+When testing, you should imagine that your goal is to make the programme fail. 
+
+If you want to do it reliably and consistently, it might not be easy:
+
+- exhaustive testing might not be feasible as it would take forever to check every possible input.
+- trying it for typical use cases and in regular usage, or with some arbitrary inputs might not be enough to catch bugs.
+- random inputs might involve numerous repetitions and still miss a crucial breaking point. E.g. consider testing a function that divides by a parameter. You can randomly select a value for that parameter 1000 times, but your chance of grabbing exactly '0' is practically null. And '0' might mess the function up.
+
+So how to pick relevant testing parameters? One good approach is.
+
+### Partitioning
+
+Partitioning focuses on identifying all general types/combinations of inputs. This in turn allows you to pick some examples from each type, instead of testing absolutely all potential variations.
+
+Example from the link above: testing a multiplication method for elements *a* and *b*. We'd rather not consider **all** possible values. But what are the interesting cases?
+
+E.g.: 
+
+1) a and b are both positive
+2) a and b are both negative
+3) a is positive, b is negative
+4) a is negative, b is positive
+
+Some special cases might involve: 0s, 1s and -1s or superlarge integers (has to do with the method getting tested).
+
+To find out all combinations you can just check all combinations of a and b coming from:
+- 0
+- 1
+- -1
+- small positive integer
+- small negative integer
+- huge positive integer
+- huge negative integer
+
+That's 7*7 = 49 combinations, not bad!
+
+You basically try to exhaust the options without trying out similar inputs twice. 
+
+Note: be careful about the boundaries (e.g. 0, or maximums and minimums of types, empty objects, first and last elements, etc.)
+Note 2: sometimes some combinations are not possible.
+
+### Things to consider
+
+#### Test-first programming
+
+Develop and test on the go, making sure a component does its job before moving further.
+
+#### Blackbox testing
+
+You don't look at the inner workings of a function, and conduct the testing.
+
+#### Whitebox testing
+
+You develop the tests based on the code (e.g. based on the "ifs", and "branches" and conditions and operations, etc.).
+
+Whitebox testing helps achieve full coverage of different parts of the tested code. You should aim for your inputs to at some point cover all methods, branches, statements, possible paths, etc.
+
+### Testing levels
+
+[There are different typologies of testing - read more here as a starter](https://en.wikipedia.org/wiki/Software_testing#Testing_levels).
+
+In principle though, one can distinguish between:
+
+- **unit testing**: focusing on single modules / components.
+- **integration testing**: testing an integration of multiple modules.
+- **system testing**: testing a whole software system.
+
+Unit tests allow testing different modules in isolation. It's good practice that allows to more easily pinpoint problems. I.e. if you test a whole system first, you can't be sure where the error originated from. If you test each component separately, you will know where's the fault.
+
+Integration testing might be important in the end, but a module might fail due to erroneous output from a different module. I.e. hard to identify!
+
+### Automated testing
+
+Different tools and suites support with testing. Essentially you use one tool to test another. You can prepare a set of tools for running. If you encounter bugs, you incorporate the test case in the suite for future reuse, etc.
+
+### Unit testing in R and Python
+
+Python: `unittest` library ([documentation](https://docs.python.org/3/library/unittest.html))
+R: `testthat` package ([documentation](https://testthat.r-lib.org/reference/test_that.html))
+
+Let's try out an example with a dividing function.
+
+```{r}
+divide <- function(a, b) {
+  return(a / b)
+}
+```
+
+
+```{r}
+#install.packages("testthat")
+library(testthat)
+```
+
+```{r}
+test_that('divide-floats', {
+  expect_equal(divide(5.0, 2.0), 2.5)
+})
+```
+
+```{r}
+test_that('divide-ints', {
+  expect_equal(divide(2, 2), 1)
+  expect_equal(divide(9, 4), 2.25)
+})
+```
+
+```{r}
+test_that('divide-int-by-float', {
+  expect_equal(divide(8, 2.0), 4.0)
+})
+```
+
+```{r}
+test_that('divide-by-zero', {
+  expect_error(divide(5, 0))
+})
+```
+
+```{r}
+test_that('wrong-inputs', {
+  expect_error(divide('a', 'b'))
+  expect_error(divide(FALSE, TRUE))
+})
+```
+
+### Other considerations: Selenium
+
+If you learned about scraping, you might know about Selenium. Selenium is actually primarily a testing tool, used to test web applications!
+
+### Other considerations: LLMs (genAI)
+
+Using ChatGPT / Copilot for support in testing (e.g. try out: "Using the testthat package suggest a series of tests for the str_replace() function from the stringr package." or just supply your own code and explain what it does.)
