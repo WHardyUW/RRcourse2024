@@ -1,0 +1,418 @@
+---
+title: "House Price Analysis"
+author: "Hitesh Kumar Tetarwal - 455361, Mugilarasan Selvaraj - 455154"
+date: "2024-06-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(caret)
+library(randomForest)
+library(xgboost)
+library(corrplot)
+library(gbm)
+library(pheatmap)
+library(RColorBrewer)
+
+# Define Mode function
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+```
+
+## Introduction
+
+This presentation explores house prices using a dataset that includes various features such as location, area, transaction type, and more. We will preprocess the data, perform exploratory data analysis, and build machine learning models to predict house prices.
+
+## Loading the Data
+
+```{r}
+# Read the dataset
+df <- read.csv("Data/house_price_subset.csv")
+
+# Clean column names to avoid issues
+names(df) <- make.names(names(df))
+
+# Print column names to verify
+print(names(df))
+
+# Display the first few rows of the dataset
+head(df)
+```
+
+*Explanation:* We start by loading the dataset and cleaning the column names to ensure there are no issues with spaces or special characters. The first few rows of the dataset are displayed to understand the data structure and contents.
+
+## Data Preprocessing
+
+### Checking the Data Shape and Info
+
+```{r}
+# Shape of the data
+dim(df)
+
+# Summary of the data
+summary(df)
+```
+
+*Explanation:* We check the dimensions of the dataset to understand its size and use the `summary` function to get a statistical summary of each column, which includes measures like mean, median, and quartiles for numerical columns, and frequency counts for categorical columns.
+
+### Handling Duplicate Values
+
+```{r}
+# Check for duplicate values
+sum(duplicated(df))
+
+# Drop duplicate values
+df <- df[!duplicated(df), ]
+```
+
+*Explanation:* We check for duplicate rows in the dataset and remove them to ensure that our analysis is based on unique entries, preventing any skewed results.
+
+### Handling Missing Values
+
+```{r}
+# Check for missing values
+colSums(is.na(df))
+
+# Drop columns with a high number of missing values
+df <- df %>% select(-Society, -Car.Parking, -Super.Area, -Dimensions, -Plot.Area)
+
+# Fill missing values in categorical columns with 'Unknown'
+cols_to_fill_unknown <- c('Description', 'facing', 'overlooking', 'Ownership')
+df[cols_to_fill_unknown] <- lapply(df[cols_to_fill_unknown], function(x) ifelse(is.na(x), 'Unknown', x))
+
+# Fill missing values in 'Price..in.rupees.' with the mean value
+if("Price..in.rupees." %in% colnames(df)) {
+  df$Price..in.rupees. <- ifelse(is.na(df$Price..in.rupees.), mean(df$Price..in.rupees., na.rm = TRUE), df$Price..in.rupees.)
+} else {
+  print("Column 'Price..in.rupees.' does not exist.")
+}
+
+# Replace missing values in 'Status', 'Transaction', 'Furnishing' columns with mode
+cols_to_fill_mode <- c('Status', 'Transaction', 'Furnishing')
+for (col in cols_to_fill_mode) {
+  if (col %in% colnames(df)) {
+    df[[col]] <- ifelse(is.na(df[[col]]), Mode(df[[col]]), df[[col]])
+  } else {
+    print(paste("Column", col, "does not exist."))
+  }
+}
+
+# Convert 'Bathroom' and 'Balcony' to numeric and handle '>10'
+df$Bathroom <- as.numeric(sub(">10", "11", df$Bathroom))
+df$Balcony <- as.numeric(sub(">10", "11", df$Balcony))
+
+# Fill NaN values in 'Bathroom' and 'Balcony' with the mean
+df$Bathroom[is.na(df$Bathroom)] <- mean(df$Bathroom, na.rm = TRUE)
+df$Balcony[is.na(df$Balcony)] <- mean(df$Balcony, na.rm = TRUE)
+
+# Verify if all null values have been handled
+colSums(is.na(df))
+```
+
+*Explanation:* Missing values can lead to incorrect analysis. We identify and handle missing values by either removing columns with a high percentage of missing data or imputing missing values using mean or mode for numerical and categorical columns, respectively.
+
+### Data Cleaning
+
+```{r}
+# Drop the 'Index' column if it exists
+if("Index" %in% colnames(df)) {
+  df <- df %>% select(-Index)
+} else {
+  print("Column 'Index' does not exist.")
+}
+
+# Convert 'Carpet.Area' to numeric
+convert_to_sqft <- function(area) {
+  if (grepl("sqft", area)) {
+    as.numeric(sub(" sqft", "", area))
+  } else if (grepl("sqm", area)) {
+    as.numeric(sub(" sqm", "", area)) * 10.7639
+  } else {
+    NA
+  }
+}
+
+df$Carpet.Area <- sapply(df$Carpet.Area, convert_to_sqft)
+df$Carpet.Area[is.na(df$Carpet.Area)] <- mean(df$Carpet.Area, na.rm = TRUE)
+
+# Impute missing values in 'Floor' with mode
+df$Floor[is.na(df$Floor)] <- Mode(df$Floor)
+
+# Verify if all null values have been handled
+colSums(is.na(df))
+```
+
+*Explanation:* Additional cleaning steps include converting area measurements to a common unit (square feet) and ensuring that all missing values are appropriately handled. Dropping the 'Index' column, if present, is necessary as it does not contribute to the analysis.
+
+## Exploratory Data Analysis (EDA)
+
+### Univariate Analysis
+
+```{r}
+# Box Plot for 'Amount.in.rupees.'
+ggplot(df, aes(x = "", y = Amount.in.rupees.)) + 
+  geom_boxplot() + 
+  ggtitle("Box Plot: Amount in rupees") + 
+  xlab("") + 
+  ylab("Amount in rupees")
+```
+
+*Interpretation:* The box plot shows the distribution of house prices. It highlights the median, quartiles, and potential outliers in the data. This visualization helps in understanding the spread and central tendency of house prices.
+
+```{r}
+# Histogram for numeric columns
+#numeric_columns <- c('Amount.in.rupees.', 'Price..in.rupees.', 'Carpet.Area', #'Bathroom', 'Balcony')
+#for (column in numeric_columns) {
+ # print(ggplot(df, aes_string(x = column)) + 
+ #         geom_histogram(bins = 30) + 
+ #         ggtitle(paste("Distribution of", column)) + 
+  #        xlab(column) + 
+ #         ylab("Frequency"))
+#}
+```
+
+*Interpretation:* Histograms for numeric columns show the frequency distribution of these variables. They provide insights into the skewness, kurtosis, and overall distribution patterns, helping us understand how values are spread across the dataset.
+
+```{r}
+# Bar Plot for categorical columns
+categorical_columns <- c('Transaction', 'Furnishing', 'facing', 'overlooking', 'Ownership')
+for (column in categorical_columns) {
+  print(ggplot(df, aes_string(x = column)) + 
+          geom_bar() + 
+          ggtitle(paste("Distribution of", column)) + 
+          xlab(column) + 
+          ylab("Frequency"))
+}
+```
+
+*Interpretation:* Bar plots for categorical columns display the frequency of each category, allowing us to see which categories are more common. This is crucial for understanding the distribution of categorical features.
+
+### Bivariate Analysis
+
+```{r}
+# Scatter Plot for numeric vs. numeric variables
+numeric_vs_numeric_columns <- c('Amount.in.rupees.', 'Price..in.rupees.', 'Carpet.Area', 'Bathroom', 'Balcony')
+
+for (column1 in numeric_vs_numeric_columns) {
+  for (column2 in numeric_vs_numeric_columns) {
+    if (column1 != column2) {
+      print(ggplot(df, aes_string(x = column1, y = column2)) + 
+              geom_point() + 
+              ggtitle(paste(column1, "vs.", column2)) + 
+              xlab(column1) + 
+              ylab(column2))
+    }
+  }
+}
+```
+
+*Interpretation:* Scatter plots show the relationships between pairs of numeric variables. They help identify correlations, trends, and potential outliers, which can guide feature selection and engineering for predictive modeling.
+
+```{r}
+# Pie Chart for 'Ownership'
+ownership_data <- df %>% count(Ownership)
+ggplot(ownership_data, aes(x = "", y = n, fill = Ownership)) + 
+  geom_bar(stat = "identity", width = 1) + 
+  coord_polar(theta = "y") + 
+  ggtitle("Distribution of Ownership")
+```
+
+*Interpretation:* The pie chart shows the distribution of ownership types in the dataset, providing a clear visual representation of how each ownership type is proportionally represented.
+
+### Multivariate Analysis
+
+```{r}
+# Heatmap for the correlation matrix of numeric columns
+cor_matrix <- cor(df[sapply(df, is.numeric)], use = "complete.obs")
+corrplot(cor_matrix, method = "color", type = "upper", tl.col = "black", tl.srt = 45, addCoef.col = "black")
+
+# Cluster Map for the correlation matrix of numeric columns
+pheatmap(cor_matrix, clustering_distance_rows = "euclidean", clustering_distance_cols = "euclidean", display_numbers = TRUE, number_format = "%.2f")
+```
+
+*Interpretation:* Heatmaps and cluster maps of the correlation matrix help in understanding the relationships between numeric variables. High correlations indicate potential multicollinearity, which needs to be addressed in predictive modeling.
+
+## Machine Learning Models
+
+### Feature Selection and Label Encoding
+
+```{r}
+# Drop unnecessary columns
+df <- df %>% select(-Title, -Description, -Status)
+
+# Label encoding for categorical columns
+label_encode_columns <- c('location', 'Transaction', 'Floor', 'Furnishing', 'facing', 'overlooking', 'Ownership')
+for (col in label_encode_columns) {
+  df[[col]] <- as.numeric(factor(df[[col]]))
+}
+```
+
+*Explanation:* Unnecessary columns are dropped to reduce noise in the data. Categorical variables are converted to numeric format using label encoding to make them suitable for machine learning algorithms.
+
+### Standard Scaling
+
+```{r}
+# Standardize the data
+pre_process <- preProcess(df, method = c("center", "scale"))
+df <- predict(pre_process, df)
+```
+
+*Explanation:* Standard scaling ensures that all features have the same scale, which is important for algorithms that are sensitive to the magnitude of data, such as gradient boosting and random forest.
+
+### Data Splitting
+
+```{r}
+# Define a threshold for the minimum number of records per class
+threshold <- 5
+
+# Identify rare classes
+rare_classes <- df %>% 
+  group_by(Amount.in.rupees.) %>% 
+  tally() %>% 
+  filter(n < threshold) %>% 
+  pull(Amount.in.rupees.)
+
+# Remove rows with rare classes
+df_filtered <- df %>% 
+  filter(!(Amount.in.rupees. %in% rare_classes))
+
+# Split the data into training and testing sets
+set.seed(4)
+index <- createDataPartition(df_filtered$Amount.in.rupees., p = 0.7, list = FALSE)
+train_data <- df_filtered[index, ]
+test_data <- df_filtered[-index, ]
+
+# Define the features and target
+X_train <- train_data %>% select(-Amount.in.rupees.)
+y_train <- train_data$Amount.in.rupees.
+X_test <- test_data %>% select(-Amount.in.rupees.)
+y_test <- test_data$Amount.in.rupees.
+```
+
+*Explanation:* The dataset is split into training and testing sets to evaluate the model's performance on unseen data. Rare classes in the target variable are removed to ensure robust model training.
+
+### Model Building and Evaluation
+
+```{r}
+# Function to convert target variable 'Amount.in.rupees.' to numeric
+convert_amount <- function(amount) {
+  amount <- gsub(",", "", amount)
+  amount <- gsub(" Lac", "00000", amount)
+  amount <- gsub(" Cr", "0000000", amount)
+  return(as.numeric(amount))
+}
+
+# Convert 'Amount.in.rupees.' to numeric in train and test data
+train_data$Amount.in.rupees. <- sapply(train_data$Amount.in.rupees., convert_amount)
+test_data$Amount.in.rupees. <- sapply(test_data$Amount.in.rupees., convert_amount)
+
+# Ensure all predictors are numeric
+X_train <- train_data %>% select(-Amount.in.rupees.) %>% mutate_all(as.numeric)
+X_test <- test_data %>% select(-Amount.in.rupees.) %>% mutate_all(as.numeric)
+
+# Remove columns with only one unique value
+X_train <- X_train %>% select_if(~n_distinct(.) > 1)
+X_test <- X_test %>% select_if(~n_distinct(.) > 1)
+
+# Update train_data and test_data by keeping only the selected columns
+train_data <- train_data %>% select(Amount.in.rupees., all_of(names(X_train)))
+test_data <- test_data %>% select(Amount.in.rupees., all_of(names(X_test)))
+
+# Remove rows with NA/NaN/Inf values in the target variable and predictors
+clean_data <- function(data) {
+  data <- data %>% 
+    filter_all(all_vars(!is.na(.))) %>%
+    filter_all(all_vars(!is.nan(.))) %>%
+    filter_all(all_vars(!is.infinite(.)))
+  return(data)
+}
+
+train_data <- clean_data(train_data)
+test_data <- clean_data(test_data)
+
+# Ensure y_train and y_test are numeric
+y_train <- as.numeric(train_data$Amount.in.rupees.)
+y_test <- as.numeric(test_data$Amount.in.rupees.)
+```
+
+*Explanation:* We preprocess the target variable to convert it into a numeric format suitable for regression models. Features with only one unique value are removed, and data is cleaned to ensure no missing or infinite values are present.
+
+### Linear Regression Model
+
+```{r}
+# Linear Regression
+lm_model <- lm(Amount.in.rupees. ~ ., data = train_data)
+lm_predictions <- predict(lm_model, newdata = test_data)
+
+# Ensure predictions and y_test are numeric
+lm_predictions <- as.numeric(lm_predictions)
+
+lm_r2 <- caret::R2(lm_predictions, y_test)
+lm_mae <- caret::MAE(lm_predictions, y_test)
+lm_rmse <- caret::RMSE(lm_predictions, y_test)
+cat("Linear Regression:\nR-squared: ", lm_r2, "\nMAE: ", lm_mae, "\nRMSE: ", lm_rmse, "\n----------------------------------------\n")
+```
+
+*Explanation:* A linear regression model is built to predict house prices. The model's performance is evaluated using R-squared, Mean Absolute Error (MAE), and Root Mean Squared Error (RMSE). These metrics help us understand how well the model explains the variance in the target variable and its prediction accuracy.
+
+### Random Forest Model
+
+```{r}
+# Random Forest with Hyperparameter Tuning
+rf_grid <- expand.grid(mtry = c(2, 5, 10))
+rf_control <- trainControl(method = "cv", number = 5)
+rf_model <- train(Amount.in.rupees. ~ ., data = train_data, method = "rf", trControl = rf_control, tuneGrid = rf_grid)
+rf_predictions <- predict(rf_model, newdata = test_data)
+
+# Ensure predictions are numeric
+rf_predictions <- as.numeric(rf_predictions)
+
+rf_r2 <- caret::R2(rf_predictions, y_test)
+rf_mae <- caret::MAE(rf_predictions, y_test)
+rf_rmse <- caret::RMSE(rf_predictions, y_test)
+cat("Random Forest:\nR-squared: ", rf_r2, "\nMAE: ", rf_mae, "\nRMSE: ", rf_rmse, "\n----------------------------------------\n")
+```
+
+*Explanation:* A random forest model is trained with hyperparameter tuning to optimize its performance. The model's accuracy and error metrics are calculated to evaluate its predictive power.
+
+### Gradient Boosting Model
+
+```{r}
+# Gradient Boosting with Hyperparameter Tuning
+gbm_grid <- expand.grid(n.trees = c(100, 500), interaction.depth = c(3, 5), shrinkage = c(0.01, 0.1), n.minobsinnode = c(10, 20))
+gbm_control <- trainControl(method = "cv", number = 5)
+gbm_model <- train(Amount.in.rupees. ~ ., data = train_data, method = "gbm", trControl = gbm_control, tuneGrid = gbm_grid, verbose = FALSE)
+gbm_predictions <- predict(gbm_model, newdata = test_data)
+
+# Ensure predictions are numeric
+gbm_predictions <- as.numeric(gbm_predictions)
+
+gbm_r2 <- caret::R2(gbm_predictions, y_test)
+gbm_mae <- caret::MAE(gbm_predictions, y_test)
+gbm_rmse <- caret::RMSE(gbm_predictions, y_test)
+cat("Gradient Boosting:\nR-squared: ", gbm_r2, "\nMAE: ", gbm_mae, "\nRMSE: ", gbm_rmse, "\n----------------------------------------\n")
+```
+
+*Explanation:* A gradient boosting model is trained with hyperparameter tuning. This model combines multiple weak learners to form a strong learner, and its performance metrics are computed to assess its effectiveness in predicting house prices.
+
+## Conclusion
+
+The table below summarizes the performance metrics of the three models:
+
+| Model             | R-squared  | MAE     | RMSE    |
+|-------------------|------------|---------|---------|
+| Linear Regression | 0.03195665 | 4380124 | 7561702 |
+| Random Forest     | 0.2990344  | 2839116 | 6421128 |
+| Gradient Boosting | 0.2176782  | 3386114 | 6857347 |
+
+*Interpretation:* - **Linear Regression**: This model shows poor performance with a low R-squared value, indicating it does not explain the variance in house prices well. The high MAE and RMSE values further confirm its lack of accuracy. - **Random Forest**: This model performs better than linear regression with a higher R-squared value, lower MAE, and RMSE. It suggests that the random forest model captures the complexity of the data better. - **Gradient Boosting**: Although this model performs better than linear regression, it does not outperform the random forest model in this case. The R-squared value is lower, and the error metrics are higher compared to the random forest.
+
+Overall, the Random Forest model demonstrates the best performance in predicting house prices. Future work could involve further hyperparameter tuning, feature engineering, and exploring other
+
+advanced models to improve predictive accuracy.
